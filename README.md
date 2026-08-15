@@ -23,6 +23,10 @@ The first control cell lets an advisor vary correlation and differential-lag
 thresholds as an explicitly exploratory sandbox; it never overwrites the frozen
 model.
 
+Open notebooks/02_network_development_checkpoint.ipynb for the newer
+network-continuous STOP checkpoint. It plots fixed-threshold injection recovery
+and exposes only a non-writing SNR/acceptance sandbox.
+
 The checkpoint currently records five decisive facts:
 
 1. A 12-event conventional model was frozen before prospective waveform access.
@@ -49,6 +53,25 @@ Those facts reshape the work into two linked primary aims:
 
 Stress drop and repeater-derived creep rate remain downstream branches.
 
+## Network development STOP checkpoint
+
+On the registered 50-minute nonblind interval, 29 components from 10 stations
+passed strict continuous-data QC. The frozen-style repeater-template bank found
+both Parkfield catalog events. An independent four-station energy trigger found
+those two plus a third trigger; a broader official NCEDC query shows that the
+third is a physically plausible arrival from event 75120096, M2.3 near
+Carpinteria, 197.2 km away. It is not evidence for an uncataloged local event.
+
+In 300 injections including zero-amplitude controls, the exact injected event
+was removed from the template bank and neither detector threshold was changed. At
+the registered component SNR of 1.0, the template bank recovered 30/30 target
+injections, while the generic trigger recovered 22/30 and therefore failed its
+predeclared 90% gate. At SNR 2.0 the generic trigger recovered 30/30. Preserve
+this STOP when deciding whether that branch should be improved, replaced, or
+retained only as an auxiliary safety net. No DAS or held-out waveform was
+opened.
+
+
 ## Reproduce compact products
 
 Run from this repository root in the das conda environment. The order preserves
@@ -66,8 +89,10 @@ released.
     python -m src.build_partition_diagnostic
     python -m src.score_deep_named_network
     python -m src.build_checkpoint
+    python -m src.run_network_development_detector
     python -m unittest discover -s tests -v
     python ../../run_nb_cells.py notebooks/00_advisor_checkpoint.ipynb
+    python ../../run_nb_cells.py notebooks/02_network_development_checkpoint.ipynb
 
 The older clean-room pilot inputs can be rebuilt explicitly when needed:
 
@@ -86,6 +111,12 @@ windows. The advisor notebook does neither by default.
 - config/incremental_value.json freezes the archive population, development
   interval, 12 held-out hours, conventional array, feature definition, and
   access order.
+- config/development_detection.json records the nonblind continuous-network
+  detector, null, regional-catalog veto, and leakage-safe injection design.
+- outputs/development_network/status.json preserves the v4 generic-trigger STOP;
+  candidate tables and injection_recovery_summary.csv provide its evidence.
+  Full-rate scores, miniSEED, and the downloaded catalog cache remain ignored
+  local products.
 - outputs/incremental_value/network_baseline/network_model_frozen.json is the
   version-1 conventional verifier. Its thresholds may not be repaired after
   seeing prospective outcomes.
@@ -123,15 +154,18 @@ stress-drop geometry.
 
 ## Next registered computation
 
-Use the frozen nonblind 2025-01-20 04:55--05:45 UTC development interval
-(50 minutes) only:
+Continue on the frozen nonblind 2025-01-20 04:55--05:45 UTC interval only:
 
-1. build and freeze a best-effort continuous network-only detector;
-2. run an independently triggered DAS-only detector on exactly that interval;
-3. adjudicate the union without showing pipeline identity;
-4. compare recall at matched event-level false-discovery rate; and
-5. freeze both pipelines before opening any of the 12 held-out hours.
+1. preserve the v4 generic-trigger SNR 1.0 STOP without threshold repair;
+2. decide whether to improve/replace that generic conventional detector or
+   register it as an auxiliary safety net with its measured recovery curve;
+3. freeze a time-only network candidate-union/deduplication rule and the broader
+   catalog veto;
+4. only then build the independently triggered DAS-only detector on the
+   identical interval, without importing network candidate times; and
+5. freeze DAS null, event, and blinded adjudication rules before opening any of
+   the 12 held-out hours.
 
-A positive DAS result requires additional independently adjudicated events or
-better held-out family resolution. A visually striking record section is not
-the pass criterion.
+A positive DAS result must add independently adjudicated events beyond the full
+network union or improve held-out family resolution. A visually striking record
+section is not the pass criterion.

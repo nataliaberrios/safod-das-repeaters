@@ -111,13 +111,25 @@ event-level adjudication rules.
 
 | Pipeline | Candidate generation | Family evidence | Information embargo |
 |---|---|---|---|
-| Network only | Conventional multi-template continuous detection and association | Multi-anchor waveform shape plus robust differential timing/relocation | Blind to DAS triggers and scores |
+| Network only | Conventional multi-template bank plus independent multi-station energy trigger | Multi-anchor waveform shape plus robust differential timing/relocation | Blind to DAS triggers and scores |
 | DAS only | Array-coherent picking or multi-channel template matching | Withheld DAS templates and spatial wavefield features | Blind to network triggers and scores |
 | Joint | Union of the two frozen candidate/score tables | Predeclared evidence fusion with abstention | Blind to held-out labels |
 
 Comparison against only the routine NCEDC catalog is forbidden because a fair
 network matched-filter baseline can recover events absent from the routine
 catalog. DAS-only candidate generation may not inherit network event times.
+
+Development version 4 preserves a mixed network result. The template bank
+recovered both local catalog events and 30/30 target-family injections at
+component SNR 1.0 with the injected event excluded. Both branches recovered
+0/50 zero-amplitude controls. The independent
+four-station trigger found both local arrivals and a known M2.3 Carpinteria
+arrival, but recovered only 22/30 target injections at the predeclared SNR 1.0
+gate (30/30 at SNR 2.0). Its SNR 1.0 STOP may not be erased by threshold
+repair. The next development version must explicitly improve/replace this
+branch or register it as an auxiliary detector with its measured sensitivity.
+A broader official-catalog physical-arrival veto is part of adjudication, not
+candidate generation.
 
 ## Primary metrics and pass gates
 

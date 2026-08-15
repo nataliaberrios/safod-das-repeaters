@@ -1,0 +1,22 @@
+{
+  "byte_count": 593920,
+  "channels": [
+    "EHE",
+    "EHN",
+    "EHZ"
+  ],
+  "development_config_sha256": "05f7c80970a4587bd8b47e32878449b021013de8a3e866a94541af908891c1d9",
+  "heldout_waveform_access": 0,
+  "maximum_trace_end_utc": "2025-01-20T05:45:14.993Z",
+  "minimum_trace_start_utc": "2025-01-20T04:54:45.003Z",
+  "network": "NC",
+  "parent_config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "request_url": "https://service.ncedc.org/fdsnws/dataselect/1/query?net=NC&sta=PSM&loc=%2A&cha=EHE%2CEHN%2CEHZ&start=2025-01-20T04%3A54%3A45.000Z&end=2025-01-20T05%3A45%3A15.000Z",
+  "retrieved_utc": "2026-08-15T20:34:01Z",
+  "source_name": "ncsn_psm",
+  "stage": "network_continuous_development_download",
+  "stations": [
+    "PSM"
+  ],
+  "trace_count": 3
+}

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import copy
+import json
 import tempfile
 import unittest
 from datetime import datetime, timezone
@@ -10,6 +12,7 @@ from pathlib import Path
 import h5py
 import numpy as np
 
+from src.background_catalog import associate_background_arrivals
 from src.catalog import _normalize_ncedc_utc, local_offsets_m
 from src.external_catalog import (
     build_shortlist_crosswalk,
@@ -21,12 +24,22 @@ from src.archive_population import (
     merge_coverage,
     select_heldout_intervals,
 )
+from src.common import sha256_file
+from src.continuous_network import validate_development_access
 from src.h5io import read_header, read_window
+from src.injection_recovery import select_injection_positions
 from src.michel_catalog import (
     exact_id_crosswalk,
     parse_michel_catalog,
     partition_conflicts,
     sequence_overlap_matrix,
+)
+from src.network_continuous_detection import (
+    coincidence_score,
+    detect_generic_candidates,
+    higher_quantile,
+    rolling_normalized_correlation,
+    station_energy_ratio_matrix,
 )
 from src.network_baseline import (
     apply_frozen_thresholds,
@@ -367,6 +380,198 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(predicted["t1"], "target_family")
         self.assertEqual(predicted["n1"], "not_target_family")
         self.assertEqual(predicted["n2"], "not_target_family")
+
+
+    def test_continuous_development_access_guard(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            parent_path = root / "parent.json"
+            parent_path.write_text(
+                json.dumps(
+                    {
+                        "development_interval": {
+                            "start_utc": "2025-01-20T04:55:00Z",
+                            "end_utc": "2025-01-20T05:45:00Z",
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+            parent_hash = sha256_file(parent_path)
+            parent = {
+                "_config_sha256": parent_hash,
+                "development_interval": {
+                    "start_utc": "2025-01-20T04:55:00Z",
+                    "end_utc": "2025-01-20T05:45:00Z",
+                },
+            }
+            development = {
+                "parent_config_path": str(parent_path),
+                "parent_config_sha256": parent_hash,
+                "interval": {
+                    "start_utc": "2025-01-20T04:55:00Z",
+                    "end_utc": "2025-01-20T05:45:00Z",
+                    "duration_s": 3000,
+                    "role": "nonblind_development_only",
+                    "heldout_access": "FORBIDDEN",
+                },
+            }
+            start_s, end_s = validate_development_access(
+                parent, development
+            )
+            self.assertEqual(end_s - start_s, 3000.0)
+            unsafe = copy.deepcopy(development)
+            unsafe["interval"]["heldout_access"] = "ALLOWED"
+            with self.assertRaises(PermissionError):
+                validate_development_access(parent, unsafe)
+
+    def test_injection_positions_are_reproducible_and_clean(self) -> None:
+        start_s = datetime(
+            2025, 1, 1, tzinfo=timezone.utc
+        ).timestamp()
+        development = {
+            "interval": {
+                "start_utc": "2025-01-01T00:00:00.000Z",
+                "end_utc": "2025-01-01T00:10:00.000Z",
+            },
+            "injection_recovery": {
+                "local_window_s": [-12.0, 14.0],
+                "position_grid_interval_s": 1.0,
+                "event_exclusion_half_width_s": 25.0,
+                "noise_position_count": 4,
+                "minimum_position_separation_s": 60.0,
+                "random_seed": 17,
+            },
+        }
+        excluded = [start_s + 300.0]
+        first = select_injection_positions(development, excluded)
+        second = select_injection_positions(development, excluded)
+        np.testing.assert_array_equal(first, second)
+        self.assertEqual(len(first), 4)
+        self.assertTrue(np.all(first >= start_s + 12.0))
+        self.assertTrue(np.all(first < start_s + 600.0 - 14.0))
+        self.assertTrue(np.all(np.abs(first - excluded[0]) > 25.0))
+        differences = np.diff(first)
+        self.assertTrue(np.all(differences >= 60.0))
+
+    def test_rolling_correlation_recovers_injected_template(self) -> None:
+        rng = np.random.default_rng(7)
+        template = rng.normal(size=200)
+        continuous = 0.05 * rng.normal(size=2000)
+        injection_index = 731
+        continuous[
+            injection_index : injection_index + len(template)
+        ] += template
+        correlation = rolling_normalized_correlation(
+            continuous, template
+        )
+        self.assertEqual(int(np.nanargmax(correlation)), injection_index)
+        self.assertGreater(float(np.nanmax(correlation)), 0.99)
+        self.assertEqual(higher_quantile([0.1, 0.2, 0.3, 0.4], 0.75), 0.3)
+
+    def test_background_catalog_selects_physical_arrival(self) -> None:
+        origin_s = datetime(
+            2025, 1, 1, tzinfo=timezone.utc
+        ).timestamp()
+        candidates = [{"trigger_epoch_s": origin_s + 30.0}]
+        catalog = [
+            {
+                "event_id": "regional",
+                "origin_time": "2025-01-01T00:00:00.000Z",
+                "latitude": 0.0,
+                "longitude": 1.62,
+                "depth_km": 0.0,
+                "magnitude": 2.0,
+                "location_name": "synthetic regional",
+            },
+            {
+                "event_id": "future",
+                "origin_time": "2025-01-01T00:00:40.000Z",
+                "latitude": 0.0,
+                "longitude": 0.0,
+                "depth_km": 4.0,
+                "magnitude": 1.0,
+                "location_name": "synthetic future",
+            },
+        ]
+        parent = {
+            "family_neighborhood": {
+                "reference_latitude": 0.0,
+                "reference_longitude": 0.0,
+            }
+        }
+        development = {
+            "background_catalog": {
+                "array_reference_depth_km": 0.0,
+                "minimum_plausible_phase_velocity_km_s": 2.5,
+                "maximum_plausible_phase_velocity_km_s": 8.0,
+                "nominal_ranking_phase_velocity_km_s": 6.0,
+                "early_arrival_slack_s": 2.0,
+                "late_arrival_slack_s": 5.0,
+            }
+        }
+        associate_background_arrivals(
+            candidates, catalog, parent, development
+        )
+        self.assertEqual(
+            candidates[0]["background_catalog_event_id"], "regional"
+        )
+        self.assertAlmostEqual(
+            candidates[0]["background_catalog_observed_delay_s"], 30.0
+        )
+        self.assertEqual(
+            candidates[0]["background_catalog_plausible_match_count"], 1
+        )
+
+    def test_station_energy_ratio_is_scale_invariant(self) -> None:
+        rng = np.random.default_rng(11)
+        base = 0.05 * rng.normal(size=4000)
+        phase = np.linspace(0.0, 8.0 * np.pi, 100, endpoint=False)
+        base[2000:2100] += np.sin(phase)
+        matrix, stations, component_count = station_energy_ratio_matrix(
+            {
+                "BP.A.DP1": base,
+                "BP.B.DP1": 7.0 * base,
+            },
+            sample_rate_hz=100.0,
+            sta_window_s=0.5,
+            lta_window_s=10.0,
+        )
+        self.assertEqual(stations, ["BP.A", "BP.B"])
+        self.assertEqual(component_count, 2)
+        usable = np.isfinite(matrix[0]) & np.isfinite(matrix[1])
+        np.testing.assert_allclose(
+            matrix[0, usable], matrix[1, usable], rtol=2.0e-6
+        )
+
+    def test_generic_coincidence_rejects_one_station_spike(self) -> None:
+        station_matrix = np.ones((5, 200), dtype=np.float32)
+        station_matrix[0, 50] = 9.0
+        station_matrix[:4, 120] = 4.0
+        score = coincidence_score(station_matrix, station_count=4)
+        self.assertEqual(int(np.argmax(score)), 120)
+        self.assertEqual(float(score[50]), 1.0)
+        development = {
+            "generic_network_trigger": {
+                "coincidence_station_count": 4,
+                "candidate_minimum_separation_s": 2.0,
+                "score_sample_rate_hz": 20.0,
+                "station_characteristic_support_threshold": 2.0,
+            }
+        }
+        epochs = np.arange(200, dtype=float) / 20.0
+        candidates, detected_score = detect_generic_candidates(
+            epochs,
+            station_matrix,
+            threshold=3.0,
+            development=development,
+        )
+        self.assertEqual(len(candidates), 1)
+        self.assertAlmostEqual(candidates[0]["trigger_epoch_s"], 6.0)
+        self.assertEqual(
+            candidates[0]["station_support_count_at_declared_ratio"], 4
+        )
+        np.testing.assert_array_equal(score, detected_score)
 
 
 if __name__ == "__main__":
