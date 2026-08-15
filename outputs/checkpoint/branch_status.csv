@@ -1,0 +1,17 @@
+branch,status,evidence,next_gate
+Pilot product provenance,PASS,all generated status products share config hash 1baa6c0b2bb1,rerun stale branches after any config edit
+Archive/configuration ledger,CONDITIONAL,5 sources inventoried; HDF5 filenames complete but headers sampled,full header/UUID epoch audit before completeness claims
+Single-pair HRSN target/control diagnostic,PASS,2026 candidate versus published 2014 target member is high-similarity; matched 2026 spatial control is dissimilar,"use as nomination evidence only, never as a family label"
+Single-anchor shortlist as a family catalog,STOP,"25 high-similarity candidates, 9 insufficient-data rows, and 4 no-data rows; 2 exact-ID published neighboring-family events were overmerged",replace one-seed assignment with labeled multi-anchor classification plus relative location
+Published external validation population,PASS,6 target events and 12 events from 3 neighboring families; 12 exact shortlist ID matches,preserve exact-ID matching and event-held-out evaluation
+HRSN multi-family correlation baseline,STOP,10 of 18 labeled events available; 0 classified and 10 abstained under the frozen margin; diagnostic top-family accuracy without the margin is 60%,add event-held-out differential-time relocation; do not relax the margin on these test labels
+Continuous best-network detection baseline,STOP,not run on the exact DAS UTC/configuration intervals,"freeze HRSN/NCSN templates and false-discovery controls, then scan blind to DAS"
+Prospective 2026 candidate on deep DAS,PASS,"median channel SNR 3.69; 100% of sampled channel blocks detected; usable median power-SNR ranges [[4.8828125, 38.0859375]]",independently classify the event and preserve clock/configuration QC
+Matched same-fiber hard negative,PASS,"800 loci: median correlation 0.219, p95 0.414, max 0.619",retain this frozen negative baseline for a preregistered DAS score
+DAS incremental catalog value,STOP,no blinded same-interval network-only versus DAS-only versus joint scan has run,compare recall at matched event-level false-discovery rate with interval bootstrap uncertainty
+June active-source detectability/response,PASS,3 of 4 shots pass calibration-quality rules; all 4 have time-domain detections,obtain precise triggers; keep shot 1 conditional
+Absolute shot/DAS timing,CONDITIONAL,available shot log has nominal local times but no independent GPS/detonator trigger uncertainty,GPS/detonator trigger log and clock audit
+Deep channel geometry,STOP,surveyed locus-to-MD/TVD/XYZ trajectory is unavailable,surveyed locus-to-MD/TVD/XYZ/cable-tangent table
+Direct DAS repeatability,STOP,"one prospective 2026 target-family candidate is detectable, but no second independently classified target-family event overlaps this deep-fiber epoch",second independently classified target-family event on the same configuration
+Corner frequency / stress drop,STOP,no same-epoch independently classified EGF pair and no passed corner-frequency/model gate,"response correction, same-path EGF ensemble, in-band corner, model and synthetic tests"
+Repeater-derived creep rate,STOP,no DAS-extended complete family exists and event slip is unconstrained,"validated extension, at least three complete intervals, and a defensible moment/area/slip model"

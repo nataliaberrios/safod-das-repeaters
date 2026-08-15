@@ -1,0 +1,5 @@
+shot_number,name,latitude,longitude,elevation_m,local_time,nominal_origin_time,description,time_status,source_log
+1,SAFOD260002,35.98132096,-120.545608,693.382812,2026-06-17T14:00:00-07:00,2026-06-17T21:00:00.000Z,up the hill toward Middle Mt,nominal_no_independent_trigger_metadata,/home/groups/ettore88/nberrios/safod_das_git/notebooks/SAFOD_ActiveSrc_ShotLocs&Times_20260617.csv
+2,SAFOD260009,35.97375101,-120.552533,659.558594,2026-06-17T14:30:00-07:00,2026-06-17T21:30:00.000Z,near porta-potty,nominal_no_independent_trigger_metadata,/home/groups/ettore88/nberrios/safod_das_git/notebooks/SAFOD_ActiveSrc_ShotLocs&Times_20260617.csv
+3,SAFOD260010,35.97437496,-120.552376,659.483948,2026-06-17T14:55:00-07:00,2026-06-17T21:55:00.000Z,~midway along NW fence,nominal_no_independent_trigger_metadata,/home/groups/ettore88/nberrios/safod_das_git/notebooks/SAFOD_ActiveSrc_ShotLocs&Times_20260617.csv
+4,SAFOD260011,35.974439,-120.551897,662.283142,2026-06-17T15:10:00-07:00,2026-06-17T22:10:00.000Z,near science trailer,nominal_no_independent_trigger_metadata,/home/groups/ettore88/nberrios/safod_das_git/notebooks/SAFOD_ActiveSrc_ShotLocs&Times_20260617.csv

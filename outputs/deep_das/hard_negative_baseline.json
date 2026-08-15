@@ -1,0 +1,16 @@
+{
+  "allowed_use": "negative baseline for a future preregistered DAS test; not classifier performance",
+  "channel_count": 800,
+  "channel_snr_fingerprint_spearman": 0.5147216089400141,
+  "fraction_above_0_8": 0.0,
+  "maximum_per_channel_correlation": 0.6188092494040933,
+  "maximum_residual_lag_s": 0.5,
+  "median_per_channel_correlation": 0.21863124684079288,
+  "origin_relative_window_s": [
+    0.5,
+    10.0
+  ],
+  "p90_per_channel_correlation": 0.35687924859442416,
+  "p95_per_channel_correlation": 0.41365955790605097,
+  "pair_role": "same-fiber magnitude-matched hard negative"
+}

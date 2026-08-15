@@ -1,0 +1,6 @@
+name,status,criterion
+Checkpoint 1: repair labels,MET,exact-ID published population frozen and single-anchor overmerge documented
+Checkpoint 2: best network-only baseline,WAITING,event-held-out differential relocation plus continuous same-interval detection
+Checkpoint 3: DAS incremental value,WAITING,DAS-only or joint recall/classification improves over network-only at matched false-discovery rate
+Checkpoint 4: direct DAS source physics,WAITING,second independently classified member on one deep configuration and surveyed geometry
+Checkpoint 5: stress drop and creep rate,STOP,response/EGF/source-model gates plus validated complete recurrence intervals

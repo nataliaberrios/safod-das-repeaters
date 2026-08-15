@@ -1,0 +1,141 @@
+{
+  "project_version": "repeaters_v2.0",
+  "created_utc": "2026-08-14T00:00:00Z",
+  "paths": {
+    "project_root": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2",
+    "deep_mar_apr": "/oak/stanford/groups/ettore88/data/SAFOD/SAFOD-deep/2026-03",
+    "deep_may_jun": "/oak/stanford/groups/ettore88/data/SAFOD/SAFOD-deep/2026-05",
+    "active_source_deep": "/oak/stanford/groups/ettore88/data/SAFOD/ActiveJune2026/01_--_recording_2026-06-15T230629Z_--_active_source",
+    "active_source_nodes": "/oak/stanford/groups/ettore88/data/SAFOD/ActiveJune2026/Nodes/p26.fdt.txt",
+    "active_source_shot_log": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/SAFOD_ActiveSrc_ShotLocs&Times_20260617.csv",
+    "long_shallow_manifest": "/oak/stanford/groups/ettore88/data/SAFOD/SAFODAS1-harddrive-transfer/SAFOD_2024_2025.csv",
+    "pb_pilot": "/oak/stanford/groups/ettore88/data/SAFOD/Nano_March_April_2026_pilotFiber",
+    "channel_geometry": null
+  },
+  "coverage": {
+    "header_samples_per_root": 7,
+    "sources": [
+      {"name": "deep_mar_apr", "kind": "optasense_h5_root", "path_key": "deep_mar_apr"},
+      {"name": "deep_may_jun", "kind": "optasense_h5_root", "path_key": "deep_may_jun"},
+      {"name": "active_source_deep", "kind": "optasense_h5_root", "path_key": "active_source_deep"},
+      {"name": "long_shallow_manifest", "kind": "whitespace_manifest", "path_key": "long_shallow_manifest"},
+      {"name": "pb_pilot", "kind": "protobuf_root", "path_key": "pb_pilot"}
+    ]
+  },
+  "catalog": {
+    "event_service": "https://service.ncedc.org/fdsnws/event/1/query",
+    "catalog": "DD",
+    "starttime": "2001-01-01T00:00:00",
+    "endtime": "2026-08-14T00:00:00",
+    "bounds": {
+      "minlatitude": 36.0190,
+      "maxlatitude": 36.0212,
+      "minlongitude": -120.5788,
+      "maxlongitude": -120.5763,
+      "mindepth": 4.55,
+      "maxdepth": 5.10,
+      "minmagnitude": 0.8
+    },
+    "seed_event_id": "75336682",
+    "shortlist_max_distance_m": 120.0,
+    "shortlist_max_magnitude_difference": 0.7
+  },
+  "events": {
+    "historical_candidate": {
+      "event_id": "72154411",
+      "origin_time": "2014-02-02T21:41:40.550Z",
+      "latitude": 36.02009,
+      "longitude": -120.57765,
+      "depth_km": 4.823,
+      "magnitude": 1.4
+    },
+    "deep_template": {
+      "event_id": "75336682",
+      "origin_time": "2026-04-01T01:24:18.650Z",
+      "latitude": 36.02009,
+      "longitude": -120.57759,
+      "depth_km": 4.831,
+      "magnitude": 1.5
+    },
+    "hard_spatial_control": {
+      "event_id": "75343317",
+      "origin_time": "2026-04-13T06:35:49.710Z",
+      "latitude": 36.02382,
+      "longitude": -120.57740,
+      "depth_km": 4.871,
+      "magnitude": 1.5
+    }
+  },
+  "hrsn": {
+    "dataselect_service": "https://service.ncedc.org/fdsnws/dataselect/1/query",
+    "network": "BP",
+    "stations": ["CCRB", "LCCB", "SCYB", "SMNB"],
+    "location": "*",
+    "channels": ["DP1", "DP2", "DP3"],
+    "request_window_s": [-10.0, 30.0],
+    "noise_window_s": [-8.0, -2.0],
+    "signal_window_s": [0.5, 10.0],
+    "bands_hz": [[2.0, 10.0], [5.0, 20.0], [10.0, 40.0], [2.0, 40.0]],
+    "max_lag_s": 0.5,
+    "minimum_trace_snr": 3.0,
+    "minimum_usable_components": 6,
+    "family_median_correlation": 0.85,
+    "family_minimum_band_correlation": 0.75,
+    "hard_negative_max_median_correlation": 0.75
+  },
+  "deep_das": {
+    "window_s": [-4.0, 12.0],
+    "noise_window_s": [-3.5, -0.5],
+    "signal_window_s": [0.0, 10.0],
+    "band_hz": [5.0, 100.0],
+    "channel_start": 0,
+    "channel_stop": 3200,
+    "channel_stride": 4,
+    "channel_block_size_columns": 50,
+    "minimum_robust_peak_z": 5.0,
+    "minimum_detected_block_fraction": 0.10
+  },
+  "active_source": {
+    "shot_date_local": "2026-06-17",
+    "timezone": "America/Los_Angeles",
+    "times_are_nominal": true,
+    "precise_trigger_metadata_available": false,
+    "window_s": [-5.0, 20.0],
+    "noise_window_s": [-4.5, -0.5],
+    "search_window_s": [0.0, 18.0],
+    "band_hz": [5.0, 100.0],
+    "channel_start": 0,
+    "channel_stop": 3200,
+    "channel_stride": 4,
+    "minimum_robust_peak_z": 5.0,
+    "minimum_median_channel_snr_for_calibration": 1.5,
+    "maximum_nominal_peak_offset_s_for_calibration": 5.0
+  },
+  "external_validation": {
+    "catalog_name": "Catalog of Repeating Earthquakes for Northern California, 1984-2014",
+    "citation": "Waldhauser, F., and Schaff, D. P. (2021), JGR Solid Earth, e2021JB022495",
+    "paper_doi": "10.1029/2021JB022495",
+    "doi": "10.5281/zenodo.5576354",
+    "zenodo_record_url": "https://zenodo.org/records/5576354",
+    "download_url": "https://zenodo.org/api/records/5576354/files/NCA_REPQcat_20210919.txt/content",
+    "filename": "NCA_REPQcat_20210919.txt",
+    "md5": "e097a146a9dca904bd8b367729f0d1cc",
+    "record_advertised_sequence_count": 7713,
+    "record_advertised_event_count": 27675,
+    "catalog_end_utc": "2014-12-31T23:59:59Z",
+    "target_sequence_id": "R1.2900.11955.0",
+    "hard_negative_sequence_ids": [
+      "R1.0697.5199.0",
+      "R1.2172.7737.0",
+      "R1.3027.11698.0"
+    ],
+    "validation_scheme": "leave_one_event_out_by_published_family",
+    "network_family_maximum_anchors": 3,
+    "network_family_minimum_score": 0.85,
+    "network_family_minimum_margin": 0.02
+  },
+  "geometry": {
+    "required_fields": ["locus_index", "channel_column", "md_m", "tvd_m", "x_m", "y_m", "z_m", "cable_leg", "tangent_x", "tangent_y", "tangent_z"],
+    "absolute_spatial_claims_enabled": false
+  }
+}

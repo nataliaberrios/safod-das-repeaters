@@ -1,0 +1,9 @@
+{
+  "byte_count": 237568,
+  "config_sha256": "0be65d0f59a864ab3d8b4e989cb15eb369fb0d512ab29a00425ca6fd1aad29a1",
+  "event_id": "51214531",
+  "origin_time": "2009-01-03T16:23:06.332Z",
+  "request_url": "https://service.ncedc.org/fdsnws/dataselect/1/query?net=BP&sta=CCRB%2CLCCB%2CSCYB%2CSMNB&loc=%2A&cha=DP1%2CDP2%2CDP3&start=2009-01-03T16%3A22%3A56.332Z&end=2009-01-03T16%3A23%3A36.332Z",
+  "retrieved_utc": "2026-08-15T06:23:30Z",
+  "scientific_use": "normalized waveform-shape verification only"
+}

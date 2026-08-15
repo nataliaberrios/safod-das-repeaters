@@ -1,0 +1,3 @@
+external_role,event_count,predicted_target_positive,predicted_target_negative,abstained,interpretation
+published_target_positive,6,5,0,1,repair diagnostic only; thresholds were not trained for multiclass family separation
+published_neighbor_family_negative,6,2,0,4,repair diagnostic only; thresholds were not trained for multiclass family separation

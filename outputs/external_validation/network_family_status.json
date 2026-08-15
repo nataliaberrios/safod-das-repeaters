@@ -1,0 +1,65 @@
+{
+  "classification_gate": "STOP",
+  "classified_events": 0,
+  "config_sha256": "1baa6c0b2bb1b381ef5da96fc4a1249a6a2f6dae62efb40b4c5a27dd927e9160",
+  "continuous_detection_status": "NOT_RUN",
+  "generated_utc": "2026-08-15T17:35:09Z",
+  "labeled_events": 18,
+  "macro_f1_with_abstention_as_error": 0.0,
+  "method": "median of frozen top-k multi-anchor HRSN correlations with an explicit abstention margin",
+  "neighbor_to_target_overmerge_count": 0,
+  "neighbor_to_target_overmerge_rate": 0.0,
+  "per_family": [
+    {
+      "f1": 0.0,
+      "false_negative_or_abstain": 1,
+      "false_positive": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "sequence_id": "R1.0697.5199.0",
+      "true_positive": 0
+    },
+    {
+      "f1": 0.0,
+      "false_negative_or_abstain": 1,
+      "false_positive": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "sequence_id": "R1.2172.7737.0",
+      "true_positive": 0
+    },
+    {
+      "f1": 0.0,
+      "false_negative_or_abstain": 6,
+      "false_positive": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "sequence_id": "R1.2900.11955.0",
+      "true_positive": 0
+    },
+    {
+      "f1": 0.0,
+      "false_negative_or_abstain": 2,
+      "false_positive": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "sequence_id": "R1.3027.11698.0",
+      "true_positive": 0
+    }
+  ],
+  "reason": "the HRSN correlation-only diagnostic classified no events under the frozen margin; continuous network detection, differential relocation, and bootstrap uncertainty are not complete",
+  "scope": "waveform-correlation family-assignment diagnostic; not the final best-network baseline",
+  "status": "STOP",
+  "target_precision": null,
+  "target_recall": 0.0,
+  "thresholds": {
+    "maximum_anchors_per_family": 3,
+    "minimum_margin": 0.02,
+    "minimum_score": 0.85
+  },
+  "top_family_accuracy_ignoring_abstention_policy": 0.6,
+  "top_target_precision_ignoring_abstention_policy": 0.8,
+  "top_target_recall_ignoring_abstention_policy": 0.6666666666666666,
+  "waveform_available_events": 10,
+  "waveform_unavailable_events": 8
+}

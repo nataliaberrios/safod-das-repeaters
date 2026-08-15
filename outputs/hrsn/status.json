@@ -1,0 +1,14 @@
+{
+  "candidate_pair_decision": "family",
+  "classifier_claim": "STOP",
+  "classifier_reason": "one-seed thresholding is only a similarity diagnostic; exact-ID external labels show cross-family overmerging",
+  "config_sha256": "1baa6c0b2bb1b381ef5da96fc4a1249a6a2f6dae62efb40b4c5a27dd927e9160",
+  "diagnostic_scope": "frozen_38_event_spatial_magnitude_shortlist",
+  "events_in_frozen_shortlist": 38,
+  "hard_control_decision": "not_family",
+  "high_similarity_candidates_in_pilot": 25,
+  "no_data_events_in_pilot": 4,
+  "provisional_events_in_pilot": 9,
+  "single_anchor_catalog_claim": "STOP",
+  "target_control_pair_gate": "PASS"
+}

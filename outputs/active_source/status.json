@@ -1,0 +1,12 @@
+{
+  "absolute_geometry": "STOP",
+  "absolute_geometry_reason": "deep locus-to-MD/TVD/XYZ trajectory unavailable",
+  "absolute_timing": "CONDITIONAL",
+  "absolute_timing_reason": "available shot log has nominal local times but no independent GPS/detonator trigger uncertainty",
+  "channel_response": "PASS",
+  "config_sha256": "1baa6c0b2bb1b381ef5da96fc4a1249a6a2f6dae62efb40b4c5a27dd927e9160",
+  "shot_detectability": "PASS",
+  "shots_calibration_usable": 3,
+  "shots_time_domain_detected": 4,
+  "shots_total": 4
+}

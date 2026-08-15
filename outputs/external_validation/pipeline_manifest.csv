@@ -1,0 +1,4 @@
+pipeline,inputs,candidate_generation,family_assignment,blind_to,detection_status,family_assignment_status,status
+network_only,NCEDC DD plus continuous HRSN; add regional NCSN where HRSN is unavailable,strong conventional phase association and multi-template matched filtering on the exact DAS UTC intervals,published-family multi-anchor waveform features plus differential relocation,DAS trigger times and DAS scores,NOT_RUN,CORRELATION_ONLY_DIAGNOSTIC_COMPLETE; DIFFERENTIAL_RELOCATION_NOT_RUN,NOT_RUN
+das_only,continuous DAS within homogeneous configuration epochs,array-coherent phase picking and/or multi-channel template matching,DAS similarity to withheld family templates,network trigger times and network scores,NOT_RUN,NOT_RUN,NOT_RUN
+joint,frozen network-only and DAS-only candidate/score products,predeclared evidence fusion; no retuning on test labels,combined likelihood with an explicit abstain class,held-out adjudication labels,NOT_RUN,NOT_RUN,NOT_RUN

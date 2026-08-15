@@ -1,0 +1,12 @@
+__pycache__/
+.ipynb_checkpoints/
+
+# Local waveform windows make the advisor notebook fast but are data products,
+# not source. Keep their small provenance sidecars trackable.
+cached_event_windows/**/*.mseed
+cached_event_windows/**/*.npz
+cached_event_windows/**/*.partial
+
+# Public source catalogs are reproducibly downloaded and checksum verified.
+cached_catalogs/*.txt
+cached_catalogs/*.partial

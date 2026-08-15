@@ -1,0 +1,5 @@
+role,event_id,origin_time_utc,latitude,longitude,depth_km,magnitude,catalog,membership_status
+historical_candidate,72154411,2014-02-02T21:41:40.550Z,36.02009,-120.57765,4.823,1.4,NCEDC_DD,candidate_pending_v2_waveform_test
+deep_template,75336682,2026-04-01T01:24:18.650Z,36.02009,-120.57759,4.831,1.5,NCEDC_DD,candidate_pending_v2_waveform_test
+hard_spatial_control,75343317,2026-04-13T06:35:49.710Z,36.02382,-120.57740,4.871,1.5,NCEDC_DD,negative_control_not_family_label
+

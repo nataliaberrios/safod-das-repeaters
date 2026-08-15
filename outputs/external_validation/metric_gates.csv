@@ -1,0 +1,5 @@
+claim,primary_metric,comparison,pass_gate,current_status
+catalog_detection_extension,event recall at matched event-level false-discovery rate,joint versus network_only and das_only versus network_only,bootstrap lower confidence bound on recall difference is greater than zero,STOP
+catalog_completeness_extension,validated detection probability versus magnitude and completeness magnitude,same UTC/configuration intervals for all pipelines,"DAS gain persists after distance, noise, and configuration stratification",STOP
+family_classification_extension,event-level macro F1 and cross-family merge rate,joint versus network_only on held-out family-labeled events,bootstrap F1 improvement above zero without reduced target precision,STOP
+near_source_resolution_extension,within-family versus between-family DAS differential-time/spatial-distance separation,same-config positive and neighboring-family controls,effect exceeds block-bootstrap uncertainty and survives band/channel sensitivity,STOP

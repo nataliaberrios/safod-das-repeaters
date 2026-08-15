@@ -1,0 +1,5 @@
+claim,status,evidence,next_gate
+external_validation_population,PASS,6 target positives and 3 neighboring families are frozen,add event-held-out differential relocation and continuous same-interval network detection
+single_anchor_family_catalog,STOP,2 externally labeled neighboring-family events were overmerged,replace one-seed thresholding with published-family multi-anchor classification
+DAS_catalog_extension,STOP,"DAS detectability has been shown, but no blinded DAS-only versus network-only scan has run","same-interval network-only, DAS-only, and joint comparison"
+deep_DAS_source_physics,STOP,one prospective 2026 target-family candidate is detected on the deep fiber,second independently classified target-family member in the same deep configuration

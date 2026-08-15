@@ -1,0 +1,99 @@
+{
+  "config_sha256": "1baa6c0b2bb1b381ef5da96fc4a1249a6a2f6dae62efb40b4c5a27dd927e9160",
+  "pairs": [
+    {
+      "allowed_use": "waveform-shape similarity feature; family labels require a labeled multi-family validation design",
+      "band_summaries": {
+        "10.0-40.0Hz": {
+          "median_correlation": 0.9835321204877283,
+          "minimum_correlation": 0.9722648406674556,
+          "p10_correlation": 0.974724513350319,
+          "usable_components": 9,
+          "usable_stations": 3
+        },
+        "2.0-10.0Hz": {
+          "median_correlation": 0.9763395503623166,
+          "minimum_correlation": 0.9633619943966121,
+          "p10_correlation": 0.9689598692746494,
+          "usable_components": 9,
+          "usable_stations": 3
+        },
+        "2.0-40.0Hz": {
+          "median_correlation": 0.9627795257860015,
+          "minimum_correlation": 0.9512048723215755,
+          "p10_correlation": 0.9525970064036252,
+          "usable_components": 9,
+          "usable_stations": 3
+        },
+        "5.0-20.0Hz": {
+          "median_correlation": 0.9791678414395323,
+          "minimum_correlation": 0.9750797970190355,
+          "p10_correlation": 0.9759894126676312,
+          "usable_components": 9,
+          "usable_stations": 3
+        }
+      },
+      "comparison_event_id": "72154411",
+      "decision": "family",
+      "instrument_response_removed": false,
+      "minimum_components_per_band": 9,
+      "minimum_stations_per_band": 3,
+      "normalization": "per-trace zero-mean L2; positive-polarity peak",
+      "overall_median_correlation": 0.9778694476662435,
+      "pair_name": "blind_A",
+      "predicted_family": true,
+      "reference_event_id": "75336682",
+      "revealed_role": "DD-nearest historical candidate",
+      "status": "PASS",
+      "usable_metric_count": 36,
+      "weakest_band_median_correlation": 0.9627795257860015
+    },
+    {
+      "allowed_use": "waveform-shape similarity feature; family labels require a labeled multi-family validation design",
+      "band_summaries": {
+        "10.0-40.0Hz": {
+          "median_correlation": 0.32324429748455286,
+          "minimum_correlation": 0.20435398679618508,
+          "p10_correlation": 0.20970074927471052,
+          "usable_components": 9,
+          "usable_stations": 3
+        },
+        "2.0-10.0Hz": {
+          "median_correlation": 0.44821856022069095,
+          "minimum_correlation": 0.2640911937053952,
+          "p10_correlation": 0.2774387954656054,
+          "usable_components": 9,
+          "usable_stations": 3
+        },
+        "2.0-40.0Hz": {
+          "median_correlation": 0.36844367481356005,
+          "minimum_correlation": 0.1856781539756443,
+          "p10_correlation": 0.23215374335742747,
+          "usable_components": 9,
+          "usable_stations": 3
+        },
+        "5.0-20.0Hz": {
+          "median_correlation": 0.34560508156691405,
+          "minimum_correlation": 0.2073188829695484,
+          "p10_correlation": 0.22088672467514442,
+          "usable_components": 9,
+          "usable_stations": 3
+        }
+      },
+      "comparison_event_id": "75343317",
+      "decision": "not_family",
+      "instrument_response_removed": false,
+      "minimum_components_per_band": 9,
+      "minimum_stations_per_band": 3,
+      "normalization": "per-trace zero-mean L2; positive-polarity peak",
+      "overall_median_correlation": 0.3561709439365687,
+      "pair_name": "blind_B",
+      "predicted_family": false,
+      "reference_event_id": "75336682",
+      "revealed_role": "magnitude/depth-matched spatial control",
+      "status": "PASS",
+      "usable_metric_count": 36,
+      "weakest_band_median_correlation": 0.32324429748455286
+    }
+  ]
+}

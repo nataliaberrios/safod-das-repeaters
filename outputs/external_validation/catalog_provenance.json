@@ -1,0 +1,19 @@
+{
+  "catalog_name": "Catalog of Repeating Earthquakes for Northern California, 1984-2014",
+  "citation": "Waldhauser, F., and Schaff, D. P. (2021), JGR Solid Earth, e2021JB022495",
+  "count_note": "the checksummed file contains 7,713 sequence headers whose declared counts sum to 27,674; the Zenodo record and paper advertise 27,675",
+  "doi": "10.5281/zenodo.5576354",
+  "download_url": "https://zenodo.org/api/records/5576354/files/NCA_REPQcat_20210919.txt/content",
+  "event_count": 27674,
+  "expected_md5": "e097a146a9dca904bd8b367729f0d1cc",
+  "generated_utc": "2026-08-15T17:36:20Z",
+  "local_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/cached_catalogs/NCA_REPQcat_20210919.txt",
+  "match_policy": "exact event ID only; no location-only family labels",
+  "observed_md5": "e097a146a9dca904bd8b367729f0d1cc",
+  "paper_doi": "10.1029/2021JB022495",
+  "record_advertised_event_count": 27675,
+  "record_advertised_sequence_count": 7713,
+  "record_minus_file_event_count": 1,
+  "sequence_count": 7713,
+  "zenodo_record_url": "https://zenodo.org/records/5576354"
+}

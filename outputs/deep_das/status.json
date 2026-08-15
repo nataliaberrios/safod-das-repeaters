@@ -1,0 +1,13 @@
+{
+  "config_sha256": "1baa6c0b2bb1b381ef5da96fc4a1249a6a2f6dae62efb40b4c5a27dd927e9160",
+  "deep_template_detectability": "PASS",
+  "deep_template_label_status": "prospective_target_family_candidate_not_independently_classified",
+  "direct_das_repeatability": "STOP",
+  "direct_das_repeatability_reason": "one prospective 2026 target-family candidate is detectable, but no second independently classified target-family event overlaps this deep-fiber epoch",
+  "geometry": "STOP",
+  "geometry_reason": "surveyed locus-to-MD/TVD/XYZ trajectory is unavailable",
+  "hard_control_detectability": "PASS",
+  "hard_negative_baseline": "PASS",
+  "stress_drop": "STOP",
+  "stress_drop_reason": "no same-epoch independently classified EGF pair and no passed corner-frequency/model gate"
+}
