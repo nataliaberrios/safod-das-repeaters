@@ -1,5 +1,5 @@
 {
-  "design_version": "das_only_continuous_development_v1",
+  "design_version": "das_only_continuous_development_v1_1",
   "created_utc": "2026-08-15T21:05:00Z",
   "registration_state": "SPECIFIED_BEFORE_ANY_RAW_HDF5_DATASET_ACCESS",
   "parent_config_path": "config/incremental_value.json",
@@ -92,7 +92,10 @@
     "target_sample_rate_hz": 100,
     "score_sample_rate_hz": 20,
     "detrend": "per_channel_mean",
-    "stitch_policy": "retain_only_unpadded_chunk_interiors_on_one_UTC_grid"
+    "stitch_policy": "retain_only_unpadded_chunk_interiors_on_one_UTC_grid",
+    "maximum_chunk_missing_fraction": 0.0001,
+    "maximum_sample_interval_s": 0.01,
+    "timestamp_uniformity_tolerance_s": 5e-06
   },
   "channel_qc": {
     "rule": "finite_nonzero_filtered_RMS_and_complete_time_coverage_only",
@@ -136,6 +139,16 @@
     "block_qc_csv": "block_qc.csv",
     "null_maxima_csv": "null_maxima.csv",
     "score_preview_csv": "score_preview.csv",
-    "full_score_cache": "cached_continuous/analysis/das_development_scores.npz"
+    "full_score_cache": "cached_continuous/analysis/das_development_scores.npz",
+    "chunk_qc_csv": "chunk_qc.csv",
+    "status_json": "status_raw.json",
+    "preview_interval_s": 0.5
+  },
+  "amendment": {
+    "amended_utc": "2026-08-15T21:17:00Z",
+    "supersedes_config_sha256": "95e48ddd174605150573e66f19db7f23cdb588654d4e59b047858ab086d65770",
+    "raw_hdf5_files_opened_before_amendment": 0,
+    "raw_hdf5_datasets_opened_before_amendment": 0,
+    "scope": "add_explicit_chunk_QC_tolerances_and_output_filenames_before_raw_access"
   }
 }

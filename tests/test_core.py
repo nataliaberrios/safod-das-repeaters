@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import copy
 import json
 import tempfile
@@ -29,6 +30,12 @@ from src.continuous_network import validate_development_access
 from src.das_development_access import (
     select_registered_manifest_records,
     validate_das_development_registration,
+)
+from src.das_continuous_detection import (
+    channel_energy_ratio as das_channel_energy_ratio,
+    coincidence_score as das_coincidence_score,
+    null_block_maxima as das_null_block_maxima,
+    preprocess_registered_chunks,
 )
 from src.h5io import read_header, read_window
 from src.injection_recovery import select_injection_positions
@@ -121,6 +128,66 @@ class CoreTests(unittest.TestCase):
             self.assertAlmostEqual(window.missing_fraction, 0.0)
             self.assertLess(window.maximum_gap_s, 0.011)
             self.assertEqual(len(window.source_files), 2)
+
+    def test_das_registered_chunk_preprocessing_on_synthetic_h5(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            start_s = datetime(
+                2026, 1, 1, tzinfo=timezone.utc
+            ).timestamp()
+            first = root / "test_2026-01-01T000000Z.h5"
+            second = root / "test_2026-01-01T000001Z.h5"
+            _write_h5(first, start_s, 0)
+            _write_h5(second, start_s + 1.0, 1000)
+            registration = {
+                "interval": {
+                    "start_utc": "2026-01-01T00:00:00.200Z",
+                    "end_utc": "2026-01-01T00:00:01.800Z",
+                    "filter_padding_s": 0.2,
+                },
+                "manifest": {
+                    "primary_configuration": {
+                        "sample_rate_hz": 100.0,
+                    }
+                },
+                "channel_sampling": {
+                    "column_start": 0,
+                    "column_stop": 2,
+                    "column_stride": 1,
+                },
+                "preprocessing": {
+                    "target_sample_rate_hz": 20.0,
+                    "primary_band_hz": [2.0, 8.0],
+                    "chunk_duration_s": 1.0,
+                    "chunk_filter_overlap_s": 0.2,
+                    "maximum_chunk_missing_fraction": 0.001,
+                    "maximum_sample_interval_s": 0.011,
+                    "timestamp_uniformity_tolerance_s": 1.0e-6,
+                },
+            }
+            (
+                data,
+                epochs,
+                columns,
+                loci,
+                unit,
+                chunks,
+                files_read,
+                file_use_count,
+            ) = preprocess_registered_chunks(
+                [first, second], registration
+            )
+        self.assertEqual(data.shape, (40, 2))
+        self.assertEqual(len(epochs), 40)
+        np.testing.assert_array_equal(columns, [0, 1])
+        np.testing.assert_array_equal(loci, [1800, 1801])
+        self.assertEqual(unit, "processed_optical_phase_rad")
+        self.assertEqual(len(chunks), 2)
+        self.assertEqual(files_read, [str(first), str(second)])
+        self.assertEqual(file_use_count, 4)
+        self.assertTrue(np.all(np.isfinite(data)))
 
     def test_synthetic_corner_recovery_and_boundary_stop(self) -> None:
         frequency = np.linspace(2.0, 80.0, 400)
@@ -499,6 +566,90 @@ class CoreTests(unittest.TestCase):
                 request_end_s=110.0,
                 maximum_gap_s=0.01,
             )
+
+    def test_das_energy_ratio_is_scale_invariant(self) -> None:
+        rng = np.random.default_rng(23)
+        values = 0.05 * rng.normal(size=4000)
+        values[2000:2100] += np.sin(
+            np.linspace(0.0, 8.0 * np.pi, 100, endpoint=False)
+        )
+        first = das_channel_energy_ratio(values, 100.0, 0.5, 10.0)
+        second = das_channel_energy_ratio(
+            13.0 * values, 100.0, 0.5, 10.0
+        )
+        usable = np.isfinite(first) & np.isfinite(second)
+        np.testing.assert_allclose(first[usable], second[usable], rtol=1e-6)
+
+    def test_das_block_coincidence_rejects_one_block_spike(self) -> None:
+        matrix = np.ones((10, 200), dtype=np.float32)
+        matrix[0, 50] = 9.0
+        matrix[:4, 120] = 4.0
+        score = das_coincidence_score(matrix, block_count=4)
+        self.assertEqual(float(score[50]), 1.0)
+        self.assertEqual(float(score[120]), 4.0)
+        self.assertEqual(int(np.argmax(score)), 120)
+
+    def test_das_block_shift_null_is_reproducible(self) -> None:
+        rng = np.random.default_rng(29)
+        matrix = rng.uniform(0.5, 2.0, size=(10, 2000)).astype(
+            np.float32
+        )
+        registration = {
+            "preprocessing": {"score_sample_rate_hz": 20.0},
+            "generic_array_trigger": {"block_coincidence_count": 4},
+            "null_calibration": {
+                "minimum_absolute_shift_s": 1.0,
+                "replicate_count": 19,
+                "random_seed": 31,
+            },
+        }
+        first = das_null_block_maxima(matrix, registration)
+        second = das_null_block_maxima(matrix, registration)
+        np.testing.assert_array_equal(first, second)
+        self.assertEqual(len(first), 19)
+
+    def test_das_candidate_generator_has_no_forbidden_imports_or_paths(
+        self,
+    ) -> None:
+        project = project_root()
+        registration = load_config(
+            project / "config" / "das_development.json"
+        )
+        sources = [
+            project / "src" / "das_continuous_detection.py",
+            project / "src" / "run_das_development_detector.py",
+        ]
+        imported = set()
+        combined = ""
+        for source_path in sources:
+            text = source_path.read_text(encoding="utf-8")
+            combined += text
+            tree = ast.parse(text)
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Import):
+                    imported.update(alias.name for alias in node.names)
+                elif isinstance(node, ast.ImportFrom) and node.module:
+                    imported.add(node.module)
+
+        forbidden_modules = set(
+            registration["independence_guard"][
+                "candidate_generation_forbidden_modules"
+            ]
+        )
+        forbidden_suffixes = {
+            name.rsplit(".", 1)[-1] for name in forbidden_modules
+        }
+        self.assertFalse(
+            any(
+                name in forbidden_modules
+                or name.rsplit(".", 1)[-1] in forbidden_suffixes
+                for name in imported
+            )
+        )
+        for forbidden_path in registration["independence_guard"][
+            "candidate_generation_forbidden_inputs"
+        ]:
+            self.assertNotIn(str(forbidden_path), combined)
 
     def test_injection_positions_are_reproducible_and_clean(self) -> None:
         start_s = datetime(

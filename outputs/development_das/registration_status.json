@@ -1,11 +1,11 @@
 {
   "catalog_event_time_tables_opened": 0,
-  "das_development_config_sha256": "95e48ddd174605150573e66f19db7f23cdb588654d4e59b047858ab086d65770",
+  "das_development_config_sha256": "ca6db7eba41278712520539046a5a5ae6aa34f6340a85c6b0aaed7fe00a54094",
   "development_interval_duration_s": 3000.0,
   "development_interval_end_utc": "2025-01-20T05:45:00.000Z",
   "development_interval_start_utc": "2025-01-20T04:55:00.000Z",
   "filter_padding_s": 15,
-  "generated_utc": "2026-08-15T21:11:32Z",
+  "generated_utc": "2026-08-15T21:18:50Z",
   "heldout_interval_tables_opened": 0,
   "manifest_primary_record_count": 378050,
   "manifest_selection_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/outputs/development_das/manifest_selection.csv",
