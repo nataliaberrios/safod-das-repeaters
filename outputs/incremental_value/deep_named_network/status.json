@@ -1,0 +1,16 @@
+{
+  "catalog_partition_warning": "classification name is provisional because exact-ID catalogs disagree",
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "das_waveforms_opened_by_this_stage": 0,
+  "deep_candidate_event_id": "75336682",
+  "event_decisions": {
+    "75336682": "target_family",
+    "75343317": "not_target_family"
+  },
+  "generated_utc": "2026-08-15T18:59:07Z",
+  "hard_control_event_id": "75343317",
+  "network_model_sha256": "bf6dfbd36ecf44721245dfb237b7bb36587d3cdb22dd0d03c4f835d9048357c3",
+  "pilot_config_sha256": "1baa6c0b2bb1b381ef5da96fc4a1249a6a2f6dae62efb40b4c5a27dd927e9160",
+  "stage": "named_2026_network_only_scoring_complete",
+  "status": "CONDITIONAL"
+}

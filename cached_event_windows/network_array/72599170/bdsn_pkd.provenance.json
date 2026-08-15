@@ -1,0 +1,22 @@
+{
+  "access_role": "external_exact_id_validation",
+  "byte_count": 139264,
+  "channels": [
+    "HHE",
+    "HHN",
+    "HHZ"
+  ],
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "event_id": "72599170",
+  "frozen_model_training_population_sha256": "c710d4b4bcec652a97683efda71f08acbd3fd8236cfa44503dd5a23d31a6c757",
+  "network": "BK",
+  "origin_time": "2016-02-28T07:33:50.673Z",
+  "request_url": "https://service.ncedc.org/fdsnws/dataselect/1/query?net=BK&sta=PKD&loc=%2A&cha=HHE%2CHHN%2CHHZ&start=2016-02-28T07%3A33%3A40.673Z&end=2016-02-28T07%3A34%3A20.673Z",
+  "retrieved_utc": "2026-08-15T18:55:21Z",
+  "scientific_use": "normalized waveform shape and differential arrival-time features",
+  "source_name": "bdsn_pkd",
+  "stations": [
+    "PKD"
+  ],
+  "trace_count": 3
+}

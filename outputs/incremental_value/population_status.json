@@ -1,0 +1,32 @@
+{
+  "candidate_event_ids": [
+    "75120116",
+    "75120101",
+    "75021072",
+    "75153522",
+    "75162676"
+  ],
+  "catalog_event_count": 404,
+  "catalog_events_with_complete_primary_das_window": 266,
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "contiguous_coverage_hours": 6297.382588639657,
+  "contiguous_coverage_segment_count": 123,
+  "development_interval_event_ids": [
+    "75120116",
+    "75120101"
+  ],
+  "embargo_release_gate": "network_model_frozen.json exists and its hashes verify",
+  "family_label_count": 0,
+  "family_label_rule": "catalog_proximity_never_assigns_family_membership",
+  "generated_utc": "2026-08-15T19:16:06Z",
+  "heldout_interval_count": 12,
+  "heldout_selection_input": "DAS_manifest_only_blind_to_catalog_and_waveform_scores",
+  "heldout_total_hours": 12.0,
+  "longest_contiguous_segment_hours": 1941.1774916666745,
+  "primary_manifest_record_count": 378050,
+  "prospective_candidate_count": 5,
+  "prospective_network_waveform_access": "RELEASED_FOR_BLIND_NETWORK_SCORING",
+  "release_model_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/outputs/incremental_value/network_baseline/network_model_frozen.json",
+  "stage": "prospective_population_constructed_waveform_access_released",
+  "status": "CONDITIONAL"
+}

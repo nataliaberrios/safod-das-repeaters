@@ -1,0 +1,3 @@
+conflict_type,source_sequence_id,mapped_sequence_ids,shared_event_counts,interpretation
+waldhauser_schaff_family_split_by_michel,R1.2900.11955.0,M00413;M00414,M00413:2;M00414:4,catalogs disagree on whether these exact events form one family
+michel_family_merges_waldhauser_schaff_families,M00414,R1.2900.11955.0;R1.3027.11698.0,R1.2900.11955.0:4;R1.3027.11698.0:2,catalogs disagree on whether these exact events are distinct families

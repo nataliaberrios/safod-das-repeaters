@@ -1,6 +1,8 @@
 name,status,criterion
-Checkpoint 1: repair labels,MET,exact-ID published population frozen and single-anchor overmerge documented
-Checkpoint 2: best network-only baseline,WAITING,event-held-out differential relocation plus continuous same-interval detection
-Checkpoint 3: DAS incremental value,WAITING,DAS-only or joint recall/classification improves over network-only at matched false-discovery rate
-Checkpoint 4: direct DAS source physics,WAITING,second independently classified member on one deep configuration and surveyed geometry
-Checkpoint 5: stress drop and creep rate,STOP,response/EGF/source-model gates plus validated complete recurrence intervals
+1. Archive population and blind interval seal,MET,primary configuration reconciled; development interval separate; 12 held-out hours selected without catalog labels
+2. Conventional verifier freeze,MET_WITH_LABEL_WARNING,full BP array plus NC.PSM and BK.PKD model frozen before prospective waveform access
+3. Independent catalog reconciliation,MET_PROJECT_RESHAPED,exact-ID Michel crosswalk exposes M00413/M00414 partition conflict; neither catalog silently declared truth
+4. Deep-event cross-instrument checkpoint,MET_CONDITIONAL,2026 candidate passes frozen network verification and deep-DAS detectability; same-fiber control fails both relevant checks
+5. Development-interval incremental-value test,NEXT,"network-only continuous detector frozen first, independent DAS-only detector second, blind adjudication at matched FDR"
+6. Sealed held-out comparison,SEALED_NOT_RUN,positive interval-bootstrap lower bound for DAS-only or joint gain without target-family overmerge
+7. Stress drop and creep rate,STOP,"geometry, response, EGF/corner, completeness, recurrence, and slip-model gates"

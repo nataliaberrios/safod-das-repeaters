@@ -10,17 +10,34 @@ from pathlib import Path
 import h5py
 import numpy as np
 
-from faultzone.repeaters_v2.src.catalog import _normalize_ncedc_utc, local_offsets_m
-from faultzone.repeaters_v2.src.external_catalog import (
+from src.catalog import _normalize_ncedc_utc, local_offsets_m
+from src.external_catalog import (
     build_shortlist_crosswalk,
     parse_waldhauser_schaff,
 )
-from faultzone.repeaters_v2.src.h5io import read_header, read_window
-from faultzone.repeaters_v2.src.network_family import (
+from src.archive_population import (
+    CoverageSegment,
+    ManifestRecord,
+    merge_coverage,
+    select_heldout_intervals,
+)
+from src.h5io import read_header, read_window
+from src.michel_catalog import (
+    exact_id_crosswalk,
+    parse_michel_catalog,
+    partition_conflicts,
+    sequence_overlap_matrix,
+)
+from src.network_baseline import (
+    apply_frozen_thresholds,
+    fit_frozen_thresholds,
+    pair_feature_rows,
+)
+from src.network_family import (
     classification_summary,
     leave_one_event_out_classification,
 )
-from faultzone.repeaters_v2.src.source_physics import (
+from src.source_physics import (
     brune_ratio,
     fit_brune_ratio_fixed_egf,
     relative_stress_drop,
@@ -157,6 +174,56 @@ class CoreTests(unittest.TestCase):
             "discordant_single_anchor_overmerge",
         )
 
+    def test_michel_exact_id_partition_conflict(self) -> None:
+        text = (
+            "0 2010 1 1 0 0 0.000 36.0 -120.0 0.0 0.0 4000.0 1.0 00413 1 101\n"
+            "1 2010 1 1 0 0 1.250 36.0 -120.0 0.0 0.0 4001.0 1.1 00414 1 102\n"
+            "2 2010 1 1 0 0 2.500 36.0 -120.0 0.0 0.0 4002.0 1.2 00414 2 201\n"
+        )
+        published = [
+            {
+                "event_id": "101",
+                "sequence_id": "R.target",
+                "validation_role": "target_positive",
+                "origin_time": "2010-01-01T00:00:00.000Z",
+            },
+            {
+                "event_id": "102",
+                "sequence_id": "R.target",
+                "validation_role": "target_positive",
+                "origin_time": "2010-01-01T00:00:01.250Z",
+            },
+            {
+                "event_id": "201",
+                "sequence_id": "R.neighbor",
+                "validation_role": "neighbor_family_negative",
+                "origin_time": "2010-01-01T00:00:02.500Z",
+            },
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "michel.txt"
+            path.write_text(text, encoding="utf-8")
+            events = parse_michel_catalog(path)
+        self.assertEqual(
+            [row["event_id"] for row in events],
+            ["101", "102", "201"],
+        )
+        self.assertEqual(
+            events[1]["origin_time"],
+            "2010-01-01T00:00:01.250Z",
+        )
+        crosswalk = exact_id_crosswalk(published, events)
+        overlap = sequence_overlap_matrix(crosswalk)
+        conflicts = partition_conflicts(overlap)
+        conflict_types = {row["conflict_type"] for row in conflicts}
+        self.assertEqual(
+            conflict_types,
+            {
+                "waldhauser_schaff_family_split_by_michel",
+                "michel_family_merges_waldhauser_schaff_families",
+            },
+        )
+
     def test_multi_anchor_leave_one_event_out_classifier(self) -> None:
         population = []
         for family, prefix in (("family_a", "a"), ("family_b", "b")):
@@ -196,6 +263,110 @@ class CoreTests(unittest.TestCase):
         summary = classification_summary(classifications, "family_a")
         self.assertAlmostEqual(summary["macro_f1_with_abstention_as_error"], 1.0)
         self.assertAlmostEqual(summary["target_recall"], 1.0)
+
+    def test_manifest_coverage_merge_and_seeded_interval_selection(self) -> None:
+        records = [
+            ManifestRecord("a", 0.0, 60.0, 500.0, 900, 16.335237503051758),
+            ManifestRecord("b", 60.005, 120.0, 500.0, 900, 16.335237503051758),
+            ManifestRecord("c", 200.0, 400.0, 500.0, 900, 16.335237503051758),
+        ]
+        segments = merge_coverage(records, maximum_gap_s=0.01)
+        self.assertEqual(len(segments), 2)
+        self.assertAlmostEqual(segments[0].duration_s, 120.0)
+        long_segments = [CoverageSegment(0, 1000.0, 10000.0, 150)]
+        first = select_heldout_intervals(
+            long_segments,
+            duration_s=3600.0,
+            count=1,
+            seed=20260815,
+            exclusions=[(1000.0, 5000.0)],
+        )
+        second = select_heldout_intervals(
+            long_segments,
+            duration_s=3600.0,
+            count=1,
+            seed=20260815,
+            exclusions=[(1000.0, 5000.0)],
+        )
+        self.assertEqual(first, second)
+        self.assertGreaterEqual(
+            datetime.fromisoformat(first[0]["start_utc"].replace("Z", "+00:00")).timestamp(),
+            5000.0,
+        )
+
+    def test_network_differential_lag_feature_and_freeze(self) -> None:
+        metrics = []
+        for station, lag_s, correlation in (
+            ("S1", 0.008, 0.96),
+            ("S2", 0.010, 0.97),
+            ("S3", 0.012, 0.95),
+        ):
+            metrics.append(
+                {
+                    "reference_event_id": "a",
+                    "comparison_event_id": "b",
+                    "trace_id": "BP.{}.DP1".format(station),
+                    "station": station,
+                    "band_low_hz": 5.0,
+                    "band_high_hz": 20.0,
+                    "correlation": correlation,
+                    "lag_s": lag_s,
+                    "usable": True,
+                }
+            )
+        settings = {
+            "model_band_hz": [5.0, 20.0],
+            "minimum_pair_components": 3,
+            "minimum_pair_stations": 3,
+        }
+        features = pair_feature_rows(metrics, settings)
+        self.assertEqual(features[0]["status"], "PASS")
+        self.assertAlmostEqual(features[0]["common_lag_s"], 0.010)
+        self.assertAlmostEqual(
+            features[0]["differential_lag_rms_s"],
+            np.sqrt((0.002 ** 2 + 0.002 ** 2) / 3.0),
+        )
+        scores = [
+            {
+                "event_id": "t1",
+                "is_published_target": True,
+                "score_status": "PASS",
+                "median_target_correlation": 0.98,
+                "median_target_differential_lag_rms_s": 0.001,
+                "score_reason": "eligible",
+            },
+            {
+                "event_id": "t2",
+                "is_published_target": True,
+                "score_status": "PASS",
+                "median_target_correlation": 0.97,
+                "median_target_differential_lag_rms_s": 0.002,
+                "score_reason": "eligible",
+            },
+            {
+                "event_id": "n1",
+                "is_published_target": False,
+                "score_status": "PASS",
+                "median_target_correlation": 0.98,
+                "median_target_differential_lag_rms_s": 0.015,
+                "score_reason": "eligible",
+            },
+            {
+                "event_id": "n2",
+                "is_published_target": False,
+                "score_status": "PASS",
+                "median_target_correlation": 0.80,
+                "median_target_differential_lag_rms_s": 0.002,
+                "score_reason": "eligible",
+            },
+        ]
+        model = fit_frozen_thresholds(scores)
+        self.assertAlmostEqual(model["balanced_accuracy"], 1.0)
+        decisions = apply_frozen_thresholds(scores, model)
+        predicted = {row["event_id"]: row["frozen_decision"] for row in decisions}
+        self.assertEqual(predicted["t1"], "target_family")
+        self.assertEqual(predicted["n1"], "not_target_family")
+        self.assertEqual(predicted["n2"], "not_target_family")
 
 
 if __name__ == "__main__":

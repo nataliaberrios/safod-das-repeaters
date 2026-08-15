@@ -1,103 +1,151 @@
 # Scientific specification: DAS incremental value for SAFOD repeaters
 
-## Primary question
+## Primary question and project shape
 
 The paper-sized objective is to quantify what the SAFOD DAS arrays add beyond a
 strong conventional seismic-network workflow for:
 
 1. detecting small events in identical UTC intervals;
-2. assigning events to a known repeating-earthquake sequence without merging
-   nearby sequences; and
-3. resolving near-source differences that surface/borehole point sensors cannot.
+2. assigning events without silently merging or splitting nearby repeating
+   sequences; and
+3. resolving near-source wavefield differences that point sensors cannot.
 
 The deep cable is scientifically unusual because it samples a dense wavefield
-close to known repeater hypocenters. That geometry makes a positive result
-plausible and potentially novel. It does not waive controls: DAS earns an
-incremental-value claim only by outperforming a fair network baseline.
+close to known repeater hypocenters. That makes a positive result plausible and
+potentially novel. It does not waive controls: DAS earns an incremental-value
+claim only by outperforming a fair network baseline.
 
-The two DAS archives have different primary jobs. The 14-month shallow record
-carries the detection/completeness comparison because it supplies duration and
-many blind intervals. The deep record carries the strongest classification and
-near-source source-resolution test because of its proximity to the repeaters,
-but direct repeatability there requires another independently classified event
-on the same configuration. The Mar--Apr pilot fiber is supplementary.
+Evidence now supports two linked primary aims and one downstream aim.
 
-Stress drop and repeater-derived creep rate are valuable downstream branches.
-They remain stopped until classification, response, geometry, source-model, and
-completeness gates pass.
+- Aim 1, family-partition resolution: test whether deep DAS supports the Michel
+  M00413/M00414 split or their merger better than the conventional array.
+- Aim 2, catalog extension: test whether DAS-only or joint continuous detection
+  recovers independently adjudicated events missed by a same-interval
+  network-only detector at matched false-discovery rate.
+- Aim 3, source physics and creep: attempt relative source-size, stress-drop,
+  recurrence, or slip-rate inference only after membership, completeness,
+  geometry, response, and source-model gates pass.
+
+The 14-month shallow record carries the detection/completeness comparison
+because it supplies duration and many blind intervals. The deep record carries
+the strongest classification and near-source resolution opportunity. The
+Mar--Apr pilot fiber is supplementary.
 
 ## Clean-room and label policy
 
 This tree is independent of faultzone/repeaters/. It must not import legacy
 labels, cached correlations, figures, or source estimates.
 
-Label authority is ordered:
+No single published catalog is unconditional family truth. Label evidence is
+handled as follows:
 
-1. Exact event IDs in the Waldhauser--Schaff (2021) published repeater catalog
-   provide historical sequence labels.
-2. NCEDC DD locations and magnitudes nominate candidates but do not define
+1. Exact NCSN event IDs crosswalk the Waldhauser--Schaff and Michel published
+   catalogs; location-only transfer is forbidden.
+2. Their shared IDs define agreement or a documented partition conflict.
+3. NCEDC DD locations and magnitudes may nominate candidates but never assign
    family membership.
-3. HRSN/NCSN and DAS waveforms provide held-out features.
-4. Post-2014 events are prospective candidates until independently classified.
+4. Conventional-network and DAS waveforms are independent features subject to
+   the frozen access order.
+5. Post-publication events remain prospective or catalog-continuation
+   candidates until independently adjudicated.
 
-Location-only matching to the published catalog is forbidden. The absolute
-depths differ substantially between catalog versions even for identical IDs.
+The current exact-ID conflict is scientifically material. The six
+Waldhauser--Schaff target events map to Michel M00413 and M00414. Michel M00414
+also contains exact IDs that Waldhauser--Schaff assigns to a neighboring family
+previously used as a hard negative. The binary target-versus-hard-negative
+interpretation is therefore stopped; neither catalog is silently rewritten.
 
-The checksummed source file has 7,713 sequence headers whose declared counts sum
-to 27,674; its paper/Zenodo description advertises 27,675. Both counts are
-recorded in provenance.
+The checksummed Waldhauser--Schaff source file has 7,713 sequence headers whose
+declared counts sum to 27,674, while its paper/Zenodo description advertises
+27,675. That source discrepancy remains in provenance. The Michel Data Set S3
+checksum is independently verified before parsing.
 
-## Frozen validation populations
+## Frozen populations and access order
 
-- Target sequence: R1.2900.11955.0, six published events.
-- Neighbor controls: R1.0697.5199.0, R1.2172.7737.0, and
-  R1.3027.11698.0, 12 published events in total.
-- Repair diagnostic: 38 NCEDC DD nominees scored against the single 2026 seed.
+Historical conventional-model population:
 
-The published families are not defined by correlation alone. Waldhauser--Schaff
-also require relative co-location within modeled rupture dimensions and similar
-event size. Therefore high cross-family correlation is expected to be an
-insufficient label feature rather than evidence that the external labels are
-interchangeable.
+- Waldhauser--Schaff target R1.2900.11955.0: six events.
+- Three Waldhauser--Schaff neighbor sequences: 12 events.
+- Twelve of the 18 events satisfy the frozen full-array waveform eligibility
+  rules: six target and six neighbor events.
+
+Independent catalog reconciliation population:
+
+- 14 exact IDs shared by the 18-event population and Michel Data Set S3.
+- Waldhauser--Schaff target overlap: two M00413 and four M00414 events.
+- Four post-2014 Michel M00413/M00414 continuation events.
+- Eight mapped historical events support the M00413/M00414 conventional
+  partition diagnostic.
+
+Archive population:
+
+- 404 official NCSS events within the frozen 2024--2025 query.
+- 266 events with complete primary-DAS event windows.
+- Five location-proximity nominees; proximity supplies no family labels.
+- One nonblind 2025-01-20 50-minute development interval.
+- Twelve one-hour held-out intervals selected from the DAS manifest only.
+
+Named 2026 population:
+
+- Event 75336682: prospective deep-DAS candidate.
+- Event 75343317: same-fiber hard control.
+- Family names remain provisional because the published partitions conflict.
+
+The enforced access order is:
+
+1. build archive coverage and select held-out intervals from the manifest only;
+2. fit and freeze the conventional model on historical exact-ID labels;
+3. release prospective network waveforms and write network-only scores;
+4. develop network-only then independently triggered DAS-only continuous
+   detectors on the nonblind 50-minute interval;
+5. freeze both detectors and adjudication rules; and
+6. open held-out intervals only after those freezes.
+
+No number discovered during prospective or test evaluation may repair version 1.
+A methodological improvement requires a version 2 and a new split.
 
 ## Fair pipeline comparison
 
-All three pipelines use the same predeclared UTC/configuration intervals and
+All pipelines use the same predeclared UTC/configuration intervals and
 event-level adjudication rules.
 
-| Pipeline | Candidate generation | Family assignment | Information embargo |
+| Pipeline | Candidate generation | Family evidence | Information embargo |
 |---|---|---|---|
-| Network only | Conventional association plus HRSN/NCSN multi-template matched filtering | Multi-anchor waveform features and differential relocation | Blind to DAS triggers/scores |
-| DAS only | Array-coherent picking and multi-channel template matching | Withheld DAS templates and spatial wavefield features | Blind to network triggers/scores |
-| Joint | Frozen network and DAS candidate/score tables | Predeclared evidence fusion with abstention | Blind to held-out labels |
+| Network only | Conventional multi-template continuous detection and association | Multi-anchor waveform shape plus robust differential timing/relocation | Blind to DAS triggers and scores |
+| DAS only | Array-coherent picking or multi-channel template matching | Withheld DAS templates and spatial wavefield features | Blind to network triggers and scores |
+| Joint | Union of the two frozen candidate/score tables | Predeclared evidence fusion with abstention | Blind to held-out labels |
 
-The network-only pipeline must be run first and frozen. A comparison against only
-the routine NCEDC catalog would be unfair because matched filtering can recover
-events absent from the routine catalog.
+Comparison against only the routine NCEDC catalog is forbidden because a fair
+network matched-filter baseline can recover events absent from the routine
+catalog. DAS-only candidate generation may not inherit network event times.
 
 ## Primary metrics and pass gates
 
 | Claim | Primary comparison | Pass requirement |
 |---|---|---|
 | Detection extension | DAS-only and joint versus network-only | Positive interval-bootstrap lower bound for recall difference at matched event-level FDR |
-| Completeness extension | Detection probability versus magnitude/noise/configuration | Gain survives stratification and yields a defensible completeness change |
-| Classification extension | Joint versus network-only on event-held-out labels | Positive macro-F1 change without loss of target precision or increased cross-family merging |
-| Near-source resolution | Same-family versus neighboring-family spatial DAS features | Effect survives channel, band, and block-bootstrap sensitivity |
+| Completeness extension | Detection probability versus magnitude, noise, and configuration | Gain survives stratification and yields a defensible completeness change |
+| Classification extension | DAS or joint versus network-only on event-held-out labels/partitions | Positive macro-F1 or partition-resolution change without increased cross-family merging |
+| Near-source resolution | Same-sequence versus competing-partition spatial DAS features | Effect survives channel, band, polarity, and block-bootstrap sensitivity |
 
-No number discovered during the test evaluation may be used to relax a frozen
-threshold. Exploratory improvements require a new held-out split.
+The frozen conventional verifier uses median positive-peak correlation and
+station-centered differential-lag RMS over the full BP array plus NC.PSM and
+BK.PKD. Its historical values are apparent training performance, not
+prospective accuracy. One post-freeze continuation exposed cycle-skip
+sensitivity in the lag statistic. That outcome is retained; version 1 is not
+silently repaired.
 
 ## Observable-to-inference ladder
 
-1. Header and sidecar audits establish UTC, configuration epochs, sampling,
-   units, locus mapping, and gaps.
-2. SNR, active shots, and controls establish usable channels and frequencies.
-3. Exact-ID labels establish independent historical validation populations.
-4. Network-only detection and differential-time classification establish the
+1. Header and manifest audits establish UTC, configuration epochs, sampling,
+   units, channel/locus mapping, and gaps.
+2. SNR, active shots, controls, and nulls establish usable channels and bands.
+3. Exact-ID crosswalks establish agreement and published partition conflicts.
+4. A frozen network-only verifier and continuous detector establish the
    baseline that DAS must beat.
-5. Blinded DAS-only and joint scans test detection/classification extension.
-6. Two independently classified events on one DAS configuration enable direct
-   repeatability and near-source spatial comparisons.
+5. Blinded DAS-only and joint scans test detection and classification extension.
+6. At least two independently adjudicated events on one DAS configuration
+   enable direct repeatability and near-source spatial comparisons.
 7. Response-corrected same-path EGF ensembles with in-band corners may enable
    relative source-size or stress-drop work.
 8. A complete extended family plus a defensible moment/area/slip model may
@@ -107,24 +155,31 @@ threshold. Exploratory improvements require a new held-out split.
 
 | Branch | PASS requirement | Current interpretation if absent |
 |---|---|---|
-| Geometry | Surveyed locus-to-MD/TVD/XYZ/cable-leg/tangent table | STOP depth/directivity claims |
-| Single-anchor catalog | Independent multi-family validation with controlled merge rate | STOP; current diagnostic overmerges |
-| Best network baseline | Continuous same-interval scan plus event-held-out relocation/classification | STOP DAS extension claim |
-| DAS incremental value | Improvement at matched FDR with uncertainty | STOP DAS extension claim |
-| Direct DAS repeatability | At least two independently classified members on one configuration | STOP repeatability/source claim |
+| Catalog partition | Independent evidence supports a split, merger, or explicit probabilistic assignment | STOP single binary truth label |
+| Geometry | Surveyed channel-to-MD/TVD/XYZ/cable-leg/tangent table | STOP depth, source-distance, and directivity claims |
+| Continuous best-network baseline | Same-interval scan with frozen event-level FDR controls | STOP DAS extension claim |
+| DAS incremental value | Improvement at matched FDR with interval uncertainty | STOP DAS extension claim |
+| DAS partition value | Event-held-out improvement without increased merge rate | STOP DAS classification-extension claim |
+| Direct DAS repeatability | At least two independently adjudicated members on one configuration | STOP repeatability/source claim |
 | Corner frequency | Corner and uncertainty inside empirical usable bandwidth | STOP stress-drop claim |
-| Stress drop | Response, EGF/model sensitivity, and synthetic recovery pass | STOP |
+| Stress drop | Response, EGF/model sensitivity, geometry, and synthetic recovery pass | STOP |
 | Creep rate | Validated complete sequence, at least three complete intervals, constrained slip | STOP |
+
+The deep geometry audit currently supports channel spacing and a channel-1702
+hairpin convention only. It found no surveyed absolute trajectory. Channel or
+fiber-distance features are allowed; depth, source distance, radiation
+direction, and stress-drop geometry are not.
 
 ## Falsifiable hypotheses
 
-- H1: A best-effort network-only scan recovers most catalog-sized events, setting
-  a demanding baseline.
-- H2: DAS-only or joint processing recovers additional adjudicated events at the
-  same event-level false-discovery rate.
-- H3: Dense near-source DAS features reduce target/neighbor family ambiguity
-  relative to network-only features on held-out events.
-- H4: The effect is concentrated on physically coherent channel regions and
-  persists across reasonable bands, configuration epochs, and block bootstraps.
-- H5: If no incremental gain survives those controls, the catalog-extension
-  claim fails even though individual DAS earthquakes are visually striking.
+- H1: A best-effort network-only continuous scan recovers most catalog-sized
+  events and therefore sets a demanding baseline.
+- H2: DAS-only or joint processing recovers additional independently
+  adjudicated events at the same event-level false-discovery rate.
+- H3: Dense near-source DAS features resolve the M00413/M00414 partition better
+  than conventional correlation and differential-lag features.
+- H4: Any DAS effect is concentrated on physically coherent channel regions and
+  persists across reasonable bands, configuration epochs, and block
+  bootstraps.
+- H5: If no incremental gain survives these controls, the extension claim fails
+  even if individual DAS earthquakes are visually striking.

@@ -1,0 +1,22 @@
+{
+  "access_role": "historical_exact_id_training",
+  "byte_count": 143360,
+  "channels": [
+    "HHE",
+    "HHN",
+    "HHZ"
+  ],
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "event_id": "71908906",
+  "frozen_model_training_population_sha256": "",
+  "network": "BK",
+  "origin_time": "2012-12-22T22:54:51.000Z",
+  "request_url": "https://service.ncedc.org/fdsnws/dataselect/1/query?net=BK&sta=PKD&loc=%2A&cha=HHE%2CHHN%2CHHZ&start=2012-12-22T22%3A54%3A41.000Z&end=2012-12-22T22%3A55%3A21.000Z",
+  "retrieved_utc": "2026-08-15T18:44:17Z",
+  "scientific_use": "normalized waveform shape and differential arrival-time features",
+  "source_name": "bdsn_pkd",
+  "stations": [
+    "PKD"
+  ],
+  "trace_count": 3
+}

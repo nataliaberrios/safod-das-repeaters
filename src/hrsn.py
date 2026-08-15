@@ -190,6 +190,8 @@ def compare_events(
     metrics: List[Dict[str, Any]] = []
     band_values: Dict[str, List[float]] = defaultdict(list)
     band_stations: Dict[str, set] = defaultdict(set)
+    band_supported_components: Dict[str, int] = defaultdict(int)
+    band_supported_stations: Dict[str, set] = defaultdict(set)
     for key in sorted(set(ref_traces).intersection(cmp_traces)):
         ref = ref_traces[key]
         cmp = cmp_traces[key]
@@ -211,6 +213,12 @@ def compare_events(
         if any(item is None for item in (ref_signal, cmp_signal, ref_noise, cmp_noise)):
             continue
         for band in settings["bands_hz"]:
+            band_name = "{}-{}Hz".format(float(band[0]), float(band[1]))
+            if float(band[1]) >= 0.5 * sample_rate:
+                continue
+            station_id = "{}.{}".format(ref.stats.network, ref.stats.station)
+            band_supported_components[band_name] += 1
+            band_supported_stations[band_name].add(station_id)
             ref_signal_f = _bandpass(ref_signal, sample_rate, band)
             cmp_signal_f = _bandpass(cmp_signal, sample_rate, band)
             ref_noise_f = _bandpass(ref_noise, sample_rate, band)
@@ -229,7 +237,6 @@ def compare_events(
                 sample_rate,
                 float(settings["max_lag_s"]),
             )
-            band_name = "{}-{}Hz".format(float(band[0]), float(band[1]))
             usable = (
                 np.isfinite(correlation_value)
                 and min(ref_snr, cmp_snr) >= float(settings["minimum_trace_snr"])
@@ -258,7 +265,7 @@ def compare_events(
             metrics.append(row)
             if usable:
                 band_values[band_name].append(correlation_value)
-                band_stations[band_name].add(ref.stats.station)
+                band_stations[band_name].add(station_id)
 
     all_usable = [row["correlation"] for row in metrics if row["usable"]]
     band_summaries: Dict[str, Dict[str, Any]] = {}
@@ -266,36 +273,61 @@ def compare_events(
         name = "{}-{}Hz".format(float(band[0]), float(band[1]))
         values = np.asarray(band_values.get(name, []), dtype=float)
         band_summaries[name] = {
+            "supported_components": band_supported_components.get(name, 0),
+            "supported_stations": len(band_supported_stations.get(name, set())),
             "usable_components": int(values.size),
             "usable_stations": len(band_stations.get(name, set())),
             "median_correlation": float(np.median(values)) if values.size else None,
             "minimum_correlation": float(np.min(values)) if values.size else None,
             "p10_correlation": float(np.percentile(values, 10)) if values.size else None,
         }
+    eligible_band_summaries = [
+        item
+        for item in band_summaries.values()
+        if item["supported_components"] > 0
+    ]
     medians = [
         item["median_correlation"]
-        for item in band_summaries.values()
+        for item in eligible_band_summaries
         if item["median_correlation"] is not None
     ]
     minimum_components = min(
-        (item["usable_components"] for item in band_summaries.values()), default=0
+        (item["usable_components"] for item in eligible_band_summaries),
+        default=0,
     )
     minimum_stations = min(
-        (item["usable_stations"] for item in band_summaries.values()), default=0
+        (item["usable_stations"] for item in eligible_band_summaries),
+        default=0,
     )
     overall_median = float(np.median(all_usable)) if all_usable else None
     weakest_band_median = min(medians) if medians else None
     enough_data = (
         minimum_components >= int(settings["minimum_usable_components"])
-        and minimum_stations >= 3
+        and minimum_stations
+        >= int(settings.get("minimum_usable_stations", 3))
+    )
+    has_family_thresholds = all(
+        key in settings
+        for key in (
+            "family_median_correlation",
+            "family_minimum_band_correlation",
+        )
     )
     predicts_family = bool(
-        enough_data
+        has_family_thresholds
+        and enough_data
         and overall_median is not None
         and weakest_band_median is not None
         and overall_median >= float(settings["family_median_correlation"])
-        and weakest_band_median >= float(settings["family_minimum_band_correlation"])
+        and weakest_band_median
+        >= float(settings["family_minimum_band_correlation"])
     )
+    if not enough_data:
+        decision = "insufficient_data"
+    elif has_family_thresholds:
+        decision = "family" if predicts_family else "not_family"
+    else:
+        decision = "eligible_pair"
     summary = {
         "pair_name": pair_name,
         "reference_event_id": str(reference_event["event_id"]),
@@ -306,7 +338,7 @@ def compare_events(
         "overall_median_correlation": overall_median,
         "weakest_band_median_correlation": weakest_band_median,
         "predicted_family": predicts_family,
-        "decision": "family" if predicts_family else ("not_family" if enough_data else "insufficient_data"),
+        "decision": decision,
         "status": PASS if enough_data else STOP,
         "band_summaries": band_summaries,
         "normalization": "per-trace zero-mean L2; positive-polarity peak",
@@ -326,6 +358,6 @@ def write_metrics(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
             if key not in fields:
                 fields.append(key)
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)

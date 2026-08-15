@@ -1,0 +1,22 @@
+{
+  "blind_to_das_waveforms": true,
+  "candidate_abstain_count": 0,
+  "candidate_count": 5,
+  "candidate_population_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/outputs/incremental_value/prospective_candidates.csv",
+  "candidate_population_sha256": "b02afcec751952281a0c2cc0b7dfd11a4bf9bf117e75e5ce209dcbf954a68958",
+  "candidate_scored_count": 5,
+  "candidate_with_any_network_waveform_count": 5,
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "das_waveform_files_opened_by_this_stage": 0,
+  "generated_utc": "2026-08-15T18:48:12Z",
+  "interpretation": "frozen network predictions only; no prospective family truth labels yet",
+  "network_abstain_event_ids": [],
+  "network_model_freeze_status": "FROZEN_FOR_PROSPECTIVE_SCORING",
+  "network_model_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/outputs/incremental_value/network_baseline/network_model_frozen.json",
+  "network_model_sha256": "bf6dfbd36ecf44721245dfb237b7bb36587d3cdb22dd0d03c4f835d9048357c3",
+  "network_predicted_target_count": 0,
+  "network_predicted_target_event_ids": [],
+  "prospective_validation_status": "AWAITING_INDEPENDENT_DAS_AND_ADJUDICATION",
+  "stage": "prospective_network_only_scoring_complete",
+  "status": "CONDITIONAL"
+}

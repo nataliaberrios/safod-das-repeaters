@@ -1,0 +1,14 @@
+{
+  "catalog_name": "Michel et al. Parkfield repeating-earthquake catalog",
+  "citation": "Michel, S., Jolivet, R., Lengline, O., Gualandi, A., Larochelle, S., and Gardonio, B. (2022), JGR Solid Earth, e2021JB023201",
+  "paper_doi": "10.1029/2021JB023201",
+  "repository_record_url": "https://authors.library.caltech.edu/records/ah4nb-38641",
+  "download_url": "https://authors.library.caltech.edu/records/ah4nb-38641/files/2021jb023201-sup-0004-data_set_si-s03.txt?download=1",
+  "filename": "2021jb023201-sup-0004-data_set_si-s03.txt",
+  "md5": "9bf937a0ef9d9ef8fb3910970c685224",
+  "catalog_role": "independent_exact_id_family_partition_and_post_2014_validation",
+  "waldhauser_schaff_target_sequence_id": "R1.2900.11955.0",
+  "waldhauser_schaff_catalog_end_utc": "2014-12-31T23:59:59Z",
+  "minimum_exact_overlap_to_map_sequence": 2,
+  "mapping_rule": "exact_event_ids_only_no_location_matching"
+}

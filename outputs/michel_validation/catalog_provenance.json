@@ -1,0 +1,17 @@
+{
+  "catalog_end_utc": "2020-12-23T00:18:26.407Z",
+  "catalog_event_count": 9680,
+  "catalog_md5": "9bf937a0ef9d9ef8fb3910970c685224",
+  "catalog_name": "Michel et al. Parkfield repeating-earthquake catalog",
+  "catalog_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/cached_catalogs/2021jb023201-sup-0004-data_set_si-s03.txt",
+  "catalog_sequence_count": 1471,
+  "catalog_start_utc": "1984-05-21T23:22:56.968Z",
+  "citation": "Michel, S., Jolivet, R., Lengline, O., Gualandi, A., Larochelle, S., and Gardonio, B. (2022), JGR Solid Earth, e2021JB023201",
+  "config_sha256": "87ea5389f35f6171fb3f94de2d3725bdf65f8926d759068693428b2b679ad317",
+  "download_url": "https://authors.library.caltech.edu/records/ah4nb-38641/files/2021jb023201-sup-0004-data_set_si-s03.txt?download=1",
+  "expected_md5": "9bf937a0ef9d9ef8fb3910970c685224",
+  "generated_utc": "2026-08-15T18:53:38Z",
+  "mapping_rule": "exact_event_ids_only_no_location_matching",
+  "paper_doi": "10.1029/2021JB023201",
+  "repository_record_url": "https://authors.library.caltech.edu/records/ah4nb-38641"
+}

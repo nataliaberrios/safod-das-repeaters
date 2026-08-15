@@ -1,0 +1,5 @@
+event_id,origin_time,seconds_since_1984_01_01,latitude,longitude,out_of_plane_m,in_plane_m,depth_km,magnitude,michel_sequence_id,event_order,validation_role,waldhauser_schaff_target_overlap_count,family_mapping_status
+72599170,2016-02-28T07:33:50.673Z,1014881630.673,36.01921,-120.580493,-746.075832919,-9452.9496006027,3.894,1.5,M00413,2,post_2014_michel_sequence_continuation,2,catalog_partition_requires_reconciliation
+72753200,2017-01-17T07:13:45.413Z,1042874025.413,36.019194,-120.580477,-746.1503878088,-9450.6077121407,3.859,1.5,M00413,3,post_2014_michel_sequence_continuation,2,catalog_partition_requires_reconciliation
+73039936,2018-07-03T23:18:44.272Z,1088896724.272,36.019124,-120.580737,-768.8308913765,-9460.4634088646,3.867,1.4,M00414,11,post_2014_michel_sequence_continuation,4,catalog_partition_requires_reconciliation
+73335796,2020-02-05T05:44:58.608Z,1139118298.608,36.01925,-120.580518,-744.7308794488,-9457.7746498421,3.869,1.6,M00413,4,post_2014_michel_sequence_continuation,2,catalog_partition_requires_reconciliation

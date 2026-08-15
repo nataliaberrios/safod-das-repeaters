@@ -1,0 +1,22 @@
+{
+  "access_role": "historical_exact_id_training",
+  "byte_count": 8192,
+  "channels": [
+    "EHE",
+    "EHN",
+    "EHZ"
+  ],
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "event_id": "524545",
+  "frozen_model_training_population_sha256": "",
+  "network": "NC",
+  "origin_time": "1997-10-07T15:10:07.790Z",
+  "request_url": "https://service.ncedc.org/fdsnws/dataselect/1/query?net=NC&sta=PSM&loc=%2A&cha=EHE%2CEHN%2CEHZ&start=1997-10-07T15%3A09%3A57.790Z&end=1997-10-07T15%3A10%3A37.790Z",
+  "retrieved_utc": "2026-08-15T18:43:38Z",
+  "scientific_use": "normalized waveform shape and differential arrival-time features",
+  "source_name": "ncsn_psm",
+  "stations": [
+    "PSM"
+  ],
+  "trace_count": 1
+}

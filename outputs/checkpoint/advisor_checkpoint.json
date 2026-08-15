@@ -1,140 +1,183 @@
 {
   "branches": [
     {
-      "branch": "Pilot product provenance",
-      "evidence": "all generated status products share config hash 1baa6c0b2bb1",
-      "next_gate": "rerun stale branches after any config edit",
+      "branch": "Configuration and access-order provenance",
+      "evidence": "all config/model hashes agree; network stages opened zero DAS waveforms",
+      "next_gate": "rerun any stale stage before scientific interpretation",
       "status": "PASS"
     },
     {
-      "branch": "Archive/configuration ledger",
-      "evidence": "5 sources inventoried; HDF5 filenames complete but headers sampled",
-      "next_gate": "full header/UUID epoch audit before completeness claims",
+      "branch": "Archive population and held-out interval seal",
+      "evidence": "404 official events; 266 have complete primary-DAS windows; 6297.4 contiguous hours; 12 one-hour intervals selected from the manifest only",
+      "next_gate": "develop only on the unsealed interval; preserve the 12 held-out hours until both detectors are frozen",
+      "status": "PASS"
+    },
+    {
+      "branch": "Single-catalog binary family labels",
+      "evidence": "14 exact shared IDs reveal two partition conflicts: the Waldhauser-Schaff target is split into M00413/M00414, while Michel M00414 merges target and former hard-negative IDs",
+      "next_gate": "report both catalog partitions and adjudicate them with independent waveform/location evidence",
+      "status": "STOP"
+    },
+    {
+      "branch": "Frozen conventional-network verifier",
+      "evidence": "12 historical events eligible; apparent training balanced accuracy 0.833, recall 1.000, precision 0.750; mechanics frozen before prospective scoring",
+      "next_gate": "do not tune version 1 on post-freeze outcomes; a future version needs a new split and a robust local-lag rule",
       "status": "CONDITIONAL"
     },
     {
-      "branch": "Single-pair HRSN target/control diagnostic",
-      "evidence": "2026 candidate versus published 2014 target member is high-similarity; matched 2026 spatial control is dissimilar",
-      "next_gate": "use as nomination evidence only, never as a family label",
+      "branch": "Five routine-catalog proximity candidates",
+      "evidence": "all five were scored by the frozen network model and rejected as target-family events; DAS waveforms opened by this stage: 0",
+      "next_gate": "use DAS as an independent continuous candidate generator, not as a post-hoc check of location-only nominees",
       "status": "PASS"
     },
     {
-      "branch": "Single-anchor shortlist as a family catalog",
-      "evidence": "25 high-similarity candidates, 9 insufficient-data rows, and 4 no-data rows; 2 exact-ID published neighboring-family events were overmerged",
-      "next_gate": "replace one-seed assignment with labeled multi-anchor classification plus relative location",
+      "branch": "Conventional M00413/M00414 partition resolution",
+      "evidence": "pairwise correlation AUC 0.417; differential-lag AUC 0.630; event-bootstrap uncertainty is not identifiable with only two historical M00413 events",
+      "next_gate": "test preregistered deep-DAS spatial features on event-held-out members and controls",
       "status": "STOP"
     },
     {
-      "branch": "Published external validation population",
-      "evidence": "6 target events and 12 events from 3 neighboring families; 12 exact shortlist ID matches",
-      "next_gate": "preserve exact-ID matching and event-held-out evaluation",
-      "status": "PASS"
+      "branch": "Published post-2014 continuation diagnostic",
+      "evidence": "3 of 4 Michel M00413/M00414 continuations pass the frozen verifier; one high-correlation event fails because the current lag statistic admits station cycle skips",
+      "next_gate": "retain this post-freeze result; design any robust lag version on a new development split",
+      "status": "CONDITIONAL"
     },
     {
-      "branch": "HRSN multi-family correlation baseline",
-      "evidence": "10 of 18 labeled events available; 0 classified and 10 abstained under the frozen margin; diagnostic top-family accuracy without the margin is 60%",
-      "next_gate": "add event-held-out differential-time relocation; do not relax the margin on these test labels",
-      "status": "STOP"
-    },
-    {
-      "branch": "Continuous best-network detection baseline",
-      "evidence": "not run on the exact DAS UTC/configuration intervals",
-      "next_gate": "freeze HRSN/NCSN templates and false-discovery controls, then scan blind to DAS",
-      "status": "STOP"
-    },
-    {
-      "branch": "Prospective 2026 candidate on deep DAS",
-      "evidence": "median channel SNR 3.69; 100% of sampled channel blocks detected; usable median power-SNR ranges [[4.8828125, 38.0859375]]",
-      "next_gate": "independently classify the event and preserve clock/configuration QC",
-      "status": "PASS"
-    },
-    {
-      "branch": "Matched same-fiber hard negative",
-      "evidence": "800 loci: median correlation 0.219, p95 0.414, max 0.619",
-      "next_gate": "retain this frozen negative baseline for a preregistered DAS score",
-      "status": "PASS"
-    },
-    {
-      "branch": "DAS incremental catalog value",
-      "evidence": "no blinded same-interval network-only versus DAS-only versus joint scan has run",
-      "next_gate": "compare recall at matched event-level false-discovery rate with interval bootstrap uncertainty",
-      "status": "STOP"
-    },
-    {
-      "branch": "June active-source detectability/response",
-      "evidence": "3 of 4 shots pass calibration-quality rules; all 4 have time-domain detections",
-      "next_gate": "obtain precise triggers; keep shot 1 conditional",
-      "status": "PASS"
-    },
-    {
-      "branch": "Absolute shot/DAS timing",
-      "evidence": "available shot log has nominal local times but no independent GPS/detonator trigger uncertainty",
-      "next_gate": "GPS/detonator trigger log and clock audit",
+      "branch": "2026 deep-fiber cross-instrument opportunity",
+      "evidence": "event 75336682 passes the frozen network verifier and is strongly detected on deep DAS; same-fiber control 75343317 fails the verifier and the frozen DAS hard-negative test",
+      "next_gate": "call the family name provisional; compare near-source DAS features against historical/continuation templates",
       "status": "CONDITIONAL"
     },
     {
       "branch": "Deep channel geometry",
-      "evidence": "surveyed locus-to-MD/TVD/XYZ trajectory is unavailable",
-      "next_gate": "surveyed locus-to-MD/TVD/XYZ/cable-tangent table",
+      "evidence": "channel spacing and a channel-1702 hairpin convention exist, but no surveyed channel-to-MD/TVD/XYZ/cable-tangent table was found",
+      "next_gate": "obtain or reconstruct a surveyed geometry table before depth, source-distance, or directivity claims",
       "status": "STOP"
     },
     {
-      "branch": "Direct DAS repeatability",
-      "evidence": "one prospective 2026 target-family candidate is detectable, but no second independently classified target-family event overlaps this deep-fiber epoch",
-      "next_gate": "second independently classified target-family event on the same configuration",
+      "branch": "DAS detection/catalog extension",
+      "evidence": "no DAS-only continuous detector has yet been compared with a same-interval best-network detector at matched event-level FDR",
+      "next_gate": "run network-only then DAS-only on the development interval; freeze both before opening held-out intervals",
       "status": "STOP"
     },
     {
-      "branch": "Corner frequency / stress drop",
+      "branch": "DAS family-partition extension",
+      "evidence": "the catalog disagreement and weak conventional separation define the test, but held-out DAS spatial classification has not run",
+      "next_gate": "require improved event-held-out partition metrics without increased merge rate",
+      "status": "STOP"
+    },
+    {
+      "branch": "Relative source size / stress drop",
       "evidence": "no same-epoch independently classified EGF pair and no passed corner-frequency/model gate",
-      "next_gate": "response correction, same-path EGF ensemble, in-band corner, model and synthetic tests",
+      "next_gate": "response audit, same-path EGF ensemble, in-band corner, geometry/model sensitivity, and synthetic recovery",
       "status": "STOP"
     },
     {
       "branch": "Repeater-derived creep rate",
-      "evidence": "no DAS-extended complete family exists and event slip is unconstrained",
-      "next_gate": "validated extension, at least three complete intervals, and a defensible moment/area/slip model",
+      "evidence": "family membership, continuous completeness, event slip, and at least three complete recurrence intervals are not yet jointly constrained",
+      "next_gate": "attempt only after a validated DAS-assisted family extension and source-size model",
       "status": "STOP"
     }
   ],
   "checkpoints": [
     {
-      "criterion": "exact-ID published population frozen and single-anchor overmerge documented",
-      "name": "Checkpoint 1: repair labels",
+      "criterion": "primary configuration reconciled; development interval separate; 12 held-out hours selected without catalog labels",
+      "name": "1. Archive population and blind interval seal",
       "status": "MET"
     },
     {
-      "criterion": "event-held-out differential relocation plus continuous same-interval detection",
-      "name": "Checkpoint 2: best network-only baseline",
-      "status": "WAITING"
+      "criterion": "full BP array plus NC.PSM and BK.PKD model frozen before prospective waveform access",
+      "name": "2. Conventional verifier freeze",
+      "status": "MET_WITH_LABEL_WARNING"
     },
     {
-      "criterion": "DAS-only or joint recall/classification improves over network-only at matched false-discovery rate",
-      "name": "Checkpoint 3: DAS incremental value",
-      "status": "WAITING"
+      "criterion": "exact-ID Michel crosswalk exposes M00413/M00414 partition conflict; neither catalog silently declared truth",
+      "name": "3. Independent catalog reconciliation",
+      "status": "MET_PROJECT_RESHAPED"
     },
     {
-      "criterion": "second independently classified member on one deep configuration and surveyed geometry",
-      "name": "Checkpoint 4: direct DAS source physics",
-      "status": "WAITING"
+      "criterion": "2026 candidate passes frozen network verification and deep-DAS detectability; same-fiber control fails both relevant checks",
+      "name": "4. Deep-event cross-instrument checkpoint",
+      "status": "MET_CONDITIONAL"
     },
     {
-      "criterion": "response/EGF/source-model gates plus validated complete recurrence intervals",
-      "name": "Checkpoint 5: stress drop and creep rate",
+      "criterion": "network-only continuous detector frozen first, independent DAS-only detector second, blind adjudication at matched FDR",
+      "name": "5. Development-interval incremental-value test",
+      "status": "NEXT"
+    },
+    {
+      "criterion": "positive interval-bootstrap lower bound for DAS-only or joint gain without target-family overmerge",
+      "name": "6. Sealed held-out comparison",
+      "status": "SEALED_NOT_RUN"
+    },
+    {
+      "criterion": "geometry, response, EGF/corner, completeness, recurrence, and slip-model gates",
+      "name": "7. Stress drop and creep rate",
       "status": "STOP"
     }
   ],
-  "config_sha256": "1baa6c0b2bb1b381ef5da96fc4a1249a6a2f6dae62efb40b4c5a27dd927e9160",
-  "decision_basis": "The dataset supports a rigorous incremental-value experiment: published labels expose where conventional correlation confuses nearby families, while the prospective 2026 candidate and a hard control are both measurable on the deep fiber. This is permission to run the benchmark, not evidence that DAS has extended the catalog.",
-  "events_in_frozen_shortlist": 38,
-  "generated_utc": "2026-08-15T17:35:37Z",
-  "high_similarity_candidates_in_bounded_pilot": 25,
-  "highest_value_metadata_request": "surveyed deep locus-to-MD/TVD/XYZ/cable-tangent mapping",
-  "highest_value_next_analysis": "run a best-effort network-only detector on the exact DAS intervals, freeze its candidates and scores, then run DAS-only and joint pipelines blind to those results",
-  "highest_value_next_observation": "a second independently network-classified target-family event on the same deep-DAS configuration",
-  "network_labeled_events_with_waveforms": 10,
-  "pilot_decision": "PROCEED_WITH_CONDITIONS",
-  "published_neighbor_population_events": 12,
-  "published_target_population_events": 6,
-  "single_anchor_overmerges_in_published_neighbors": 2
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "decision_basis": "There is now a defensible DAS/repeater project: a frozen conventional verifier supports the 2026 deep event while rejecting its same-fiber control, independent catalogs disagree on the exact historical family partition, and conventional point-station features do not resolve that partition. These facts motivate a near-source DAS test; they do not yet establish catalog extension.",
+  "generated_utc": "2026-08-15T19:19:43Z",
+  "guardrails": {
+    "absolute_spatial_claims_enabled": false,
+    "continuous_detection_status": "NOT_RUN",
+    "family_labels_from_catalog_proximity": 0,
+    "frozen_model_version_repair_after_test": "forbidden; create version 2 with a new split",
+    "network_scoring_das_waveforms_opened": 0
+  },
+  "hash_checks": {
+    "archive_population": true,
+    "deep_das_pilot_config": true,
+    "deep_named_model_sha256": true,
+    "deep_named_network": true,
+    "frozen_model": true,
+    "network_baseline": true,
+    "prospective_model_sha256": true,
+    "prospective_network": true
+  },
+  "headline_results": {
+    "archive_candidates_network_predicted_target": 0,
+    "archive_catalog_events": 404,
+    "archive_events_with_complete_das_windows": 266,
+    "archive_proximity_candidates": 5,
+    "catalog_partition_conflicts": 2,
+    "deep_candidate_das_detectability": "PASS",
+    "deep_candidate_event_id": "75336682",
+    "deep_candidate_network_decision": "target_family",
+    "deep_control_event_id": "75343317",
+    "deep_control_network_decision": "not_target_family",
+    "exact_id_crosswalk_matches": 14,
+    "heldout_hours_sealed": 12.0,
+    "michel_catalog_events": 9680,
+    "michel_catalog_sequences": 1471,
+    "post_2014_continuations": 4,
+    "post_2014_continuations_network_positive": 3,
+    "primary_manifest_time_valid_records": 378050,
+    "primary_manifest_timestamp_invalid_records": 1
+  },
+  "highest_value_metadata_request": "surveyed deep channel-to-MD/TVD/XYZ/cable-leg/tangent mapping",
+  "highest_value_next_analysis": "build and freeze the network-only continuous detector on the nonblind 2025-01-20 04:55--05:45 UTC development interval, then run an independently triggered DAS-only detector on exactly that 50-minute interval",
+  "highest_value_next_observation": "another independently network-classified event on the same deep DAS configuration",
+  "network_model_freeze_status": "FROZEN_FOR_PROSPECTIVE_SCORING",
+  "network_model_sha256": "bf6dfbd36ecf44721245dfb237b7bb36587d3cdb22dd0d03c4f835d9048357c3",
+  "pilot_config_sha256": "1baa6c0b2bb1b381ef5da96fc4a1249a6a2f6dae62efb40b4c5a27dd927e9160",
+  "project_decision": "PROCEED_TO_DEVELOPMENT_SCAN",
+  "project_shape": [
+    {
+      "aim": "Aim 1: family-partition resolution",
+      "current_status": "READY_FOR_DAS_FEATURE_DEVELOPMENT",
+      "question": "Can deep near-source DAS distinguish M00413 from M00414, or support their merger, better than the conventional array?"
+    },
+    {
+      "aim": "Aim 2: catalog extension",
+      "current_status": "DEVELOPMENT_INTERVAL_NEXT",
+      "question": "Does a DAS-only or joint continuous scan recover independently adjudicated events missed by a fair same-interval network-only detector?"
+    },
+    {
+      "aim": "Aim 3: source physics and creep",
+      "current_status": "DOWNSTREAM_STOP",
+      "question": "Can validated repeated events constrain relative source size, stress drop, recurrence, and eventually slip rate?"
+    }
+  ]
 }
