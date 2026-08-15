@@ -10,3 +10,6 @@ only in network_candidate_union_adjudicated.csv; network_union_status.json
 records the preserved generic-trigger STOP and the development-only DAS access
 gate.
 
+development_das/manifest_selection.csv contains the manifest-only, padded
+development file selection. development_das/registration_status.json records
+the pre-waveform access gate; it is not detector performance.

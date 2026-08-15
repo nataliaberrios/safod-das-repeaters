@@ -141,6 +141,15 @@ arrival from NC event 75120096. No group is unassociated and no family label is
 assigned. This is a comparator-rule freeze for independent DAS development,
 not a claim of held-out detector performance.
 
+DAS-development version 1 is now registered before raw HDF5 access. Manifest
+times and acquisition configuration alone select 52 files spanning the shared
+interval plus 15-second filter padding. The initial candidate generator uses
+180 sampled columns in ten contiguous blocks, 5--20 Hz per-channel energy
+ratios, fourth-highest block coincidence, and 199 independent block-shift
+nulls. The registration status records zero raw HDF5, network-candidate,
+catalog-time, or held-out table opens. Detector performance remains unknown
+until the raw candidate table is materialized.
+
 ## Primary metrics and pass gates
 
 | Claim | Primary comparison | Pass requirement |
@@ -209,8 +218,9 @@ direction, and stress-drop geometry are not.
 ## Immediate DAS-development access constraint
 
 The next allowed waveform step is the identical nonblind 50-minute interval
-only. DAS-only candidate generation must run from a configuration and process
-that do not read network candidate tables, catalog event times, or held-out
-intervals. Its candidate table must be materialized before cross-pipeline
-matching. The 12 held-out hours remain sealed until DAS nulls, event grouping,
-blinded adjudication, and matched-FDR rules are frozen.
+plus the registered 15-second filter padding only. The DAS-only configuration,
+manifest selection, and access guard are frozen. Candidate generation must not
+read network candidate tables, catalog event times, or held-out intervals. Its
+raw candidate table and nulls must be materialized and checksummed before
+cross-pipeline matching. The 12 held-out hours remain sealed until DAS event
+grouping, blinded adjudication, and matched-FDR rules are frozen.

@@ -32,7 +32,7 @@ checkpoint. It shows the time-only union and post-union catalog audit, and lets
 an advisor vary the cross-branch matching window in memory without changing the
 registered result.
 
-The checkpoint currently records five decisive facts:
+The checkpoint currently records six decisive facts:
 
 1. A 12-event conventional model was frozen before prospective waveform access.
 2. All five 2024--2025 routine-catalog proximity candidates fail that frozen
@@ -47,6 +47,9 @@ The checkpoint currently records five decisive facts:
    same-fiber control 75343317 fails. The candidate is also strongly visible on
    deep DAS. Its family name remains provisional because the published
    partitions disagree.
+6. The frozen development network union contains two known local events and one
+   known regional arrival, with zero unassociated local candidates; catalog
+   evidence was attached only after time-only grouping.
 
 Those facts reshape the work into two linked primary aims:
 
@@ -95,6 +98,21 @@ unassociated local candidates in this 50-minute development interval.
 This freezes the comparator for independent DAS-only development. It does not
 authorize held-out access or demonstrate held-out network performance.
 
+## DAS-only pre-waveform registration
+
+DAS-development version 1 was specified before any raw HDF5 dataset access. A
+manifest-only registrar selected 52 one-minute primary-configuration files
+(1.83 GB) covering the 50-minute interval plus 15 seconds of filter padding on
+each side. The maximum manifest gap is 2.0 ms. The registration status records
+zero HDF5 file or dataset opens, zero network-candidate or catalog-time table
+opens, and zero held-out table opens.
+
+The initial detector is now predeclared: columns 0--899 sampled every five
+columns (180 channels), ten 90-column blocks, 5--20 Hz processing at 100 Hz,
+per-channel 0.5/10 s energy STA/LTA, fourth-highest block coincidence, an
+8-second candidate separation, and 199 independent-block circular-shift nulls.
+These are development choices, not a claim that the detector will pass.
+
 ## Reproduce compact products
 
 Run from this repository root in the das conda environment. The order preserves
@@ -114,6 +132,7 @@ released.
     python -m src.build_checkpoint
     python -m src.run_network_development_detector
     python -m src.freeze_network_union
+    python -m src.register_das_development
     python -m unittest discover -s tests -v
     python ../../run_nb_cells.py notebooks/00_advisor_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/02_network_development_checkpoint.ipynb
@@ -140,6 +159,9 @@ windows. The advisor notebook does neither by default.
   detector, null, regional-catalog veto, and leakage-safe injection design.
 - config/network_union.json pins all v4 input checksums, declares branch roles,
   and freezes time-only matching and post-union catalog-adjudication rules.
+- config/das_development.json freezes the raw-access boundary, channel/block
+  sampling, preprocessing, detector, null, and candidate-materialization order
+  before HDF5 waveform access.
 - outputs/development_network/status.json preserves the v4 generic-trigger STOP;
   candidate tables and injection_recovery_summary.csv provide its evidence.
   Full-rate scores, miniSEED, and the downloaded catalog cache remain ignored
@@ -148,6 +170,9 @@ windows. The advisor notebook does neither by default.
   catalog-blind event union. network_candidate_union_adjudicated.csv attaches
   known-event evidence afterward, and network_union_status.json records the
   development-only access gate.
+- outputs/development_das/manifest_selection.csv and registration_status.json
+  prove the manifest-only 52-file selection and the zero-waveform-access
+  registration state.
 - outputs/incremental_value/network_baseline/network_model_frozen.json is the
   version-1 conventional verifier. Its thresholds may not be repaired after
   seeing prospective outcomes.
@@ -185,15 +210,13 @@ stress-drop geometry.
 
 ## Next registered computation
 
-The network union is now frozen on the nonblind 2025-01-20 04:55--05:45 UTC
-interval. Continue on that same interval only:
+The network union and DAS-only pre-waveform registration are now frozen on the
+nonblind 2025-01-20 04:55--05:45 UTC interval. Continue on that interval only:
 
-1. register a DAS-only configuration and an access guard that forbids imports
-   of network candidate times, catalog event times, and held-out intervals;
-2. develop candidate generation from continuous DAS data alone, using array
-   coherence and/or DAS template evidence with empirical nulls;
-3. materialize the DAS-only candidate table before comparing it with the frozen
-   network union;
+1. implement and run the registered generic DAS array trigger without importing
+   network candidate times, catalog event times, or held-out intervals;
+2. materialize and checksum the raw DAS-only candidate table and detector nulls;
+3. only then compare the DAS candidates with the frozen network union;
 4. freeze cross-pipeline event matching, blinded adjudication, and matched-FDR
    rules; and
 5. only then open any of the 12 held-out hours.

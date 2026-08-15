@@ -24,8 +24,12 @@ from src.archive_population import (
     merge_coverage,
     select_heldout_intervals,
 )
-from src.common import sha256_file
+from src.common import load_config, project_root, sha256_file
 from src.continuous_network import validate_development_access
+from src.das_development_access import (
+    select_registered_manifest_records,
+    validate_das_development_registration,
+)
 from src.h5io import read_header, read_window
 from src.injection_recovery import select_injection_positions
 from src.michel_catalog import (
@@ -429,6 +433,72 @@ class CoreTests(unittest.TestCase):
             unsafe["interval"]["heldout_access"] = "ALLOWED"
             with self.assertRaises(PermissionError):
                 validate_development_access(parent, unsafe)
+
+    def test_das_development_registration_guard(self) -> None:
+        project = project_root()
+        parent = load_config(project / "config" / "incremental_value.json")
+        registration = load_config(
+            project / "config" / "das_development.json"
+        )
+        with (
+            project
+            / "outputs"
+            / "development_network"
+            / "network_union_status.json"
+        ).open(encoding="utf-8") as handle:
+            union_status = json.load(handle)
+
+        start_s, end_s, request_start_s, request_end_s = (
+            validate_das_development_registration(
+                parent, registration, union_status
+            )
+        )
+        self.assertEqual(end_s - start_s, 3000.0)
+        self.assertEqual(start_s - request_start_s, 15.0)
+        self.assertEqual(request_end_s - end_s, 15.0)
+
+        unsafe = copy.deepcopy(registration)
+        unsafe["interval"]["end_utc"] = "2025-01-20T05:46:00Z"
+        with self.assertRaises(PermissionError):
+            validate_das_development_registration(
+                parent, unsafe, union_status
+            )
+
+        leaked = copy.deepcopy(registration)
+        leaked["independence_guard"][
+            "candidate_generation_forbidden_inputs"
+        ].remove("outputs/incremental_value/heldout_intervals.csv")
+        with self.assertRaises(PermissionError):
+            validate_das_development_registration(
+                parent, leaked, union_status
+            )
+
+    def test_das_manifest_selection_enforces_contiguous_padding(self) -> None:
+        records = [
+            ManifestRecord("a.h5", 0.0, 60.0, 500.0, 900, 16.335),
+            ManifestRecord("b.h5", 60.002, 120.0, 500.0, 900, 16.335),
+            ManifestRecord("c.h5", 200.0, 260.0, 500.0, 900, 16.335),
+        ]
+        selected, summary = select_registered_manifest_records(
+            records,
+            request_start_s=10.0,
+            request_end_s=110.0,
+            maximum_gap_s=0.01,
+        )
+        self.assertEqual([record.path for record in selected], ["a.h5", "b.h5"])
+        self.assertAlmostEqual(summary["maximum_manifest_gap_s"], 0.002)
+
+        gapped = [
+            ManifestRecord("a.h5", 0.0, 60.0, 500.0, 900, 16.335),
+            ManifestRecord("b.h5", 60.02, 120.0, 500.0, 900, 16.335),
+        ]
+        with self.assertRaises(RuntimeError):
+            select_registered_manifest_records(
+                gapped,
+                request_start_s=10.0,
+                request_end_s=110.0,
+                maximum_gap_s=0.01,
+            )
 
     def test_injection_positions_are_reproducible_and_clean(self) -> None:
         start_s = datetime(

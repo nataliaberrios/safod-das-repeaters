@@ -1,0 +1,141 @@
+{
+  "design_version": "das_only_continuous_development_v1",
+  "created_utc": "2026-08-15T21:05:00Z",
+  "registration_state": "SPECIFIED_BEFORE_ANY_RAW_HDF5_DATASET_ACCESS",
+  "parent_config_path": "config/incremental_value.json",
+  "parent_config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "network_union_gate": {
+    "path": "outputs/development_network/network_union_status.json",
+    "sha256": "ff55d3c4123bc9918f922b6f818f32db11541e4fb162bd5cd2d72bf639f155eb",
+    "role": "stage_authorization_only_no_candidate_times",
+    "required_next_stage_gate": "PASS_INDEPENDENT_DAS_DEVELOPMENT_ONLY"
+  },
+  "interval": {
+    "start_utc": "2025-01-20T04:55:00Z",
+    "end_utc": "2025-01-20T05:45:00Z",
+    "duration_s": 3000,
+    "filter_padding_s": 15,
+    "role": "nonblind_development_only",
+    "heldout_access": "FORBIDDEN"
+  },
+  "manifest": {
+    "path": "/oak/stanford/groups/ettore88/data/SAFOD/SAFODAS1-harddrive-transfer/SAFOD_2024_2025.csv",
+    "sha256": "686fb5d055c44fadd67573de12619ec0fcbc40488d23832c463cdec86d4030a1",
+    "path_rewrites": [
+      {
+        "manifest_prefix": "/oak/stanford/groups/ettore88/data/SAFODAS1-harddrive-transfer",
+        "filesystem_prefix": "/oak/stanford/groups/ettore88/data/SAFOD/SAFODAS1-harddrive-transfer"
+      }
+    ],
+    "primary_configuration": {
+      "sample_rate_hz": 500.0,
+      "channel_count": 900,
+      "gauge_length_m": 16.335237503051758
+    },
+    "maximum_internal_gap_s": 0.01,
+    "selection_role": "time_and_configuration_only_no_catalog_fields"
+  },
+  "waveform_access": {
+    "allowed_after_registration": [
+      "selected_manifest_HDF5_RawData",
+      "selected_manifest_HDF5_RawDataTime",
+      "selected_manifest_HDF5_attributes"
+    ],
+    "allowed_time_span": "development_interval_plus_declared_filter_padding_only",
+    "raw_unit_policy": "processed_optical_phase_radians_if_header_matches_rad_2PI_over_2pow16_else_STOP",
+    "strain_claim": "FORBIDDEN",
+    "absolute_geometry_claim": "FORBIDDEN"
+  },
+  "independence_guard": {
+    "candidate_generation_allowed_inputs": [
+      "config/das_development.json",
+      "outputs/development_das/manifest_selection.csv",
+      "outputs/development_das/registration_status.json",
+      "selected_raw_DAS_HDF5_files"
+    ],
+    "candidate_generation_forbidden_inputs": [
+      "outputs/development_network/candidate_detections.csv",
+      "outputs/development_network/generic_candidate_detections.csv",
+      "outputs/development_network/network_candidate_union_time_only.csv",
+      "outputs/development_network/network_candidate_union_adjudicated.csv",
+      "outputs/incremental_value/ncedc_archive_catalog.csv",
+      "outputs/incremental_value/heldout_intervals.csv",
+      "cached_catalogs",
+      "network_or_catalog_event_times"
+    ],
+    "candidate_generation_forbidden_modules": [
+      "src.network_continuous_detection",
+      "src.network_union",
+      "src.catalog",
+      "src.background_catalog"
+    ],
+    "comparison_order": "materialize_and_checksum_DAS_candidate_table_before_opening_any_forbidden_input"
+  },
+  "channel_sampling": {
+    "column_start": 0,
+    "column_stop": 900,
+    "column_stride": 5,
+    "expected_sampled_channel_count": 180,
+    "block_width_columns": 90,
+    "expected_block_count": 10,
+    "expected_sampled_channels_per_block": 18,
+    "spatial_coordinate": "HDF5_column_and_OptaSense_locus_index_only"
+  },
+  "preprocessing": {
+    "chunk_duration_s": 300,
+    "chunk_filter_overlap_s": 15,
+    "primary_band_hz": [
+      5.0,
+      20.0
+    ],
+    "filter": "fourth_order_zero_phase_butterworth",
+    "target_sample_rate_hz": 100,
+    "score_sample_rate_hz": 20,
+    "detrend": "per_channel_mean",
+    "stitch_policy": "retain_only_unpadded_chunk_interiors_on_one_UTC_grid"
+  },
+  "channel_qc": {
+    "rule": "finite_nonzero_filtered_RMS_and_complete_time_coverage_only",
+    "minimum_usable_sampled_channels": 150,
+    "minimum_usable_blocks": 8,
+    "minimum_usable_channels_per_block": 12,
+    "amplitude_based_channel_selection": "FORBIDDEN_IN_V1"
+  },
+  "generic_array_trigger": {
+    "characteristic_function": "per_channel_sqrt_trailing_STA_energy_over_trailing_LTA_energy",
+    "sta_window_s": 0.5,
+    "lta_window_s": 10.0,
+    "within_block_aggregation": "median_across_usable_sampled_channels",
+    "block_coincidence_count": 4,
+    "array_score": "fourth_highest_block_characteristic",
+    "block_support_ratio": 2.0,
+    "candidate_minimum_separation_s": 8,
+    "candidate_time_meaning": "DAS_energy_arrival_not_origin_time",
+    "family_assignment": "FORBIDDEN"
+  },
+  "null_calibration": {
+    "method": "independent_block_circular_shifts_of_characteristic_curves",
+    "random_seed": 20260819,
+    "replicate_count": 199,
+    "minimum_absolute_shift_s": 30,
+    "familywise_threshold_quantile": 0.95,
+    "interpretation": "development_interval_false_alarm_calibration_not_heldout_FDR"
+  },
+  "post_candidate_evaluation": {
+    "status": "FORBIDDEN_UNTIL_RAW_DAS_CANDIDATE_TABLE_IS_WRITTEN_AND_CHECKSUMMED",
+    "network_union_matching": "separate_later_stage",
+    "catalog_adjudication": "separate_later_stage",
+    "family_classification": "separate_later_stage"
+  },
+  "output": {
+    "directory": "outputs/development_das",
+    "manifest_selection_csv": "manifest_selection.csv",
+    "registration_status_json": "registration_status.json",
+    "candidate_csv": "candidate_detections_raw.csv",
+    "channel_qc_csv": "channel_qc.csv",
+    "block_qc_csv": "block_qc.csv",
+    "null_maxima_csv": "null_maxima.csv",
+    "score_preview_csv": "score_preview.csv",
+    "full_score_cache": "cached_continuous/analysis/das_development_scores.npz"
+  }
+}
