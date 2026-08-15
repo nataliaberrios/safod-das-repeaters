@@ -131,6 +131,16 @@ branch or register it as an auxiliary detector with its measured sensitivity.
 A broader official-catalog physical-arrival veto is part of adjudication, not
 candidate generation.
 
+Network-union version 1 registers the template bank as the primary
+target-sensitive branch and retains the generic trigger as an auxiliary
+non-template safety net without repairing its failed SNR-1 gate. An ordered,
+one-to-one 8-second time-only rule converts five branch detections into three
+event groups. Catalog information is attached only after that table is written
+and checksummed: two groups are known local events and one is a known regional
+arrival from NC event 75120096. No group is unassociated and no family label is
+assigned. This is a comparator-rule freeze for independent DAS development,
+not a claim of held-out detector performance.
+
 ## Primary metrics and pass gates
 
 | Claim | Primary comparison | Pass requirement |
@@ -195,3 +205,12 @@ direction, and stress-drop geometry are not.
   bootstraps.
 - H5: If no incremental gain survives these controls, the extension claim fails
   even if individual DAS earthquakes are visually striking.
+
+## Immediate DAS-development access constraint
+
+The next allowed waveform step is the identical nonblind 50-minute interval
+only. DAS-only candidate generation must run from a configuration and process
+that do not read network candidate tables, catalog event times, or held-out
+intervals. Its candidate table must be materialized before cross-pipeline
+matching. The 12 held-out hours remain sealed until DAS nulls, event grouping,
+blinded adjudication, and matched-FDR rules are frozen.

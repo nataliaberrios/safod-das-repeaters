@@ -1,0 +1,79 @@
+{
+  "design_version": "network_candidate_union_v1",
+  "created_utc": "2026-08-15T20:45:00Z",
+  "development_config_path": "config/development_detection.json",
+  "development_config_sha256": "05f7c80970a4587bd8b47e32878449b021013de8a3e866a94541af908891c1d9",
+  "frozen_inputs": {
+    "development_status": {
+      "path": "outputs/development_network/status.json",
+      "sha256": "0c5f8dee97418d4b3721e2b53b59c07445b3809803d8e58e675e6a581c75379a"
+    },
+    "template_candidates": {
+      "path": "outputs/development_network/candidate_detections.csv",
+      "sha256": "b7e617d5937513230d028d7a3a969b3a245655a49bbd3f1506c97d410a861d5f"
+    },
+    "generic_candidates": {
+      "path": "outputs/development_network/generic_candidate_detections.csv",
+      "sha256": "f5b880d577527aacc916449c58203c22af2ab721a86c6361158d888d861880fa"
+    },
+    "background_catalog": {
+      "path": "outputs/development_network/background_catalog.csv",
+      "sha256": "e1b399016ff69d6dbd43c65be18ab0fabfb018d752cbfabf50f80cd26803ca74"
+    },
+    "injection_recovery_summary": {
+      "path": "outputs/development_network/injection_recovery_summary.csv",
+      "sha256": "83dd7af2797c9e8c788aeec3c22650125890b254bb1882443243a5cd8f8e6197"
+    }
+  },
+  "branch_roles": {
+    "template_bank": {
+      "role": "primary_target_sensitive_detector",
+      "threshold_policy": "retain_v4_threshold_without_repair",
+      "target_positive_recovery_at_component_snr_1": "30_of_30_PASS",
+      "family_label_policy": "candidate_generation_only_not_family_assignment"
+    },
+    "generic_trigger": {
+      "role": "auxiliary_nontemplate_safety_net",
+      "threshold_policy": "retain_v4_threshold_without_repair",
+      "target_positive_recovery_at_component_snr_1": "22_of_30_STOP",
+      "target_positive_recovery_at_component_snr_2": "30_of_30_diagnostic",
+      "interpretation": "retained_to_protect_the_network_baseline_against_nontemplate_events_not_a_passing_primary_sensitivity_branch"
+    }
+  },
+  "time_only_union": {
+    "cross_branch_match_window_s": 8.0,
+    "match_window_source": "reuse_v4_within_branch_candidate_minimum_separation_not_post_DAS_tuning",
+    "matching_algorithm": "ordered_one_to_one_maximum_cardinality_then_minimum_total_absolute_time_difference",
+    "template_time_field": "origin_epoch_s",
+    "generic_time_field": "trigger_epoch_s",
+    "representative_time_rule": "template_origin_when_present_else_generic_trigger",
+    "candidate_generation_fields_forbidden": [
+      "catalog_association",
+      "nearest_catalog_event_id",
+      "background_catalog_association",
+      "background_catalog_event_id",
+      "family_label"
+    ],
+    "family_assignment": "FORBIDDEN"
+  },
+  "post_union_adjudication": {
+    "order": "after_time_only_union_is_materialized_and_checksummed",
+    "target_region_catalog_role": "known_event_audit_not_family_truth",
+    "broader_catalog_role": "known_regional_arrival_veto_and_audit_only",
+    "regional_veto_action": "retain_in_raw_union_but_exclude_from_uncataloged_local_extension_count",
+    "unassociated_action": "retain_for_blinded_multisensor_adjudication_not_automatically_new",
+    "conflicting_catalog_ids_action": "STOP_and_retain_for_manual_blind_adjudication"
+  },
+  "access_policy": {
+    "allowed_interval_role": "nonblind_development_only",
+    "das_waveform_access": "FORBIDDEN_DURING_NETWORK_UNION_FREEZE",
+    "heldout_waveform_access": "FORBIDDEN",
+    "next_allowed_stage": "independent_DAS_only_development_detector_on_same_nonblind_interval"
+  },
+  "output": {
+    "directory": "outputs/development_network",
+    "time_only_union_csv": "network_candidate_union_time_only.csv",
+    "adjudicated_union_csv": "network_candidate_union_adjudicated.csv",
+    "status_json": "network_union_status.json"
+  }
+}

@@ -27,6 +27,11 @@ Open notebooks/02_network_development_checkpoint.ipynb for the newer
 network-continuous STOP checkpoint. It plots fixed-threshold injection recovery
 and exposes only a non-writing SNR/acceptance sandbox.
 
+Open notebooks/03_network_union_checkpoint.ipynb for the frozen network-union
+checkpoint. It shows the time-only union and post-union catalog audit, and lets
+an advisor vary the cross-branch matching window in memory without changing the
+registered result.
+
 The checkpoint currently records five decisive facts:
 
 1. A 12-event conventional model was frozen before prospective waveform access.
@@ -71,6 +76,24 @@ this STOP when deciding whether that branch should be improved, replaced, or
 retained only as an auxiliary safety net. No DAS or held-out waveform was
 opened.
 
+## Frozen network-union checkpoint
+
+Network-union version 1 preserves both v4 thresholds and the generic SNR-1
+STOP. The template bank is registered as the primary target-sensitive branch;
+the generic trigger is retained as an auxiliary non-template safety net with
+its measured recovery curve. It is not promoted to a passing sensitivity
+branch.
+
+The five branch-level detections become three event groups under an ordered,
+one-to-one, time-only 8-second matching rule. Catalog fields and family labels
+are absent from that grouping step. A separate audit then identifies two known
+local earthquakes and one known regional arrival from event 75120096 near
+Carpinteria. All three rows remain in the raw union; the regional arrival is
+excluded only from an uncataloged-local-extension count. There are zero
+unassociated local candidates in this 50-minute development interval.
+
+This freezes the comparator for independent DAS-only development. It does not
+authorize held-out access or demonstrate held-out network performance.
 
 ## Reproduce compact products
 
@@ -90,9 +113,11 @@ released.
     python -m src.score_deep_named_network
     python -m src.build_checkpoint
     python -m src.run_network_development_detector
+    python -m src.freeze_network_union
     python -m unittest discover -s tests -v
     python ../../run_nb_cells.py notebooks/00_advisor_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/02_network_development_checkpoint.ipynb
+    python ../../run_nb_cells.py notebooks/03_network_union_checkpoint.ipynb
 
 The older clean-room pilot inputs can be rebuilt explicitly when needed:
 
@@ -113,10 +138,16 @@ windows. The advisor notebook does neither by default.
   access order.
 - config/development_detection.json records the nonblind continuous-network
   detector, null, regional-catalog veto, and leakage-safe injection design.
+- config/network_union.json pins all v4 input checksums, declares branch roles,
+  and freezes time-only matching and post-union catalog-adjudication rules.
 - outputs/development_network/status.json preserves the v4 generic-trigger STOP;
   candidate tables and injection_recovery_summary.csv provide its evidence.
   Full-rate scores, miniSEED, and the downloaded catalog cache remain ignored
   local products.
+- outputs/development_network/network_candidate_union_time_only.csv is the
+  catalog-blind event union. network_candidate_union_adjudicated.csv attaches
+  known-event evidence afterward, and network_union_status.json records the
+  development-only access gate.
 - outputs/incremental_value/network_baseline/network_model_frozen.json is the
   version-1 conventional verifier. Its thresholds may not be repaired after
   seeing prospective outcomes.
@@ -154,17 +185,18 @@ stress-drop geometry.
 
 ## Next registered computation
 
-Continue on the frozen nonblind 2025-01-20 04:55--05:45 UTC interval only:
+The network union is now frozen on the nonblind 2025-01-20 04:55--05:45 UTC
+interval. Continue on that same interval only:
 
-1. preserve the v4 generic-trigger SNR 1.0 STOP without threshold repair;
-2. decide whether to improve/replace that generic conventional detector or
-   register it as an auxiliary safety net with its measured recovery curve;
-3. freeze a time-only network candidate-union/deduplication rule and the broader
-   catalog veto;
-4. only then build the independently triggered DAS-only detector on the
-   identical interval, without importing network candidate times; and
-5. freeze DAS null, event, and blinded adjudication rules before opening any of
-   the 12 held-out hours.
+1. register a DAS-only configuration and an access guard that forbids imports
+   of network candidate times, catalog event times, and held-out intervals;
+2. develop candidate generation from continuous DAS data alone, using array
+   coherence and/or DAS template evidence with empirical nulls;
+3. materialize the DAS-only candidate table before comparing it with the frozen
+   network union;
+4. freeze cross-pipeline event matching, blinded adjudication, and matched-FDR
+   rules; and
+5. only then open any of the 12 held-out hours.
 
 A positive DAS result must add independently adjudicated events beyond the full
 network union or improve held-out family resolution. A visually striking record

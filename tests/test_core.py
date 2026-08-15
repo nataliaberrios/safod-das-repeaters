@@ -50,6 +50,11 @@ from src.network_family import (
     classification_summary,
     leave_one_event_out_classification,
 )
+from src.network_union import (
+    adjudicate_time_only_union,
+    build_time_only_union,
+    ordered_time_pairs,
+)
 from src.source_physics import (
     brune_ratio,
     fit_brune_ratio_fixed_egf,
@@ -572,6 +577,111 @@ class CoreTests(unittest.TestCase):
             candidates[0]["station_support_count_at_declared_ratio"], 4
         )
         np.testing.assert_array_equal(score, detected_score)
+
+    def test_network_union_matching_maximizes_pair_count(self) -> None:
+        pairs = ordered_time_pairs(
+            template_times=[0.0, 10.0],
+            generic_times=[6.0, 15.0],
+            maximum_difference_s=6.0,
+        )
+        self.assertEqual(pairs, ((0, 0), (1, 1)))
+
+    def test_network_union_is_catalog_blind_then_adjudicated(self) -> None:
+        template = [
+            {
+                "candidate_id": "template_1",
+                "origin_time": "1970-01-01T00:01:40.000Z",
+                "origin_epoch_s": 100.0,
+                "bank_score": 0.3,
+                "threshold": 0.2,
+                "catalog_association": "within_tolerance",
+                "nearest_catalog_event_id": "local",
+                "nearest_catalog_origin_time": (
+                    "1970-01-01T00:01:40.000Z"
+                ),
+            }
+        ]
+        generic = [
+            {
+                "candidate_id": "generic_1",
+                "trigger_time": "1970-01-01T00:01:42.000Z",
+                "trigger_epoch_s": 102.0,
+                "coincidence_score": 4.0,
+                "threshold": 2.0,
+                "station_support_count_at_declared_ratio": 5,
+                "catalog_association": "within_tolerance",
+                "nearest_catalog_event_id": "local",
+                "nearest_catalog_origin_time": (
+                    "1970-01-01T00:01:40.000Z"
+                ),
+                "background_catalog_association": (
+                    "physically_plausible_known_event_arrival"
+                ),
+                "background_catalog_event_id": "local",
+                "background_catalog_origin_time": (
+                    "1970-01-01T00:01:40.000Z"
+                ),
+                "background_catalog_horizontal_distance_km": 0.1,
+            },
+            {
+                "candidate_id": "generic_2",
+                "trigger_time": "1970-01-01T00:03:20.000Z",
+                "trigger_epoch_s": 200.0,
+                "coincidence_score": 5.0,
+                "threshold": 2.0,
+                "station_support_count_at_declared_ratio": 6,
+                "catalog_association": "outside_tolerance",
+                "nearest_catalog_event_id": "local",
+                "nearest_catalog_origin_time": (
+                    "1970-01-01T00:01:40.000Z"
+                ),
+                "background_catalog_association": (
+                    "physically_plausible_known_event_arrival"
+                ),
+                "background_catalog_event_id": "regional",
+                "background_catalog_origin_time": (
+                    "1970-01-01T00:02:50.000Z"
+                ),
+                "background_catalog_horizontal_distance_km": 100.0,
+            },
+        ]
+        union = build_time_only_union(template, generic, 8.0)
+        mutated_template = copy.deepcopy(template)
+        mutated_generic = copy.deepcopy(generic)
+        mutated_template[0]["nearest_catalog_event_id"] = "changed"
+        mutated_generic[0]["catalog_association"] = "outside_tolerance"
+        mutated_generic[1]["background_catalog_event_id"] = "changed"
+        mutated_union = build_time_only_union(
+            mutated_template, mutated_generic, 8.0
+        )
+        self.assertEqual(union, mutated_union)
+        self.assertTrue(
+            all(row["catalog_fields_used_in_grouping"] == 0 for row in union)
+        )
+        self.assertTrue(
+            all("nearest_catalog_event_id" not in row for row in union)
+        )
+
+        adjudicated = adjudicate_time_only_union(
+            union,
+            template,
+            generic,
+            maximum_target_horizontal_distance_km=0.75,
+        )
+        by_id = {
+            row["union_candidate_id"]: row for row in adjudicated
+        }
+        self.assertEqual(
+            by_id["network_union_dev_0001"]["known_event_class"],
+            "known_target_region_event",
+        )
+        self.assertEqual(
+            by_id["network_union_dev_0002"]["known_event_class"],
+            "known_regional_arrival_outside_target_region",
+        )
+        self.assertTrue(
+            all(row["family_assignment"] == "not_assigned" for row in union)
+        )
 
 
 if __name__ == "__main__":
