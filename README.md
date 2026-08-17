@@ -164,10 +164,31 @@ All 12 held-out hours remained sealed, and held-out network and DAS waveform
 files opened at this stage remain zero.
 
 The next stage is intentionally asymmetric. The full 12-hour network-only
-operating point is now registered with exact thresholds, inputs, QC, and access
-order while held-out waveform access remains zero. Its runner must be
-implemented, tested, committed, and pushed before network access. The complete
-network union must then be frozen before held-out DAS candidate generation.
+operating point is registered with exact thresholds, inputs, QC, and access
+order. Its one-shot runner and failure paths passed 52 project tests and
+reproduced the frozen development counts (two template and three generic
+candidates). Runner commit `08099bea76899f7afc82193eef56b4faf330d947` was
+verified equal to the private remote before the release artifact was written.
+No held-out waveform, catalog row, DAS HDF5, or family label was opened before
+release. This is permission to execute the network baseline, not held-out
+performance. The complete network union must still be frozen before held-out
+DAS candidate generation.
+
+## Held-out network runner release checkpoint
+
+The release hashes the downloader, interval detector, aggregate freezer,
+release helper, SLURM launcher, and regression test file. It preserves the
+fixed template threshold 0.10883580148220062, generic threshold
+1.5937319993972778, and the generic branch's development SNR-1 STOP. It forbids
+held-out null recalibration, threshold repair, cross-interval matching, family
+assignment, and interval reruns after materialization. Cached miniSEED and its
+sidecar are re-hashed, while failed-QC intervals and unavailable sources remain
+explicit rather than being silently dropped.
+
+The next scientific checkpoint is the complete 12-hour network-only time union.
+Only after every interval table and score cache verifies may the catalog-blind
+aggregate be checksummed. Until that happens, catalog adjudication and held-out
+DAS waveform access remain stopped.
 
 ## Reproduce compact products
 
@@ -193,6 +214,11 @@ released.
     python -m src.register_das_v2
     python -m src.run_das_v2_development
     python -m src.register_heldout_network
+    # Commit/push the tested runner; release only succeeds when remote == HEAD.
+    python -m src.release_heldout_network_runner
+    sbatch heldout_network_interval_job.sh
+    # Run only after all 12 array tasks complete successfully.
+    python -m src.freeze_heldout_network_candidates
     python -m src.build_checkpoint
     python -m unittest discover -s tests -v
     python ../../run_nb_cells.py notebooks/00_advisor_checkpoint.ipynb
@@ -252,8 +278,13 @@ windows. The advisor notebook does neither by default.
 - outputs/development_das_v2/ records the pre-held-out registration and the
   exact two-row development replay; it is a tuning audit, not validation.
 - outputs/heldout_v2/registration/ records the zero-waveform-access network
-  registration and a 30-row source inventory for the historical templates (27
-  available waveform/sidecar pairs and three explicit missing sources).
+  registration, a 30-row source inventory for the historical templates (27
+  available waveform/sidecar pairs and three explicit missing sources), and
+  the remotely verified runner release. The release is not a performance
+  result.
+- outputs/heldout_v2/network/ is reserved for the 12 immutable interval
+  products and complete catalog-blind time-only union. It remains empty at the
+  runner-release checkpoint.
 - outputs/incremental_value/network_baseline/network_model_frozen.json is the
   version-1 conventional verifier. Its thresholds may not be repaired after
   seeing prospective outcomes.
@@ -291,22 +322,22 @@ stress-drop geometry.
 
 ## Next registered computation
 
-The 12-interval network-only operating point is registered. It inherits the
-fixed development thresholds (template 0.1088358; generic 1.593732), the same
-ten development-passing templates, strict station/component QC, and the
-8-second time-only union. The generic SNR-1 injection STOP remains explicit.
-Registration opened zero held-out network, catalog, or DAS waveform rows.
+The 12-interval network-only operating point and its runner are now released.
+They inherit the fixed development thresholds (template 0.1088358; generic
+1.593732), the same ten development-passing templates, strict
+station/component QC, and the 8-second time-only union. The generic SNR-1
+injection STOP remains explicit. Registration and release opened zero held-out
+network, catalog, or DAS waveform rows.
 
-Before any held-out network waveform is opened:
+The remaining order is fixed:
 
-1. implement and test the exact multi-interval downloader, fixed-threshold
-   detector, QC ledger, and per-interval time-only union;
-2. commit that implementation and verify its SHA on the private remote;
-3. run both network branches on all 12 hours and retain every candidate and
-   failed-QC interval without repair;
-4. checksum and freeze the complete time-only network union before catalog
-   adjudication and before opening any held-out DAS HDF5; and
-5. only then run frozen DAS v2 independently and compare unique events at the
+1. run both network branches on all 12 hours and retain every candidate,
+   unavailable source, and failed-QC interval without repair;
+2. checksum and freeze the complete time-only network union before catalog
+   adjudication and before opening any held-out DAS HDF5;
+3. audit the immutable network union against known-event catalogs without
+   deleting raw candidates; and
+4. only then run frozen DAS v2 independently and compare unique events at the
    registered operating point.
 
 A positive DAS result must add independently adjudicated events beyond the full

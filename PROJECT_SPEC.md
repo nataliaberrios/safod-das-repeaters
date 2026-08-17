@@ -243,12 +243,16 @@ historical templates, strict QC, and an exact network-first access order. No
 held-out network waveform, catalog row, DAS HDF5, or family label was opened by
 that registration.
 
-Before held-out network access, the multi-interval runner and its failure paths
-must be implemented, tested, committed, and verified on the private remote. The
-runner may then execute both frozen branches on all 12 intervals. It must
+The multi-interval runner and its failure paths are implemented, pass 52 project
+tests, and reproduce the frozen development candidate counts. Commit
+`08099bea76899f7afc82193eef56b4faf330d947` was verified equal to the private
+remote before a release artifact was written. Registration and release opened
+zero held-out network waveform, catalog-event, DAS HDF5, or family-label rows.
+The runner may now execute both frozen branches on all 12 intervals. It must
 preserve the generic branch's development SNR-1 STOP, retain failed-QC intervals
 without relaxing station/component rules, and materialize and checksum the
 complete time-only network union before catalog adjudication or DAS access.
+This release is an implementation checkpoint, not evidence of performance.
 
 Held-out DAS-v2 generation then runs independently of network candidate times,
 catalog times, and family labels. Every v2 candidate is retained before
