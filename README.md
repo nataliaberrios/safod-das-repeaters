@@ -519,3 +519,20 @@ regional-arrival rule, and 12 exact interval queries. The catalog vetoes are
 audit evidence, not family truth. A cataloged earthquake can still be a new
 repeater-family member; a catalog-unassociated candidate still needs
 independent waveform confirmation before it can extend the detection catalog.
+
+## Positive-control and adjudication registration
+
+The next stage is now registered in
+config/heldout_das_adjudication.json. The development detector recovered 2/2
+known local catalog events, with 8/10 and 10/10 strong-block support and score
+ranks 2 and 1. This is a capability sanity check, not a repeater-family recall
+estimate. The published-family reference contains 18 events across four
+families, but the independent exact-ID partition remains STOP because Michel
+M00413/M00414 and Waldhauser--Schaff do not agree.
+
+All 21 heldout DAS-only rows are retained for independent adjudication. The
+protocol requires frozen-network scores, catalog/regional checks, DAS
+artifact/morphology review, waveform review, and interval-level uncertainty.
+Threshold repair, row deletion, matching-window sweeps, and family assignment
+remain forbidden. A positive extension claim requires at least one validated
+local DAS-only event beyond the full network union.

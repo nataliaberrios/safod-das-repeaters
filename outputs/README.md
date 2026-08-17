@@ -75,3 +75,10 @@ v2_candidates_time_only.csv has 22 rows. interval_status.csv and
 candidate_generation_status.json verify 12/12 PASS, all 738 selected files
 read, no repair/sweep/deletion, and zero network/catalog-time or family-label
 access. These are arrival candidates, not adjudicated earthquakes or repeaters.
+
+config/heldout_das_adjudication.json and
+heldout_v2/registration/adjudication_registration_status.json register the next
+stage. Two known local development events are positive controls (2/2 recovery),
+but this is not a family-recall estimate. The 21 heldout DAS-only rows are
+retained for frozen-network scoring, catalog/regional checks, DAS artifact and
+waveform review, and interval uncertainty. No family assignment is allowed.
