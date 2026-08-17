@@ -536,3 +536,11 @@ artifact/morphology review, waveform review, and interval-level uncertainty.
 Threshold repair, row deletion, matching-window sweeps, and family assignment
 remain forbidden. A positive extension claim requires at least one validated
 local DAS-only event beyond the full network union.
+
+## Held-out DAS-only adjudication checkpoint
+
+Open `notebooks/13_heldout_adjudication_waveform_checkpoint.ipynb` for the compact partial adjudication. The fixed generic and template network branches were sampled at all 21 DAS-only times, and the registered broad-regional catalog files were checked without threshold repair or family labels. None of the 21 rows crossed either frozen network threshold or had a cached regional association within 30 seconds.
+
+The targeted DAS review read only the registered raw HDF5 windows and reproduced the frozen DAS preprocessing. All 21 windows had complete finite coverage; the table records score persistence, four-block support duration, spatial support, and a common-mode variance ratio. The raw payload is int32 and has no declared full-scale limit, so saturation is explicitly not assessed. The saved PNG is an automated review aid, not an event classifier.
+
+The scientific state is **PARTIAL / STOP**: no DAS-only row is yet a validated event or catalog extension, no candidate was deleted, and no family was assigned. The next gate is manual waveform/artifact review followed by interval-stratified adjudication.

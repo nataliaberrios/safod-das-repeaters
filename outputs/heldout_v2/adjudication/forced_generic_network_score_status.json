@@ -1,0 +1,54 @@
+{
+  "DAS_artifact_status": "PENDING",
+  "DAS_only_candidate_count": 21,
+  "adjudication_config_sha256": "4303794a56519c71aa69c70e1202f51e796a5e8a32433c67cd73b5d4a17a2586",
+  "catalog_adjudication_status": "PENDING",
+  "comparison_context_sha256": "07297e6eab2e7c3b5c799d0a0250ee7e4dc7e872417caa4da188b506e80d2899",
+  "family_assignments_made": 0,
+  "forced_network_branch": "generic_auxiliary_branch",
+  "forced_network_threshold_repair": false,
+  "forced_network_window_sweep": false,
+  "generated_utc": "2026-08-17T22:52:08Z",
+  "interval_count_scored": 3,
+  "interval_status": [
+    {
+      "DAS_only_candidate_count": 6,
+      "generic_threshold": 1.5937319993972778,
+      "interval_id": "heldout_01",
+      "network_source_count": 3,
+      "network_trace_qc_row_count": 26,
+      "usable_network_component_count": 18,
+      "usable_network_station_count": 6
+    },
+    {
+      "DAS_only_candidate_count": 2,
+      "generic_threshold": 1.5937319993972778,
+      "interval_id": "heldout_03",
+      "network_source_count": 3,
+      "network_trace_qc_row_count": 23,
+      "usable_network_component_count": 19,
+      "usable_network_station_count": 7
+    },
+    {
+      "DAS_only_candidate_count": 13,
+      "generic_threshold": 1.5937319993972778,
+      "interval_id": "heldout_04",
+      "network_source_count": 3,
+      "network_trace_qc_row_count": 24,
+      "usable_network_component_count": 21,
+      "usable_network_station_count": 7
+    }
+  ],
+  "intervals_scored": [
+    "heldout_01",
+    "heldout_03",
+    "heldout_04"
+  ],
+  "next_stage_gate": "PASS_FIXED_TEMPLATE_SCORE_CATALOG_CHECKS_AND_WAVEFORM_REVIEW",
+  "result_sha256": "1e8a58d3de4c53de97ce2c41dbffc39a395acd609342d33d0ac28631a9e0ec8c",
+  "scientific_extension_claim_gate": "STOP",
+  "stage": "heldout_DAS_only_forced_generic_network_score_complete",
+  "status": "PARTIAL",
+  "template_branch_status": "PENDING_FIXED_TEMPLATE_SCORE",
+  "waveform_review_status": "PENDING"
+}

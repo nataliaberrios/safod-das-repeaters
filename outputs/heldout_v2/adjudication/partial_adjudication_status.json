@@ -1,0 +1,23 @@
+{
+  "DAS_artifact_review_status": "PENDING",
+  "DAS_only_candidate_count": 21,
+  "cached_catalog_sha256": {
+    "heldout_01": "6b33d69b8e4063b8f15d11d2b459b21c0d15d25d2e075f40f47903c374681807",
+    "heldout_03": "581b62d3929851ce52d1b54341602dfd33ffbaee09a67582a0eb326ceba5bc37",
+    "heldout_04": "819458d20942c6f21cd6be5fd140f1fd2cacb7fe7c6e4b04f8dd66c816a3c791"
+  },
+  "cached_regional_events_within_30s": 0,
+  "candidate_deletion_performed": false,
+  "catalog_query_mode": "already_cached_broad_regional_products_only_no_new_query",
+  "family_assignments_made": 0,
+  "generated_utc": "2026-08-17T22:56:08Z",
+  "generic_network_threshold_crossings": 0,
+  "next_stage_gate": "PASS_DAS_ARTIFACT_AND_WAVEFORM_REVIEW",
+  "partial_result_sha256": "803dcc4a6d3d35e5f12d2bfb2113601ce99727dd0f9b7b800e2b8c23493ba268",
+  "scientific_extension_claim_gate": "STOP",
+  "stage": "heldout_DAS_only_fixed_network_scores_and_cached_regional_catalog_check_complete",
+  "status": "PARTIAL",
+  "template_network_threshold_crossings": 0,
+  "threshold_repair_performed": false,
+  "waveform_review_status": "PENDING"
+}
