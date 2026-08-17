@@ -16,3 +16,7 @@ cached_continuous/**/*.partial
 # Public source catalogs are reproducibly downloaded and checksum verified.
 cached_catalogs/*.txt
 cached_catalogs/*.partial
+
+# SLURM logs are execution records, not compact scientific products.
+logs/*.out
+logs/*.err
