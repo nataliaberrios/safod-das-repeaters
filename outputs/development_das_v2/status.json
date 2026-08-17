@@ -1,0 +1,46 @@
+{
+  "candidate_table_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/outputs/development_das_v2/candidate_detections.csv",
+  "candidate_table_sha256": "99ceda5130e32382b2e2f5d0129f80a3e67e7fb32d6823ad5cc016ea037713f7",
+  "catalog_event_time_tables_opened_during_replay": 0,
+  "channel_sampling_changed_from_v1": false,
+  "das_v2_config_sha256": "6508d012cfef11f3c8747a16eb4b9eabada3e7200b926659e346f11ab5b569de",
+  "development_replay_regression_status": "PASS_DISCLOSED_2_OF_65",
+  "family_assignments_made": 0,
+  "generated_utc": "2026-08-17T04:53:54Z",
+  "heldout_DAS_HDF5_datasets_opened": 0,
+  "heldout_DAS_HDF5_files_opened": 0,
+  "heldout_DAS_access_gate": "STOP_UNTIL_HELDOUT_NETWORK_UNION_IS_FROZEN",
+  "heldout_interval_tables_opened_during_replay": 0,
+  "heldout_network_access_gate": "STOP_PENDING_TESTED_IMPLEMENTATION_COMMIT_AND_REMOTE_PUSH",
+  "heldout_network_waveform_files_opened": 0,
+  "interpretation": "mechanical_replay_of_disclosed_posthoc_development_tuning_not_independent_validation",
+  "minimum_strong_block_count": 4,
+  "network_candidate_tables_opened_during_replay": 0,
+  "next_stage_gate": "PASS_COMMIT_AND_PUSH_V2_IMPLEMENTATION_BEFORE_HELDOUT_NETWORK_ACCESS",
+  "preprocessing_changed_from_v1": false,
+  "registration_status_sha256": "8ce5567476133f858df8845c0508c2186ede50d10365c2f3e5efa1fbe73cc5a6",
+  "score_threshold_changed_from_v1": false,
+  "stage": "das_v2_development_replay_complete",
+  "status": "PASS",
+  "strong_block_characteristic_ratio": 2.0,
+  "v1_DAS_candidate_table_sha256": "743f93007ec599a0a51400084c0454b1a88e11b6faf9c753d5196ecf12c13e65",
+  "v1_raw_candidate_count": 65,
+  "v2_rejected_candidate_count": 63,
+  "v2_retained_candidate_count": 2,
+  "v2_retained_candidate_ids": [
+    "das_v2_dev_0001",
+    "das_v2_dev_0002"
+  ],
+  "v2_retained_parent_v1_candidate_ids": [
+    "das_generic_dev_0028",
+    "das_generic_dev_0045"
+  ],
+  "v2_retained_strong_block_counts": [
+    8,
+    10
+  ],
+  "v2_retained_v1_score_ranks": [
+    2,
+    1
+  ]
+}

@@ -6,11 +6,11 @@ question:
 > What does near-fault DAS add beyond a fair conventional seismic-network
 > workflow for detecting and assigning SAFOD repeating earthquakes?
 
-The current answer is: **the project is worth pursuing, and the first
-independent continuous-DAS result is promising, but DAS catalog extension is
-not yet demonstrated.** Both known local earthquakes are the two strongest and
-most spatially coherent DAS triggers; the remaining specificity and held-out
-gates still matter.
+The current answer is: **the project is worth pursuing, DAS version 2 is now
+procedurally frozen, but DAS catalog extension is not yet demonstrated.** Both
+known local earthquakes are the two strongest and most spatially coherent DAS
+triggers. A transparently post-hoc four-of-ten-block rule retains those 2 of 65
+development triggers; only held-out performance can show whether it generalizes.
 
 Read PROJECT_SPEC.md before interpreting an output. Fiber distance is not depth
 or source distance, a high waveform correlation is not a family label, and a
@@ -38,7 +38,12 @@ checkpoint. It plots the frozen score and spatial-support separation, summarizes
 the time-only network comparison, and provides non-writing display and match-
 window controls.
 
-The checkpoint currently records seven decisive facts:
+Open notebooks/05_das_v2_freeze_checkpoint.ipynb for the version-2 freeze. It
+checks config and product hashes, shows exactly how 65 v1 triggers become two v2
+candidates, and provides a non-writing support-count sandbox. It does not open
+raw or held-out waveforms.
+
+The checkpoint currently records eight decisive facts:
 
 1. A 12-event conventional model was frozen before prospective waveform access.
 2. All five 2024--2025 routine-catalog proximity candidates fail that frozen
@@ -59,6 +64,9 @@ The checkpoint currently records seven decisive facts:
 7. The independent DAS-only scan recovered both local events at score ranks 1
    and 2 with 8/10 and 10/10 strong blocks, while missing the regional arrival.
    Version 1 retained 65 raw triggers and yielded zero validated extensions.
+8. Version 2 adds only the registered four-of-ten-block gate at the existing
+   ratio of 2. Its development replay retains those two known events and rejects
+   the other 63 v1 triggers. This is disclosed tuning, not held-out validation.
 
 Those facts reshape the work into two linked primary aims:
 
@@ -139,6 +147,27 @@ Version 1 is therefore preserved as promising but not extension-ready. Any hard
 spatial-support gate is a transparently development-tuned version 2 that must be
 frozen before held-out access.
 
+## DAS version-2 freeze checkpoint
+
+Version 2 changes one thing: a v1 candidate must have at least four of the ten
+registered blocks at the already declared characteristic ratio of 2. The v1
+band, channels, STA/LTA, candidate spacing, null seed, 199 null replicates,
+familywise quantile, and interval-specific score threshold are unchanged. Score
+threshold repair, amplitude-selected channels, family labels, and held-out
+feedback are forbidden.
+
+The development replay retains 2 of 65 candidates, with parent v1 ranks 2 and 1
+and strong-block counts 8 and 10. It rejects 63 of 65. Because both labels and
+the support separation were seen before registration, this is a mechanical
+regression check of disclosed post-hoc tuning—not an estimate of specificity.
+All 12 held-out hours remained sealed, and held-out network and DAS waveform
+files opened at this stage remain zero.
+
+The next stage is intentionally asymmetric: run and freeze the full network-only
+union on all 12 held-out intervals first. Only then may held-out DAS candidate
+generation begin, without access to network times, catalog times, or family
+labels.
+
 ## Reproduce compact products
 
 Run from this repository root in the das conda environment. The order preserves
@@ -160,12 +189,15 @@ released.
     python -m src.register_das_development
     python -m src.run_das_development_detector
     python -m src.compare_das_network_development
+    python -m src.register_das_v2
+    python -m src.run_das_v2_development
     python -m src.build_checkpoint
     python -m unittest discover -s tests -v
     python ../../run_nb_cells.py notebooks/00_advisor_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/02_network_development_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/03_network_union_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/04_das_development_checkpoint.ipynb
+    python ../../run_nb_cells.py notebooks/05_das_v2_freeze_checkpoint.ipynb
 
 The older clean-room pilot inputs can be rebuilt explicitly when needed:
 
@@ -194,6 +226,9 @@ windows. The advisor notebook does neither by default.
 - config/das_network_comparison.json pins the raw DAS table and frozen network
   union, then predeclares one-to-one matching, catalog-event deduplication,
   conflict handling, and claim limits before comparison rows are parsed.
+- config/das_v2_validation.json discloses the post-hoc development inputs,
+  freezes the single spatial-support gate, pins every parent checksum, and
+  specifies held-out sequencing and event-level pass criteria.
 - outputs/development_network/status.json preserves the v4 generic-trigger STOP;
   candidate tables and injection_recovery_summary.csv provide its evidence.
   Full-rate scores, miniSEED, and the downloaded catalog cache remain ignored
@@ -209,6 +244,8 @@ windows. The advisor notebook does neither by default.
   DAS-only table. network_comparison_time_only.csv precedes catalog access;
   network_comparison_adjudicated.csv and comparison_status.json preserve the
   cautious post-hoc audit and the held-out STOP.
+- outputs/development_das_v2/ records the pre-held-out registration and the
+  exact two-row development replay; it is a tuning audit, not validation.
 - outputs/incremental_value/network_baseline/network_model_frozen.json is the
   version-1 conventional verifier. Its thresholds may not be repaired after
   seeing prospective outcomes.
@@ -246,20 +283,21 @@ stress-drop geometry.
 
 ## Next registered computation
 
-The network union, raw DAS version 1 table, and post-hoc comparison are now
-frozen on the nonblind 2025-01-20 04:55--05:45 UTC interval. Do not repair or
-delete version 1 rows. Before opening held-out waveforms:
+DAS version 2 and its validation protocol are registered, implemented, tested,
+and replayed on development products. The replay does not release a scientific
+claim. After this checkpoint is committed and verified on the private remote,
+the next allowed computation is:
 
-1. register a version-2 DAS detector that turns broad spatial coherence into an
-   explicit candidate gate; the natural development hypothesis is at least four
-   blocks at the already declared characteristic ratio of 2;
-2. predeclare event-level false-discovery accounting, duplicate-trigger
-   handling, morphology review, and the full network-union comparator;
-3. preserve the 12 held-out hours and their access ledger until that design and
-   implementation are committed; and
-4. then evaluate held-out network-only, DAS-only, and joint results without
-   threshold repair.
+1. register the 12-interval network-only run with exact input hashes and no DAS
+   access;
+2. run both frozen network branches, retain the development SNR-1 warning, and
+   materialize a time-only union on every interval;
+3. checksum and freeze that network union before opening any held-out DAS HDF5;
+4. only then run the frozen DAS-v2 detector independently, write its complete
+   candidate table, and perform time-only cross-pipeline matching; and
+5. attach catalog evidence afterward and evaluate unique-event increment at the
+   frozen event-level operating point with interval uncertainty.
 
 A positive DAS result must add independently adjudicated events beyond the full
-network union or improve held-out family resolution. The top-two development
-ranking justifies the next test; it does not itself pass it.
+network union or improve held-out family resolution. The development two-of-65
+replay justifies the held-out test; it does not itself pass it.

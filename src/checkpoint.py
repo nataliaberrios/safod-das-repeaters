@@ -46,6 +46,9 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
     comparison_config = load_config(
         project / "config" / "das_network_comparison.json"
     )
+    das_v2_config = load_config(
+        project / "config" / "das_v2_validation.json"
+    )
 
     population = _read_json(
         project / "outputs" / "incremental_value" / "population_status.json"
@@ -104,6 +107,22 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
     )
     das_comparison = _read_json(
         project / "outputs" / "development_das" / "comparison_status.json"
+    )
+    das_v2_registration_path = (
+        project
+        / "outputs"
+        / "development_das_v2"
+        / "registration_status.json"
+    )
+    das_v2_registration = _read_json(das_v2_registration_path)
+    das_v2_status = _read_json(
+        project / "outputs" / "development_das_v2" / "status.json"
+    )
+    das_v2_candidate_path = (
+        project
+        / "outputs"
+        / "development_das_v2"
+        / "candidate_detections.csv"
     )
 
     prospective_decisions = _read_csv(
@@ -176,6 +195,22 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
                 / "network_comparison_adjudicated.csv"
             )
         ),
+        "das_v2_registration_config": (
+            das_v2_registration.get("das_v2_config_sha256")
+            == das_v2_config["_config_sha256"]
+        ),
+        "das_v2_replay_config": (
+            das_v2_status.get("das_v2_config_sha256")
+            == das_v2_config["_config_sha256"]
+        ),
+        "das_v2_registration_status": (
+            das_v2_status.get("registration_status_sha256")
+            == sha256_file(das_v2_registration_path)
+        ),
+        "das_v2_candidate_table": (
+            das_v2_status.get("candidate_table_sha256")
+            == sha256_file(das_v2_candidate_path)
+        ),
     }
     provenance_gate = PASS if all(hash_checks.values()) else STOP
 
@@ -220,8 +255,8 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
                 hours=population["contiguous_coverage_hours"],
             ),
             "next_gate": (
-                "preserve the 12 held-out hours until a version-2 DAS coherence "
-                "rule and event-level validation protocol are frozen"
+                "run and freeze the network-only union on all 12 held-out "
+                "intervals before opening any held-out DAS waveform"
             ),
         },
         {
@@ -329,18 +364,34 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             ),
         },
         {
+            "branch": "DAS version-2 procedural freeze",
+            "status": PASS,
+            "evidence": (
+                "the disclosed development-tuned gate retains {retained} of "
+                "{raw} v1 triggers using at least {minimum} of 10 blocks at "
+                "the existing ratio of 2; all 12 held-out hours remained sealed"
+            ).format(
+                retained=das_v2_status["v2_retained_candidate_count"],
+                raw=das_v2_status["v1_raw_candidate_count"],
+                minimum=das_v2_status["minimum_strong_block_count"],
+            ),
+            "next_gate": (
+                "push the tested implementation, then run and freeze the "
+                "network-only union on all held-out intervals before DAS access"
+            ),
+        },
+        {
             "branch": "DAS detection/catalog extension",
             "status": STOP,
             "evidence": (
                 "the independent 50-minute DAS scan recovered 2/2 known local "
                 "network events as score ranks 1 and 2 with 8/10 and 10/10 "
-                "strong blocks, but produced 65 raw triggers and zero validated "
-                "catalog extensions"
+                "strong blocks; v2 retains those 2 of 65 by a transparently "
+                "post-hoc development rule, with zero validated extensions"
             ),
             "next_gate": (
-                "freeze a development-tuned spatial-coherence version 2, then "
-                "measure held-out event recovery and false discoveries against "
-                "the full frozen network union"
+                "freeze the held-out network-only union first, then measure "
+                "held-out DAS recovery and false discoveries without repair"
             ),
         },
         {
@@ -423,7 +474,23 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             ),
         },
         {
-            "name": "6. Sealed held-out comparison",
+            "name": "6. DAS version-2 procedural freeze",
+            "status": "MET_POSTHOC_DEVELOPMENT_TUNING_DISCLOSED",
+            "criterion": (
+                "single four-of-ten spatial-support gate registered, tested, "
+                "and replayed while held-out waveform access remained zero"
+            ),
+        },
+        {
+            "name": "7. Held-out network-only baseline",
+            "status": "READY_AFTER_REMOTE_PUSH",
+            "criterion": (
+                "run all 12 intervals using frozen network branches and write "
+                "the time-only union before catalog adjudication or DAS access"
+            ),
+        },
+        {
+            "name": "8. Sealed held-out DAS comparison",
             "status": "SEALED_NOT_RUN",
             "criterion": (
                 "positive interval-bootstrap lower bound for DAS-only or joint "
@@ -431,7 +498,7 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             ),
         },
         {
-            "name": "7. Stress drop and creep rate",
+            "name": "9. Stress drop and creep rate",
             "status": "STOP",
             "criterion": (
                 "geometry, response, EGF/corner, completeness, recurrence, and "
@@ -441,15 +508,16 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
     ]
 
     return {
-        "project_decision": "PROCEED_TO_REGISTER_V2_VALIDATION",
+        "project_decision": "PROCEED_TO_HELDOUT_NETWORK_BASELINE_AFTER_PUSH",
         "decision_basis": (
             "The independent DAS-only development scan recovered both known "
             "local Parkfield earthquakes as the two strongest and most spatially "
             "coherent triggers while missing the network's distant regional "
-            "arrival. That is promising evidence for near-fiber selectivity. "
-            "Version 1 still produced many weak triggers, only two local positive "
-            "examples were available, and no DAS-only catalog extension or "
-            "family assignment has been validated."
+            "arrival. A disclosed version-2 support gate mechanically retains "
+            "those two and rejects the other 63 development triggers without "
+            "changing the v1 score threshold. This is post-hoc tuning, not "
+            "validation; no DAS-only catalog extension or family assignment has "
+            "yet been demonstrated."
         ),
         "project_shape": [
             {
@@ -468,7 +536,7 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
                     "same-interval network-only detector?"
                 ),
                 "current_status": (
-                    "PROMISING_DEVELOPMENT_V1_NOT_CATALOG_EXTENSION"
+                    "V2_FROZEN_HELDOUT_NETWORK_BASELINE_NEXT"
                 ),
             },
             {
@@ -481,9 +549,8 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             },
         ],
         "highest_value_next_analysis": (
-            "freeze a version-2 DAS spatial-coherence gate transparently tuned "
-            "on the completed development interval, then execute a sealed "
-            "event-level comparison against the full network union"
+            "run and freeze the network-only detector and time-only union on "
+            "all 12 held-out hours before opening any held-out DAS waveform"
         ),
         "highest_value_next_observation": (
             "another independently network-classified event on the same deep "
@@ -550,6 +617,15 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             "development_DAS_validated_catalog_extensions": das_comparison[
                 "eligible_catalog_extension_candidate_count"
             ],
+            "development_DAS_v2_retained_triggers": das_v2_status[
+                "v2_retained_candidate_count"
+            ],
+            "development_DAS_v2_rejected_triggers": das_v2_status[
+                "v2_rejected_candidate_count"
+            ],
+            "development_DAS_v2_minimum_strong_blocks": das_v2_status[
+                "minimum_strong_block_count"
+            ],
         },
         "guardrails": {
             "network_scoring_das_waveforms_opened": 0,
@@ -559,10 +635,15 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
                 "forbidden; create version 2 with a new split"
             ),
             "continuous_detection_status": (
-                "DEVELOPMENT_COMPLETE_V1_LOCAL_RANKING_PROMISING_"
-                "SPECIFICITY_NOT_READY"
+                "V2_PROCEDURALLY_FROZEN_POSTHOC_DEVELOPMENT_TUNING_"
+                "HELDOUT_NOT_RUN"
             ),
-            "heldout_access_gate": das_comparison["heldout_access_gate"],
+            "heldout_network_access_gate": das_v2_status[
+                "heldout_network_access_gate"
+            ],
+            "heldout_DAS_access_gate": das_v2_status[
+                "heldout_DAS_access_gate"
+            ],
         },
         "config_sha256": incremental_hash,
         "pilot_config_sha256": pilot_config["_config_sha256"],

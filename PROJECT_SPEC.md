@@ -160,6 +160,14 @@ there are only two local positives, 54 catalog-unassociated raw triggers, zero
 validated DAS-only extensions, and no family assignments. Version 1 is not
 extension-ready and may not be repaired retrospectively.
 
+DAS version 2 was registered after that comparison and before any held-out
+waveform access. It adds only a minimum support of four of ten blocks at the
+existing characteristic ratio of 2; every v1 preprocessing, channel, timing,
+null, and score-threshold setting is inherited. Its disclosed development
+replay retains the two known local events and rejects the other 63 v1 triggers.
+That result verifies implementation fidelity only. It is post-hoc tuning and
+provides no independent specificity estimate.
+
 ## Primary metrics and pass gates
 
 | Claim | Primary comparison | Pass requirement |
@@ -227,15 +235,20 @@ direction, and stress-drop geometry are not.
 
 ## Immediate next access constraint
 
-The network union, raw DAS version 1 table, time-only comparison, and catalog
-audit are frozen for the nonblind 50-minute interval. The next allowed design
-step is a version-2 DAS detector that makes broad spatial coherence an explicit
-candidate gate. Requiring at least four blocks at the already declared
-characteristic ratio of 2 is the natural development hypothesis, but it is
-post-hoc tuning and must be labeled as such.
+The network union, immutable 65-row DAS-v1 table, comparison audit, and DAS-v2
+rule are frozen for the nonblind 50-minute interval. Version 2 is implemented
+and regression-tested, while all 12 held-out hours remain sealed. Its remote
+checkpoint must be verified before held-out network waveform access begins.
 
-Before any held-out waveform is opened, version 2, duplicate-trigger handling,
-waveform/spatial morphology adjudication, event-level false-discovery
-accounting, and the full network-union comparator must be specified, tested, and
-committed. The 12 held-out hours remain sealed. Version 1's 65 rows and null
-threshold remain immutable, and no held-out outcome may repair version 2.
+The next allowed waveform stage is network-only. Run both frozen network
+branches on all 12 intervals, preserve the generic branch's development SNR-1
+warning, and materialize and checksum each time-only network union before any
+held-out DAS HDF5 is opened. Catalog evidence may be attached only after that
+network table is frozen.
+
+Held-out DAS-v2 generation then runs independently of network candidate times,
+catalog times, and family labels. Every v2 candidate is retained before
+cross-pipeline comparison. No held-out result may repair the v1 score threshold,
+the four-block support gate, or any detector setting. Scientific extension
+remains STOP until independent adjudication and event-level uncertainty show an
+increment beyond the full network union.

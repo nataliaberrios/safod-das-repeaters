@@ -13,3 +13,9 @@ gate.
 development_das/manifest_selection.csv contains the manifest-only, padded
 development file selection. development_das/registration_status.json records
 the pre-waveform access gate; it is not detector performance.
+
+development_das_v2/registration_status.json proves that the four-of-ten-block
+rule and held-out protocol were registered while all held-out waveforms were
+sealed. candidate_detections.csv is the exact two-row replay from the immutable
+65-row v1 table, and status.json labels that replay as post-hoc development
+tuning rather than validation.
