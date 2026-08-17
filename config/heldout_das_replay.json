@@ -1,0 +1,218 @@
+{
+  "design_version": "heldout_das_v2_replay_v1",
+  "created_utc": "2026-08-17T07:11:41Z",
+  "registration_state": "SPECIFIED_AFTER_REMOTE_CATALOG_CHECKPOINT_BEFORE_ANY_HELDOUT_DAS_HDF5_ACCESS",
+  "purpose": "independently_scan_all_12_manifest_selected_heldout_intervals_with_the_frozen_DAS_v1_detector_and_disclosed_v2_support_gate_before_any_network_or_catalog_time_comparison",
+  "release_anchor": {
+    "repository": "nataliaberrios/safod-das-repeaters",
+    "repository_visibility": "private",
+    "branch": "agent/freeze-incremental-value-checkpoint",
+    "catalog_audit_checkpoint_commit_sha": "2f2a4c900ee33d8d0e0924b57a09b632e966292a",
+    "remote_branch_sha_verified_equal_before_registration": true,
+    "draft_pull_request": 1
+  },
+  "frozen_inputs": {
+    "parent_config": {
+      "path": "config/incremental_value.json",
+      "sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32"
+    },
+    "DAS_v1_config": {
+      "path": "config/das_development.json",
+      "sha256": "ca6db7eba41278712520539046a5a5ae6aa34f6340a85c6b0aaed7fe00a54094"
+    },
+    "DAS_v2_config": {
+      "path": "config/das_v2_validation.json",
+      "sha256": "6508d012cfef11f3c8747a16eb4b9eabada3e7200b926659e346f11ab5b569de"
+    },
+    "DAS_v2_development_status": {
+      "path": "outputs/development_das_v2/status.json",
+      "sha256": "5f5c9ec2b93f49e5626467b43935ced7aa7a92a2f78646d1617f81a9367798e4"
+    },
+    "heldout_intervals": {
+      "path": "outputs/incremental_value/heldout_intervals.csv",
+      "sha256": "5ef432d9504a300dd379331cf89c686503136267db17fa00815eeb31f208b9b9"
+    },
+    "population_status": {
+      "path": "outputs/incremental_value/population_status.json",
+      "sha256": "ee7b4fff5cc9a1ccec4b63a1fb020e1c5e6533ed229daecb77b84bb9b877fc81"
+    },
+    "DAS_manifest": {
+      "path": "/oak/stanford/groups/ettore88/data/SAFOD/SAFODAS1-harddrive-transfer/SAFOD_2024_2025.csv",
+      "sha256": "686fb5d055c44fadd67573de12619ec0fcbc40488d23832c463cdec86d4030a1"
+    },
+    "heldout_network_config": {
+      "path": "config/heldout_network_validation.json",
+      "sha256": "2ef3a0c994ef8ec9b0856b74d87ca94c5b54f086ad581f39c71088fb0083ef77"
+    },
+    "network_candidate_generation_status": {
+      "path": "outputs/heldout_v2/network/candidate_generation_status.json",
+      "sha256": "9b69377c85704835066fcf9ba59e4d2f2bdaef13c67e9d0a1653fe0d29479081"
+    },
+    "heldout_catalog_config": {
+      "path": "config/heldout_catalog_audit.json",
+      "sha256": "998a1571bbe168c8ba5d0a126cdc15633b7f4f5e7c58d5d7953273b102a6600d"
+    },
+    "catalog_audit_status": {
+      "path": "outputs/heldout_v2/network_catalog_audit/network_catalog_audit_status.json",
+      "sha256": "8a4e44c7a4673cad61becd5ab8f9c565123054933af938957ee6bcc08e20c172"
+    }
+  },
+  "heldout_population": {
+    "interval_count": 12,
+    "interval_duration_s": 3600.0,
+    "total_duration_h": 12.0,
+    "filter_padding_s": 15.0,
+    "required_analysis_status_at_registration": "SEALED_NOT_RUN",
+    "required_selection_inputs": "DAS_manifest_only_blind_to_catalog_and_waveform_scores",
+    "required_selection_seed": 20260815,
+    "interval_ids": [
+      "heldout_01",
+      "heldout_02",
+      "heldout_03",
+      "heldout_04",
+      "heldout_05",
+      "heldout_06",
+      "heldout_07",
+      "heldout_08",
+      "heldout_09",
+      "heldout_10",
+      "heldout_11",
+      "heldout_12"
+    ]
+  },
+  "manifest": {
+    "path": "/oak/stanford/groups/ettore88/data/SAFOD/SAFODAS1-harddrive-transfer/SAFOD_2024_2025.csv",
+    "sha256": "686fb5d055c44fadd67573de12619ec0fcbc40488d23832c463cdec86d4030a1",
+    "path_rewrites": [
+      {
+        "manifest_prefix": "/oak/stanford/groups/ettore88/data/SAFODAS1-harddrive-transfer",
+        "filesystem_prefix": "/oak/stanford/groups/ettore88/data/SAFOD/SAFODAS1-harddrive-transfer"
+      }
+    ],
+    "primary_configuration": {
+      "sample_rate_hz": 500.0,
+      "channel_count": 900,
+      "gauge_length_m": 16.335237503051758
+    },
+    "maximum_internal_gap_s": 0.01,
+    "selection_role": "interval_and_manifest_acquisition_metadata_only",
+    "selection_allowed_fields": [
+      "interval_start_and_end",
+      "manifest_start_and_end",
+      "sample_rate_hz",
+      "channel_count",
+      "gauge_length_m",
+      "path_existence",
+      "file_size_bytes"
+    ],
+    "HDF5_header_or_dataset_access_during_registration": "FORBIDDEN"
+  },
+  "detector_inheritance": {
+    "DAS_v1_preprocessing": "inherit_config_das_development_exactly",
+    "DAS_v1_channel_sampling": "inherit_config_das_development_exactly",
+    "DAS_v1_channel_QC": "inherit_config_das_development_exactly",
+    "DAS_v1_characteristic_function": "inherit_config_das_development_exactly",
+    "DAS_v1_null_method": "inherit_config_das_development_exactly",
+    "DAS_v1_null_random_seed": 20260819,
+    "DAS_v1_null_replicate_count": 199,
+    "DAS_v1_null_familywise_quantile": 0.95,
+    "per_interval_threshold_definition": "higher_95_percent_quantile_of_199_frozen_seed_independent_block_circular_shift_maxima",
+    "threshold_recalibration_or_repair_after_review": "FORBIDDEN",
+    "minimum_candidate_separation_s": 8.0,
+    "DAS_v2_strong_block_characteristic_ratio": 2.0,
+    "DAS_v2_minimum_strong_block_count": 4,
+    "DAS_v2_total_registered_block_count": 10,
+    "DAS_v2_threshold_or_support_sweep": "FORBIDDEN",
+    "candidate_time_meaning": "DAS_energy_arrival_not_origin_time",
+    "family_assignment": "FORBIDDEN"
+  },
+  "candidate_materialization": {
+    "scan_scope": "every_sample_of_all_12_complete_intervals_plus_fixed_filter_padding",
+    "waveform_window_selection_from_network_or_catalog_times": "FORBIDDEN",
+    "base_v1_table": "retain_every_local_peak_at_or_above_its_interval_specific_registered_null_threshold",
+    "v2_table": "retain_every_base_v1_row_with_at_least_4_of_10_blocks_at_characteristic_ratio_2",
+    "base_candidate_deletion_after_review": "FORBIDDEN",
+    "v2_candidate_deletion_after_review": "FORBIDDEN",
+    "materialization_order": "write_and_checksum_all_12_base_v1_and_v2_DAS_candidate_tables_before_opening_any_network_candidate_catalog_association_or_family_label_table",
+    "interval_failure_policy": "STOP_complete_freeze_requires_12_of_12_PASS",
+    "cross_interval_deduplication": "FORBIDDEN_intervals_do_not_overlap",
+    "family_assignment": "FORBIDDEN"
+  },
+  "independence_guards": {
+    "candidate_generation_allowed_inputs": [
+      "config/heldout_das_replay.json",
+      "config/das_development.json",
+      "config/das_v2_validation.json",
+      "outputs/heldout_v2/registration/das_manifest_selection.csv",
+      "outputs/heldout_v2/registration/das_registration_status.json",
+      "selected_heldout_raw_DAS_HDF5_files"
+    ],
+    "candidate_generation_forbidden_inputs": [
+      "outputs/heldout_v2/network/network_union_time_only.csv",
+      "outputs/heldout_v2/network/template_candidates_time_only.csv",
+      "outputs/heldout_v2/network/generic_candidates_time_only.csv",
+      "outputs/heldout_v2/network_catalog_audit/network_union_adjudicated.csv",
+      "outputs/heldout_v2/network_catalog_audit/network_evaluation_units.csv",
+      "outputs/heldout_v2/network_catalog_audit/target_catalog_associations.csv",
+      "outputs/heldout_v2/network_catalog_audit/broader_catalog_associations.csv",
+      "outputs/incremental_value/ncedc_archive_catalog.csv",
+      "cached_catalogs",
+      "network_or_catalog_candidate_times",
+      "family_labels"
+    ],
+    "candidate_generation_forbidden_modules": [
+      "src.network_continuous_detection",
+      "src.network_union",
+      "src.catalog",
+      "src.background_catalog",
+      "src.heldout_catalog_access"
+    ],
+    "network_candidate_time_fields_read_before_DAS_freeze": 0,
+    "catalog_event_time_fields_read_before_DAS_freeze": 0,
+    "family_label_rows_read_before_DAS_freeze": 0,
+    "comparison_order": "materialize_and_checksum_complete_DAS_candidate_tables_before_opening_any_forbidden_input"
+  },
+  "post_DAS_freeze_comparison": {
+    "status": "FORBIDDEN_UNTIL_COMPLETE_DAS_CANDIDATE_TABLES_AND_STATUS_ARE_WRITTEN_AND_CHECKSUMMED",
+    "time_only_matching_window_s": 8.0,
+    "matching_algorithm": "ordered_one_to_one_maximum_cardinality_then_minimum_total_absolute_time_difference_within_interval",
+    "retain_unmatched_DAS_and_network_rows": true,
+    "DAS_only_interpretation": "not_an_earthquake_or_catalog_extension_until_independently_adjudicated",
+    "cataloged_event_can_extend_repeater_family": true,
+    "family_assignment": "separate_later_registered_stage"
+  },
+  "registration_access_ledger": {
+    "heldout_interval_metadata_rows_opened": 12,
+    "DAS_manifest_rows_opened": 392095,
+    "DAS_primary_manifest_records_expected": 378050,
+    "network_stage_status_files_opened": 1,
+    "catalog_stage_status_files_opened": 1,
+    "network_candidate_table_rows_opened": 0,
+    "catalog_association_table_rows_opened": 0,
+    "network_or_catalog_candidate_time_fields_read": 0,
+    "heldout_DAS_HDF5_files_stat_checked": "determined_by_registrar",
+    "heldout_DAS_HDF5_files_opened": 0,
+    "heldout_DAS_HDF5_headers_opened": 0,
+    "heldout_DAS_HDF5_datasets_opened": 0,
+    "heldout_family_label_rows_opened": 0
+  },
+  "output": {
+    "registration_directory": "outputs/heldout_v2/registration",
+    "manifest_selection_csv": "das_manifest_selection.csv",
+    "interval_selection_csv": "das_interval_selection.csv",
+    "registration_status_json": "das_registration_status.json",
+    "runner_release_json": "das_runner_release.json",
+    "DAS_directory": "outputs/heldout_v2/das",
+    "base_v1_candidate_csv": "base_v1_candidates_time_only.csv",
+    "v2_candidate_csv": "v2_candidates_time_only.csv",
+    "interval_status_csv": "interval_status.csv",
+    "candidate_generation_status_json": "candidate_generation_status.json"
+  },
+  "access_gate": {
+    "next_allowed_stage": "IMPLEMENT_TEST_COMMIT_PUSH_AND_REMOTE_RELEASE_HELDOUT_DAS_RUNNER",
+    "heldout_DAS_waveform_access": "STOP_UNTIL_RUNNER_IMPLEMENTATION_AND_TESTS_ARE_COMMITTED_AND_REMOTE_PUSH_VERIFIED",
+    "network_or_catalog_candidate_time_access": "STOP_UNTIL_COMPLETE_DAS_CANDIDATE_TABLES_ARE_FROZEN",
+    "heldout_family_label_access": "FORBIDDEN",
+    "candidate_family_assignment": "FORBIDDEN"
+  }
+}

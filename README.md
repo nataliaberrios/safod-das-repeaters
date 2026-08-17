@@ -55,7 +55,12 @@ post-union catalog audit. It proves all 33 rows were retained, shows the five
 known earthquakes explaining six triggers, separates the 27 unresolved
 candidates by branch, and exposes only non-writing display filters.
 
-The checkpoint currently records nine decisive facts:
+Open notebooks/08_heldout_das_registration_checkpoint.ipynb for the independent
+held-out DAS preregistration. It verifies the manifest-selection hashes, shows
+the 61--62 files and byte footprint registered for each interval, and provides
+display-only interval/file controls. It opens no HDF5 file or comparison table.
+
+The checkpoint currently records eleven decisive facts:
 
 1. A 12-event conventional model was frozen before prospective waveform access.
 2. All five 2024--2025 routine-catalog proximity candidates fail that frozen
@@ -81,8 +86,14 @@ The checkpoint currently records nine decisive facts:
    the other 63 v1 triggers. This is disclosed tuning, not held-out validation.
 9. The frozen 12-hour network scan has 12 template and 21 auxiliary generic
    candidates, zero cross-branch pairs within 8 seconds, and 33 time-only union
-   rows. All intervals passed fixed QC; 35/36 sources were available. These rows
-   remain unadjudicated and are not yet earthquake or repeater detections.
+   rows. All intervals passed fixed QC; 35/36 sources were available.
+10. The frozen catalog audit retains all 33 rows as 32 event units. Five known
+    earthquakes explain six triggers; 12 template-only and 15 generic triggers
+    remain catalog unassociated, not automatically new events or repeaters.
+11. Manifest-only DAS preregistration selected 738 distinct files (26.0 GB)
+    across all 12 padded intervals. No HDF5 header/dataset, comparison time, or
+    family label was opened; waveform access remains locked pending runner
+    implementation, tests, commit, push, and remote release.
 
 Those facts reshape the work into two linked primary aims:
 
@@ -359,14 +370,17 @@ The full 12-hour network comparator and catalog audit are now immutable. The 33
 raw rows become 32 event-level units: six rows are explained by five cataloged
 earthquakes, while 12 template-only and 15 generic candidates remain catalog
 unassociated. No row was deleted or changed, no catalog conflict occurred, and
-no family label or DAS HDF5 file was opened. The next stage is a separately
-registered, independently triggered held-out DAS-v2 run.
+no family label or DAS HDF5 file was opened. The independently triggered
+held-out DAS-v2 scan is now separately registered: all 12 padded intervals map
+to 738 distinct manifest files (26,026,552,059 bytes), but no HDF5 header or
+dataset has yet been opened.
 
 The remaining order is fixed:
 
-1. register the held-out DAS-v2 replay implementation and keep it blind to
-   network candidate times, catalog times, and family labels during generation;
-2. materialize every DAS-v2 candidate before cross-pipeline matching; and
+1. implement and test the fail-closed held-out DAS runner, then commit, push,
+   and remotely release it before waveform access;
+2. scan all 12 complete intervals and materialize/checksum both every base-v1
+   candidate and the frozen four-of-ten v2 subset before comparison; and
 3. compare unique adjudicated events with interval-level uncertainty and the
    generic branch's development STOP retained.
 

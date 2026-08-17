@@ -264,12 +264,19 @@ rows comprise 12 template-only catalog misses for which a broad arrival veto is
 not applicable and 15 generic candidates with no plausible registered catalog
 arrival. None is automatically a new earthquake or repeater. No catalog
 conflict, family assignment, network-waveform read, or DAS HDF5 read occurred.
-The next permission gate is a separately registered independent DAS-v2 replay.
+The independent DAS-v2 replay is now separately preregistered. Manifest times,
+acquisition configuration, path existence, and file size alone selected 738
+distinct files (26,026,552,059 bytes) covering all 12 intervals plus 15 s filter
+padding. The maximum manifest gap is 0.002 s, below the frozen 0.01 s limit. No
+HDF5 file, header, or dataset; network/catalog candidate time; association row;
+or family label was opened during registration.
 
 Held-out DAS-v2 generation must still run independently of network candidate
 times, catalog times, and family labels. Every v2 candidate must be materialized
-before cross-pipeline comparison. No held-out result may repair either network
-threshold, the v1 DAS score threshold, the four-block support gate, or any
-preprocessing setting. Scientific extension remains STOP until independent
-adjudication and interval-level uncertainty show an increment beyond the full
-network union.
+before cross-pipeline comparison, and every base-v1 threshold candidate must be
+retained so the v2 filter is auditable. Waveform access remains STOP until the
+fail-closed runner and tests are committed, pushed, and remotely released. No
+held-out result may repair either network threshold, the per-interval registered
+v1 null rule, the four-block support gate, or any preprocessing setting.
+Scientific extension remains STOP until independent adjudication and
+interval-level uncertainty show an increment beyond the full network union.

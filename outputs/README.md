@@ -32,6 +32,13 @@ and zero catalog-event-row/DAS/family-label access. The accompanying
 catalog_audit_query_manifest.csv pins one broader NCSS URL per held-out interval;
 it is a pre-access contract, not a catalog-audit result.
 
+heldout_v2/registration/das_registration_status.json records the independent
+held-out DAS access gate. das_manifest_selection.csv pins 738 distinct files
+selected from interval and manifest metadata only; das_interval_selection.csv
+records complete padded coverage, 61--62 files per interval, and the observed
+gap/byte footprint. These are preregistration products, not waveform reads or
+detector results: every HDF5/header/dataset and comparison-time counter is zero.
+
 heldout_v2/network_catalog_audit/ contains the frozen catalog-only result. The
 adjudicated table preserves all 33 union rows byte-for-field, while
 network_evaluation_units.csv records 32 event units. Five known earthquakes
