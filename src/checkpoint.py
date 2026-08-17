@@ -49,6 +49,9 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
     das_v2_config = load_config(
         project / "config" / "das_v2_validation.json"
     )
+    heldout_network_config = load_config(
+        project / "config" / "heldout_network_validation.json"
+    )
 
     population = _read_json(
         project / "outputs" / "incremental_value" / "population_status.json"
@@ -123,6 +126,23 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
         / "outputs"
         / "development_das_v2"
         / "candidate_detections.csv"
+    )
+    heldout_network_registration_path = (
+        project
+        / "outputs"
+        / "heldout_v2"
+        / "registration"
+        / "network_registration_status.json"
+    )
+    heldout_network_registration = _read_json(
+        heldout_network_registration_path
+    )
+    heldout_template_inventory_path = (
+        project
+        / "outputs"
+        / "heldout_v2"
+        / "registration"
+        / "network_template_input_inventory.csv"
     )
 
     prospective_decisions = _read_csv(
@@ -210,6 +230,18 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
         "das_v2_candidate_table": (
             das_v2_status.get("candidate_table_sha256")
             == sha256_file(das_v2_candidate_path)
+        ),
+        "heldout_network_registration_config": (
+            heldout_network_registration.get(
+                "heldout_network_config_sha256"
+            )
+            == heldout_network_config["_config_sha256"]
+        ),
+        "heldout_network_template_inventory": (
+            heldout_network_registration.get(
+                "historical_template_inventory_sha256"
+            )
+            == sha256_file(heldout_template_inventory_path)
         ),
     }
     provenance_gate = PASS if all(hash_checks.values()) else STOP
@@ -376,8 +408,29 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
                 minimum=das_v2_status["minimum_strong_block_count"],
             ),
             "next_gate": (
-                "push the tested implementation, then run and freeze the "
-                "network-only union on all held-out intervals before DAS access"
+                "preserve the frozen v2 rule while the registered network-first "
+                "held-out baseline is implemented and executed"
+            ),
+        },
+        {
+            "branch": "Held-out network-only registration",
+            "status": PASS,
+            "evidence": (
+                "all {hours:.0f} held-out hours were registered with fixed "
+                "template/generic thresholds and {available} historical "
+                "template files; held-out network, catalog, and DAS access "
+                "remained zero"
+            ).format(
+                hours=heldout_network_registration[
+                    "heldout_total_duration_h"
+                ],
+                available=heldout_network_registration[
+                    "historical_template_available_waveform_count"
+                ],
+            ),
+            "next_gate": (
+                "implement, test, commit, and push the exact network runner "
+                "before opening held-out network waveforms"
             ),
         },
         {
@@ -483,7 +536,7 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
         },
         {
             "name": "7. Held-out network-only baseline",
-            "status": "READY_AFTER_REMOTE_PUSH",
+            "status": "REGISTERED_RUNNER_IMPLEMENTATION_NEXT",
             "criterion": (
                 "run all 12 intervals using frozen network branches and write "
                 "the time-only union before catalog adjudication or DAS access"
@@ -508,7 +561,7 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
     ]
 
     return {
-        "project_decision": "PROCEED_TO_HELDOUT_NETWORK_BASELINE_AFTER_PUSH",
+        "project_decision": "IMPLEMENT_AND_PUSH_HELDOUT_NETWORK_RUNNER",
         "decision_basis": (
             "The independent DAS-only development scan recovered both known "
             "local Parkfield earthquakes as the two strongest and most spatially "
@@ -517,7 +570,8 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             "those two and rejects the other 63 development triggers without "
             "changing the v1 score threshold. This is post-hoc tuning, not "
             "validation; no DAS-only catalog extension or family assignment has "
-            "yet been demonstrated."
+            "yet been demonstrated. The network-first held-out operating point "
+            "is now registered with zero held-out waveform or catalog access."
         ),
         "project_shape": [
             {
@@ -536,7 +590,7 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
                     "same-interval network-only detector?"
                 ),
                 "current_status": (
-                    "V2_FROZEN_HELDOUT_NETWORK_BASELINE_NEXT"
+                    "HELDOUT_NETWORK_REGISTERED_RUNNER_IMPLEMENTATION_NEXT"
                 ),
             },
             {
@@ -549,8 +603,8 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             },
         ],
         "highest_value_next_analysis": (
-            "run and freeze the network-only detector and time-only union on "
-            "all 12 held-out hours before opening any held-out DAS waveform"
+            "implement, test, commit, and push the registered held-out network "
+            "runner, then execute all 12 hours before any held-out DAS access"
         ),
         "highest_value_next_observation": (
             "another independently network-classified event on the same deep "
@@ -626,6 +680,20 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             "development_DAS_v2_minimum_strong_blocks": das_v2_status[
                 "minimum_strong_block_count"
             ],
+            "heldout_network_registered_hours": (
+                heldout_network_registration["heldout_total_duration_h"]
+            ),
+            "heldout_network_registered_template_threshold": (
+                heldout_network_registration["template_threshold"]
+            ),
+            "heldout_network_registered_generic_threshold": (
+                heldout_network_registration["generic_threshold"]
+            ),
+            "heldout_network_registered_template_files": (
+                heldout_network_registration[
+                    "historical_template_available_waveform_count"
+                ]
+            ),
         },
         "guardrails": {
             "network_scoring_das_waveforms_opened": 0,
@@ -635,14 +703,16 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
                 "forbidden; create version 2 with a new split"
             ),
             "continuous_detection_status": (
-                "V2_PROCEDURALLY_FROZEN_POSTHOC_DEVELOPMENT_TUNING_"
-                "HELDOUT_NOT_RUN"
+                "HELDOUT_NETWORK_REGISTERED_RUNNER_IMPLEMENTATION_PENDING"
             ),
-            "heldout_network_access_gate": das_v2_status[
+            "heldout_network_access_gate": heldout_network_registration[
                 "heldout_network_access_gate"
             ],
-            "heldout_DAS_access_gate": das_v2_status[
+            "heldout_DAS_access_gate": heldout_network_registration[
                 "heldout_DAS_access_gate"
+            ],
+            "heldout_catalog_access_gate": heldout_network_registration[
+                "heldout_catalog_access_gate"
             ],
         },
         "config_sha256": incremental_hash,

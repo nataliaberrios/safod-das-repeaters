@@ -236,19 +236,24 @@ direction, and stress-drop geometry are not.
 ## Immediate next access constraint
 
 The network union, immutable 65-row DAS-v1 table, comparison audit, and DAS-v2
-rule are frozen for the nonblind 50-minute interval. Version 2 is implemented
-and regression-tested, while all 12 held-out hours remain sealed. Its remote
-checkpoint must be verified before held-out network waveform access begins.
+rule are frozen for the nonblind 50-minute interval. The DAS-v2 implementation
+checkpoint is verified on the private remote. A separate registration now pins
+all 12 held-out interval identities, both fixed network thresholds, ten
+historical templates, strict QC, and an exact network-first access order. No
+held-out network waveform, catalog row, DAS HDF5, or family label was opened by
+that registration.
 
-The next allowed waveform stage is network-only. Run both frozen network
-branches on all 12 intervals, preserve the generic branch's development SNR-1
-warning, and materialize and checksum each time-only network union before any
-held-out DAS HDF5 is opened. Catalog evidence may be attached only after that
-network table is frozen.
+Before held-out network access, the multi-interval runner and its failure paths
+must be implemented, tested, committed, and verified on the private remote. The
+runner may then execute both frozen branches on all 12 intervals. It must
+preserve the generic branch's development SNR-1 STOP, retain failed-QC intervals
+without relaxing station/component rules, and materialize and checksum the
+complete time-only network union before catalog adjudication or DAS access.
 
 Held-out DAS-v2 generation then runs independently of network candidate times,
 catalog times, and family labels. Every v2 candidate is retained before
-cross-pipeline comparison. No held-out result may repair the v1 score threshold,
-the four-block support gate, or any detector setting. Scientific extension
-remains STOP until independent adjudication and event-level uncertainty show an
-increment beyond the full network union.
+cross-pipeline comparison. No held-out result may repair either network
+threshold, the v1 DAS score threshold, the four-block support gate, or any
+preprocessing setting. Scientific extension remains STOP until independent
+adjudication and event-level uncertainty show an increment beyond the full
+network union.

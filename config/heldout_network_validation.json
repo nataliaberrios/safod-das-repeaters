@@ -1,0 +1,255 @@
+{
+  "design_version": "heldout_network_validation_v1",
+  "created_utc": "2026-08-17T05:12:27Z",
+  "registration_state": "SPECIFIED_AFTER_REMOTE_DAS_V2_CHECKPOINT_BEFORE_ANY_HELDOUT_NETWORK_WAVEFORM_ACCESS",
+  "purpose": "run_and_freeze_the_full_network_only_comparator_on_all_12_sealed_intervals_before_any_heldout_DAS_waveform_access",
+  "release_anchor": {
+    "repository": "nataliaberrios/safod-das-repeaters",
+    "repository_visibility": "private",
+    "branch": "agent/freeze-incremental-value-checkpoint",
+    "das_v2_implementation_commit_sha": "1c037efead82d8078426c52349855e145946ed79",
+    "remote_branch_sha_verified_equal_before_registration": true,
+    "draft_pull_request": 1
+  },
+  "frozen_inputs": {
+    "parent_config": {
+      "path": "config/incremental_value.json",
+      "sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32"
+    },
+    "heldout_intervals": {
+      "path": "outputs/incremental_value/heldout_intervals.csv",
+      "sha256": "5ef432d9504a300dd379331cf89c686503136267db17fa00815eeb31f208b9b9"
+    },
+    "population_status": {
+      "path": "outputs/incremental_value/population_status.json",
+      "sha256": "ee7b4fff5cc9a1ccec4b63a1fb020e1c5e6533ed229daecb77b84bb9b877fc81"
+    },
+    "development_config": {
+      "path": "config/development_detection.json",
+      "sha256": "05f7c80970a4587bd8b47e32878449b021013de8a3e866a94541af908891c1d9"
+    },
+    "development_status": {
+      "path": "outputs/development_network/status.json",
+      "sha256": "0c5f8dee97418d4b3721e2b53b59c07445b3809803d8e58e675e6a581c75379a"
+    },
+    "development_template_inventory": {
+      "path": "outputs/development_network/template_inventory.csv",
+      "sha256": "918e8a8d7581b29306552e21f2b26ff23b999d059b3bd203599deca0acf2566f"
+    },
+    "published_validation_population": {
+      "path": "outputs/external_validation/published_validation_population.csv",
+      "sha256": "c710d4b4bcec652a97683efda71f08acbd3fd8236cfa44503dd5a23d31a6c757"
+    },
+    "historical_frozen_decisions": {
+      "path": "outputs/incremental_value/network_baseline/historical_frozen_decisions.csv",
+      "sha256": "6091458cc48d57be08068cf50e7b8db4375f18e5f15ee0f17a7e75c7f2367917"
+    },
+    "frozen_network_model": {
+      "path": "outputs/incremental_value/network_baseline/network_model_frozen.json",
+      "sha256": "bf6dfbd36ecf44721245dfb237b7bb36587d3cdb22dd0d03c4f835d9048357c3"
+    },
+    "development_union_config": {
+      "path": "config/network_union.json",
+      "sha256": "b559b940d7402ed82fe465188832c25f1a74d9d450649669c8b92f948984d2f4"
+    },
+    "development_union_status": {
+      "path": "outputs/development_network/network_union_status.json",
+      "sha256": "ff55d3c4123bc9918f922b6f818f32db11541e4fb162bd5cd2d72bf639f155eb"
+    },
+    "das_v2_config": {
+      "path": "config/das_v2_validation.json",
+      "sha256": "6508d012cfef11f3c8747a16eb4b9eabada3e7200b926659e346f11ab5b569de"
+    },
+    "das_v2_registration_status": {
+      "path": "outputs/development_das_v2/registration_status.json",
+      "sha256": "8ce5567476133f858df8845c0508c2186ede50d10365c2f3e5efa1fbe73cc5a6"
+    },
+    "das_v2_development_status": {
+      "path": "outputs/development_das_v2/status.json",
+      "sha256": "5f5c9ec2b93f49e5626467b43935ced7aa7a92a2f78646d1617f81a9367798e4"
+    }
+  },
+  "heldout_population": {
+    "interval_count": 12,
+    "interval_duration_s": 3600.0,
+    "total_duration_h": 12.0,
+    "required_analysis_status_at_registration": "SEALED_NOT_RUN",
+    "required_selection_inputs": "DAS_manifest_only_blind_to_catalog_and_waveform_scores",
+    "required_selection_seed": 20260815,
+    "interval_ids": [
+      "heldout_01",
+      "heldout_02",
+      "heldout_03",
+      "heldout_04",
+      "heldout_05",
+      "heldout_06",
+      "heldout_07",
+      "heldout_08",
+      "heldout_09",
+      "heldout_10",
+      "heldout_11",
+      "heldout_12"
+    ]
+  },
+  "waveform_acquisition": {
+    "dataselect_service": "inherit_parent_exactly",
+    "network_sources": "inherit_parent_exactly",
+    "request_padding_s": 15.0,
+    "cache_directory": "cached_continuous/network/heldout_v1",
+    "cache_key": "interval_id_plus_source_name",
+    "merge_maximum_gap_s": 0.05,
+    "force_redownload_default": false,
+    "DAS_waveform_access_during_network_stage": "FORBIDDEN"
+  },
+  "historical_template_bank": {
+    "event_ids": [
+      "21204713",
+      "21212835",
+      "40220017",
+      "40237728",
+      "51214531",
+      "71325295",
+      "71567810",
+      "71908906",
+      "72154411",
+      "72359026"
+    ],
+    "event_identity_source": "development_status_template_bank_event_ids",
+    "waveform_cache_directory": "cached_event_windows/network_array",
+    "registration_inventory_rule": "hash_every_available_declared_source_waveform_and_provenance_sidecar_without_opening_heldout_waveforms",
+    "expected_declared_source_count_per_event": 3,
+    "minimum_available_historical_sources_per_event": 2,
+    "waveform_change_action": "STOP",
+    "event_addition_or_removal_action": "STOP"
+  },
+  "template_branch": {
+    "role": "primary_target_sensitive_detector",
+    "threshold": 0.10883580148220062,
+    "threshold_source": "development_status.template_detection_threshold",
+    "threshold_recalibration_on_heldout": "FORBIDDEN",
+    "template_window_s": [0.5, 10.0],
+    "template_noise_window_s": [-8.0, -2.0],
+    "band_hz": [5.0, 20.0],
+    "target_sample_rate_hz": 100.0,
+    "score_sample_rate_hz": 20.0,
+    "minimum_template_trace_snr": 3.0,
+    "minimum_components_per_template": 6,
+    "minimum_stations_per_template": 3,
+    "component_aggregation": "median_within_station",
+    "station_aggregation": "unweighted_mean_across_available_stations",
+    "bank_aggregation": "maximum_across_eligible_historical_templates",
+    "correlation_polarity": "positive",
+    "candidate_minimum_separation_s": 8.0,
+    "station_support_recording_threshold": 0.2,
+    "candidate_identifier_prefix": "network_template_heldout",
+    "family_assignment": "FORBIDDEN"
+  },
+  "generic_branch": {
+    "role": "auxiliary_nontemplate_safety_net",
+    "development_warning": "SNR1_INJECTION_RECOVERY_22_OF_30_STOP",
+    "threshold": 1.5937319993972778,
+    "threshold_source": "development_status.generic_detection_threshold",
+    "threshold_recalibration_on_heldout": "FORBIDDEN",
+    "band_hz": [5.0, 20.0],
+    "target_sample_rate_hz": 100.0,
+    "characteristic_function": "component_sta_lta_energy_ratio_then_median_within_station",
+    "sta_window_s": 0.5,
+    "lta_window_s": 10.0,
+    "coincidence_station_count": 4,
+    "station_characteristic_support_threshold": 2.0,
+    "score_sample_rate_hz": 20.0,
+    "candidate_minimum_separation_s": 8.0,
+    "candidate_identifier_prefix": "network_generic_heldout",
+    "family_assignment": "FORBIDDEN"
+  },
+  "interval_QC": {
+    "no_threshold_or_station_count_relaxation": true,
+    "minimum_usable_components_for_template_branch": 6,
+    "minimum_usable_stations_for_template_branch": 3,
+    "minimum_usable_stations_for_generic_branch": 4,
+    "failed_interval_action": "retain_interval_with_STOP_reason_and_no_silent_exclusion",
+    "missing_source_action": "record_unavailable_and_apply_fixed_QC_without_repair",
+    "reported_strata": [
+      "interval_id",
+      "configuration_epoch",
+      "available_source_count",
+      "usable_component_count",
+      "usable_station_count",
+      "noise_summary"
+    ]
+  },
+  "candidate_generation": {
+    "catalog_blind": true,
+    "family_label_blind": true,
+    "DAS_blind": true,
+    "fixed_thresholds_only": true,
+    "null_recalibration": "FORBIDDEN",
+    "candidate_deletion_after_review": "FORBIDDEN",
+    "materialization_order": "write_and_checksum_complete_template_and_generic_candidate_tables_for_all_12_intervals_then_write_time_only_union_before_any_catalog_event_table_access",
+    "candidate_time_meaning": {
+      "template_branch": "estimated_origin_time",
+      "generic_branch": "network_energy_arrival_time_not_origin"
+    }
+  },
+  "time_only_union": {
+    "cross_branch_match_window_s": 8.0,
+    "matching_algorithm": "ordered_one_to_one_maximum_cardinality_then_minimum_total_absolute_time_difference_within_each_interval",
+    "representative_time_rule": "template_origin_when_present_else_generic_trigger",
+    "catalog_fields_used_in_grouping": 0,
+    "family_assignment": "not_assigned",
+    "retain_unmatched_rows": true,
+    "freeze_before_catalog_access": true
+  },
+  "post_union_catalog_adjudication": {
+    "order": "only_after_all_interval_time_only_unions_are_materialized_and_checksummed",
+    "target_region_catalog_path": "outputs/incremental_value/ncedc_archive_catalog.csv",
+    "target_region_catalog_sha256": "7acefb87dc2cd2615bda4478cc736297b4837b9590ef2ebc79810a514735bab1",
+    "target_region_catalog_role": "known_event_audit_not_family_truth",
+    "broader_catalog_query": "same_registered_NCSS_bounds_and_physical_arrival_rule_as_development_applied_per_heldout_interval",
+    "regional_veto_action": "retain_in_raw_union_but_exclude_from_uncataloged_local_extension_count",
+    "unassociated_action": "retain_for_blinded_multisensor_adjudication_not_automatically_new",
+    "family_assignment": "FORBIDDEN"
+  },
+  "event_level_evaluation": {
+    "analysis_unit": "unique_time_only_network_union_event_within_interval",
+    "duplicate_trigger_collapse": "frozen_cross_branch_rule_only_no_manual_candidate_deletion",
+    "generic_development_STOP_retained_in_interpretation": true,
+    "interval_bootstrap_seed": 20260820,
+    "interval_bootstrap_replicate_count": 10000,
+    "confidence_level": 0.95,
+    "network_union_role": "full_comparator_that_DAS_must_exceed"
+  },
+  "registration_access_ledger": {
+    "heldout_interval_metadata_rows_opened": 12,
+    "historical_template_waveform_files_hashed": "determined_by_registrar",
+    "heldout_network_waveform_files_opened": 0,
+    "heldout_network_waveform_datasets_opened": 0,
+    "heldout_DAS_HDF5_files_opened": 0,
+    "heldout_DAS_HDF5_datasets_opened": 0,
+    "heldout_catalog_event_rows_opened": 0,
+    "heldout_family_label_rows_opened": 0
+  },
+  "output": {
+    "registration_directory": "outputs/heldout_v2/registration",
+    "registration_status_json": "network_registration_status.json",
+    "template_input_inventory_csv": "network_template_input_inventory.csv",
+    "network_directory": "outputs/heldout_v2/network",
+    "source_request_ledger_csv": "source_request_ledger.csv",
+    "trace_QC_csv": "trace_qc.csv",
+    "interval_status_csv": "interval_status.csv",
+    "template_candidate_csv": "template_candidates_time_only.csv",
+    "generic_candidate_csv": "generic_candidates_time_only.csv",
+    "time_only_union_csv": "network_union_time_only.csv",
+    "candidate_generation_status_json": "candidate_generation_status.json",
+    "catalog_directory": "outputs/heldout_v2/network_catalog_audit",
+    "adjudicated_union_csv": "network_union_adjudicated.csv",
+    "final_status_json": "network_union_status.json"
+  },
+  "access_gate": {
+    "next_allowed_stage": "IMPLEMENT_TEST_COMMIT_AND_PUSH_HELDOUT_NETWORK_RUNNER",
+    "heldout_network_waveform_access": "STOP_UNTIL_RUNNER_IMPLEMENTATION_AND_TESTS_ARE_COMMITTED_AND_REMOTE_PUSH_VERIFIED",
+    "heldout_DAS_waveform_access": "STOP_UNTIL_COMPLETE_HELDOUT_NETWORK_UNION_IS_FROZEN",
+    "heldout_catalog_access": "STOP_UNTIL_ALL_NETWORK_TIME_ONLY_UNION_ROWS_ARE_MATERIALIZED_AND_CHECKSUMMED",
+    "heldout_family_assignment": "FORBIDDEN"
+  }
+}

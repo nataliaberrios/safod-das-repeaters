@@ -19,3 +19,9 @@ rule and held-out protocol were registered while all held-out waveforms were
 sealed. candidate_detections.csv is the exact two-row replay from the immutable
 65-row v1 table, and status.json labels that replay as post-hoc development
 tuning rather than validation.
+
+heldout_v2/registration/network_registration_status.json records the fixed
+network thresholds, 12 sealed intervals, Git release anchor, and zero held-out
+waveform/catalog access. network_template_input_inventory.csv pins all 30
+historical event/source combinations: 27 available waveform/sidecar pairs and
+three explicit missing sources. It contains no held-out waveform product.

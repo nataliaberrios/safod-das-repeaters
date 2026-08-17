@@ -163,10 +163,11 @@ regression check of disclosed post-hoc tuning—not an estimate of specificity.
 All 12 held-out hours remained sealed, and held-out network and DAS waveform
 files opened at this stage remain zero.
 
-The next stage is intentionally asymmetric: run and freeze the full network-only
-union on all 12 held-out intervals first. Only then may held-out DAS candidate
-generation begin, without access to network times, catalog times, or family
-labels.
+The next stage is intentionally asymmetric. The full 12-hour network-only
+operating point is now registered with exact thresholds, inputs, QC, and access
+order while held-out waveform access remains zero. Its runner must be
+implemented, tested, committed, and pushed before network access. The complete
+network union must then be frozen before held-out DAS candidate generation.
 
 ## Reproduce compact products
 
@@ -191,6 +192,7 @@ released.
     python -m src.compare_das_network_development
     python -m src.register_das_v2
     python -m src.run_das_v2_development
+    python -m src.register_heldout_network
     python -m src.build_checkpoint
     python -m unittest discover -s tests -v
     python ../../run_nb_cells.py notebooks/00_advisor_checkpoint.ipynb
@@ -229,6 +231,9 @@ windows. The advisor notebook does neither by default.
 - config/das_v2_validation.json discloses the post-hoc development inputs,
   freezes the single spatial-support gate, pins every parent checksum, and
   specifies held-out sequencing and event-level pass criteria.
+- config/heldout_network_validation.json freezes all 12 interval identities,
+  both network thresholds, the ten-event historical template bank, strict QC,
+  network-first access order, and catalog-after-union adjudication.
 - outputs/development_network/status.json preserves the v4 generic-trigger STOP;
   candidate tables and injection_recovery_summary.csv provide its evidence.
   Full-rate scores, miniSEED, and the downloaded catalog cache remain ignored
@@ -246,6 +251,9 @@ windows. The advisor notebook does neither by default.
   cautious post-hoc audit and the held-out STOP.
 - outputs/development_das_v2/ records the pre-held-out registration and the
   exact two-row development replay; it is a tuning audit, not validation.
+- outputs/heldout_v2/registration/ records the zero-waveform-access network
+  registration and a 30-row source inventory for the historical templates (27
+  available waveform/sidecar pairs and three explicit missing sources).
 - outputs/incremental_value/network_baseline/network_model_frozen.json is the
   version-1 conventional verifier. Its thresholds may not be repaired after
   seeing prospective outcomes.
@@ -283,21 +291,24 @@ stress-drop geometry.
 
 ## Next registered computation
 
-DAS version 2 and its validation protocol are registered, implemented, tested,
-and replayed on development products. The replay does not release a scientific
-claim. After this checkpoint is committed and verified on the private remote,
-the next allowed computation is:
+The 12-interval network-only operating point is registered. It inherits the
+fixed development thresholds (template 0.1088358; generic 1.593732), the same
+ten development-passing templates, strict station/component QC, and the
+8-second time-only union. The generic SNR-1 injection STOP remains explicit.
+Registration opened zero held-out network, catalog, or DAS waveform rows.
 
-1. register the 12-interval network-only run with exact input hashes and no DAS
-   access;
-2. run both frozen network branches, retain the development SNR-1 warning, and
-   materialize a time-only union on every interval;
-3. checksum and freeze that network union before opening any held-out DAS HDF5;
-4. only then run the frozen DAS-v2 detector independently, write its complete
-   candidate table, and perform time-only cross-pipeline matching; and
-5. attach catalog evidence afterward and evaluate unique-event increment at the
-   frozen event-level operating point with interval uncertainty.
+Before any held-out network waveform is opened:
+
+1. implement and test the exact multi-interval downloader, fixed-threshold
+   detector, QC ledger, and per-interval time-only union;
+2. commit that implementation and verify its SHA on the private remote;
+3. run both network branches on all 12 hours and retain every candidate and
+   failed-QC interval without repair;
+4. checksum and freeze the complete time-only network union before catalog
+   adjudication and before opening any held-out DAS HDF5; and
+5. only then run frozen DAS v2 independently and compare unique events at the
+   registered operating point.
 
 A positive DAS result must add independently adjudicated events beyond the full
-network union or improve held-out family resolution. The development two-of-65
-replay justifies the held-out test; it does not itself pass it.
+network union or improve held-out family resolution. Neither registration nor
+the development two-of-65 replay passes that scientific gate.

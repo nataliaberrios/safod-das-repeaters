@@ -5,6 +5,6 @@ name,status,criterion
 4. Deep-event cross-instrument checkpoint,MET_CONDITIONAL,2026 candidate passes frozen network verification and deep-DAS detectability; same-fiber control fails both relevant checks
 5. Development-interval incremental-value test,MET_DEVELOPMENT_PROMISING_V1_SPECIFICITY_STOP,network union frozen first; independent DAS-only table frozen second; time-only matching written before catalog audit; 2/2 known local events occupy DAS score ranks 1 and 2
 6. DAS version-2 procedural freeze,MET_POSTHOC_DEVELOPMENT_TUNING_DISCLOSED,"single four-of-ten spatial-support gate registered, tested, and replayed while held-out waveform access remained zero"
-7. Held-out network-only baseline,READY_AFTER_REMOTE_PUSH,run all 12 intervals using frozen network branches and write the time-only union before catalog adjudication or DAS access
+7. Held-out network-only baseline,REGISTERED_RUNNER_IMPLEMENTATION_NEXT,run all 12 intervals using frozen network branches and write the time-only union before catalog adjudication or DAS access
 8. Sealed held-out DAS comparison,SEALED_NOT_RUN,positive interval-bootstrap lower bound for DAS-only or joint gain without target-family overmerge
 9. Stress drop and creep rate,STOP,"geometry, response, EGF/corner, completeness, recurrence, and slip-model gates"
