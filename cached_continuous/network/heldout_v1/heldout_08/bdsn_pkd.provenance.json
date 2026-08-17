@@ -1,0 +1,30 @@
+{
+  "access_role": "registered_heldout_network_only",
+  "byte_count": 1249280,
+  "catalog_event_rows_opened": 0,
+  "channels": [
+    "HHE",
+    "HHN",
+    "HHZ"
+  ],
+  "family_label_rows_opened": 0,
+  "heldout_DAS_HDF5_files_opened": 0,
+  "heldout_network_config_sha256": "2ef3a0c994ef8ec9b0856b74d87ca94c5b54f086ad581f39c71088fb0083ef77",
+  "interval_end_utc": "2025-02-18T08:21:08.087Z",
+  "interval_id": "heldout_08",
+  "interval_start_utc": "2025-02-18T07:21:08.087Z",
+  "maximum_trace_end_utc": "2025-02-18T08:21:23.078Z",
+  "minimum_trace_start_utc": "2025-02-18T07:20:53.088Z",
+  "network": "BK",
+  "parent_config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "request_url": "https://service.ncedc.org/fdsnws/dataselect/1/query?net=BK&sta=PKD&loc=%2A&cha=HHE%2CHHN%2CHHZ&start=2025-02-18T07%3A20%3A53.087Z&end=2025-02-18T08%3A21%3A23.087Z",
+  "retrieved_utc": "2026-08-17T06:08:41Z",
+  "runner_commit_sha": "08099bea76899f7afc82193eef56b4faf330d947",
+  "source_name": "bdsn_pkd",
+  "stage": "registered_heldout_network_download",
+  "stations": [
+    "PKD"
+  ],
+  "trace_count": 3,
+  "waveform_sha256": "e1f236376f311a22a0068dc9f891ad6e2d592fadc3fd47bf51fe9551903b1d81"
+}

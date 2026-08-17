@@ -168,6 +168,15 @@ replay retains the two known local events and rejects the other 63 v1 triggers.
 That result verifies implementation fidelity only. It is post-hoc tuning and
 provides no independent specificity estimate.
 
+The released network-only runner then processed all 12 held-out hours before
+any held-out catalog or DAS access. All intervals passed fixed QC, 35/36 source
+requests were available, and the immutable catalog-blind output contains 12
+historical-template candidates plus 21 auxiliary generic candidates. No
+cross-branch times match within the registered 8 seconds, so the union has 33
+rows. This is a completed comparator-generation step, not evidence that all 33
+rows are earthquakes or repeaters. The catalog audit must retain every raw row,
+and the generic branch's development SNR-1 STOP remains part of interpretation.
+
 ## Primary metrics and pass gates
 
 | Claim | Primary comparison | Pass requirement |
@@ -235,29 +244,22 @@ direction, and stress-drop geometry are not.
 
 ## Immediate next access constraint
 
-The network union, immutable 65-row DAS-v1 table, comparison audit, and DAS-v2
-rule are frozen for the nonblind 50-minute interval. The DAS-v2 implementation
-checkpoint is verified on the private remote. A separate registration now pins
-all 12 held-out interval identities, both fixed network thresholds, ten
-historical templates, strict QC, and an exact network-first access order. No
-held-out network waveform, catalog row, DAS HDF5, or family label was opened by
-that registration.
+The 12-hour network-only comparator is frozen and checksummed. Its 33-row union
+was created with zero held-out catalog-event, family-label, or DAS HDF5 access;
+all 12 per-interval status files and ignored full-score caches verified before
+the union was written. Threshold recalibration, cross-interval matching,
+candidate deletion, and family assignment were not performed.
 
-The multi-interval runner and its failure paths are implemented, pass 52 project
-tests, and reproduce the frozen development candidate counts. Commit
-`08099bea76899f7afc82193eef56b4faf330d947` was verified equal to the private
-remote before a release artifact was written. Registration and release opened
-zero held-out network waveform, catalog-event, DAS HDF5, or family-label rows.
-The runner may now execute both frozen branches on all 12 intervals. It must
-preserve the generic branch's development SNR-1 STOP, retain failed-QC intervals
-without relaxing station/component rules, and materialize and checksum the
-complete time-only network union before catalog adjudication or DAS access.
-This release is an implementation checkpoint, not evidence of performance.
+Catalog access is now allowed only through a separately registered audit that
+pins this union hash and preserves every row. The audit may distinguish known
+local events, physically plausible regional arrivals, and unassociated
+candidates, but an unassociated row is not automatically a new earthquake or
+repeater. The network operating point may not be repaired after adjudication.
 
-Held-out DAS-v2 generation then runs independently of network candidate times,
-catalog times, and family labels. Every v2 candidate is retained before
-cross-pipeline comparison. No held-out result may repair either network
+Held-out DAS-v2 generation must still run independently of network candidate
+times, catalog times, and family labels. Every v2 candidate must be materialized
+before cross-pipeline comparison. No held-out result may repair either network
 threshold, the v1 DAS score threshold, the four-block support gate, or any
 preprocessing setting. Scientific extension remains STOP until independent
-adjudication and event-level uncertainty show an increment beyond the full
+adjudication and interval-level uncertainty show an increment beyond the full
 network union.

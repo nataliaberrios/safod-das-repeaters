@@ -6,11 +6,12 @@ question:
 > What does near-fault DAS add beyond a fair conventional seismic-network
 > workflow for detecting and assigning SAFOD repeating earthquakes?
 
-The current answer is: **the project is worth pursuing, DAS version 2 is now
-procedurally frozen, but DAS catalog extension is not yet demonstrated.** Both
-known local earthquakes are the two strongest and most spatially coherent DAS
-triggers. A transparently post-hoc four-of-ten-block rule retains those 2 of 65
-development triggers; only held-out performance can show whether it generalizes.
+The current answer is: **the project is worth pursuing, DAS version 2 and a
+fair 12-hour held-out network comparator are now frozen, but DAS catalog
+extension is not yet demonstrated.** Both known local development earthquakes
+are the two strongest and most spatially coherent DAS triggers. A transparently
+post-hoc four-of-ten-block rule retains those 2 of 65 development triggers; the
+held-out DAS run and independent adjudication must show whether it generalizes.
 
 Read PROJECT_SPEC.md before interpreting an output. Fiber distance is not depth
 or source distance, a high waveform correlation is not a family label, and a
@@ -43,7 +44,13 @@ checks config and product hashes, shows exactly how 65 v1 triggers become two v2
 candidates, and provides a non-writing support-count sandbox. It does not open
 raw or held-out waveforms.
 
-The checkpoint currently records eight decisive facts:
+Open notebooks/06_heldout_network_freeze_checkpoint.ipynb for the 12-hour
+network-only result. It verifies every compact hash, plots branch and interval
+counts, records source/QC availability, and provides display-only timing and
+interval controls. It never opens miniSEED, full score arrays, a catalog, family
+labels, or DAS HDF5, and it cannot retune a held-out threshold.
+
+The checkpoint currently records nine decisive facts:
 
 1. A 12-event conventional model was frozen before prospective waveform access.
 2. All five 2024--2025 routine-catalog proximity candidates fail that frozen
@@ -67,6 +74,10 @@ The checkpoint currently records eight decisive facts:
 8. Version 2 adds only the registered four-of-ten-block gate at the existing
    ratio of 2. Its development replay retains those two known events and rejects
    the other 63 v1 triggers. This is disclosed tuning, not held-out validation.
+9. The frozen 12-hour network scan has 12 template and 21 auxiliary generic
+   candidates, zero cross-branch pairs within 8 seconds, and 33 time-only union
+   rows. All intervals passed fixed QC; 35/36 sources were available. These rows
+   remain unadjudicated and are not yet earthquake or repeater detections.
 
 Those facts reshape the work into two linked primary aims:
 
@@ -170,9 +181,8 @@ reproduced the frozen development counts (two template and three generic
 candidates). Runner commit `08099bea76899f7afc82193eef56b4faf330d947` was
 verified equal to the private remote before the release artifact was written.
 No held-out waveform, catalog row, DAS HDF5, or family label was opened before
-release. This is permission to execute the network baseline, not held-out
-performance. The complete network union must still be frozen before held-out
-DAS candidate generation.
+release. This release was permission to execute the network baseline, not a
+performance result; the separately frozen result is recorded below.
 
 ## Held-out network runner release checkpoint
 
@@ -185,10 +195,27 @@ assignment, and interval reruns after materialization. Cached miniSEED and its
 sidecar are re-hashed, while failed-QC intervals and unavailable sources remain
 explicit rather than being silently dropped.
 
-The next scientific checkpoint is the complete 12-hour network-only time union.
-Only after every interval table and score cache verifies may the catalog-blind
-aggregate be checksummed. Until that happens, catalog adjudication and held-out
-DAS waveform access remain stopped.
+That release condition has now been satisfied and the complete network-only
+union is frozen. The released runner cannot rerun an interval after its status
+exists, and the freezer refuses to overwrite its final status.
+
+## Held-out network-only freeze checkpoint
+
+SLURM array 39345238 completed all 12 tasks with exit code 0. All 12 intervals
+passed both fixed-threshold branch mechanics; 35 of 36 source requests were
+available, with an explicit empty NC.PSM response in heldout_07. The aggregate
+contains 12 primary template-bank candidates and 21 auxiliary generic
+candidates. There are no pairs within the frozen 8-second window, so the
+catalog-blind union retains all 33 rows. An independent timing audit confirms
+that heldout_03 is the only hour containing both branches and its nearest times
+are 250.55 seconds apart.
+
+This is a technically successful comparator freeze, not a claim that 33
+earthquakes occurred. Template detections are concentrated in heldout_01 and
+heldout_03; generic detections are concentrated later, including eight in
+heldout_11. The generic branch still carries its development SNR-1 STOP, and
+neither branch has yet been checked against local or regional catalogs. Catalog,
+family-label, and DAS access remained zero through the union freeze.
 
 ## Reproduce compact products
 
@@ -282,9 +309,10 @@ windows. The advisor notebook does neither by default.
   available waveform/sidecar pairs and three explicit missing sources), and
   the remotely verified runner release. The release is not a performance
   result.
-- outputs/heldout_v2/network/ is reserved for the 12 immutable interval
-  products and complete catalog-blind time-only union. It remains empty at the
-  runner-release checkpoint.
+- outputs/heldout_v2/network/ contains the 12 immutable interval products,
+  source/QC ledgers, SLURM execution ledger, and the 33-row catalog-blind
+  time-only union. candidate_generation_status.json pins every aggregate hash
+  and records zero catalog, family-label, and DAS access through the freeze.
 - outputs/incremental_value/network_baseline/network_model_frozen.json is the
   version-1 conventional verifier. Its thresholds may not be repaired after
   seeing prospective outcomes.
@@ -322,24 +350,23 @@ stress-drop geometry.
 
 ## Next registered computation
 
-The 12-interval network-only operating point and its runner are now released.
-They inherit the fixed development thresholds (template 0.1088358; generic
-1.593732), the same ten development-passing templates, strict
-station/component QC, and the 8-second time-only union. The generic SNR-1
-injection STOP remains explicit. Registration and release opened zero held-out
-network, catalog, or DAS waveform rows.
+The full 12-hour network comparator is now immutable: 12 template candidates,
+21 auxiliary generic candidates, and 33 time-only union rows. The next stage is
+not threshold repair. It is a separately registered catalog audit of those
+exact rows, followed by an independently triggered held-out DAS-v2 run.
 
 The remaining order is fixed:
 
-1. run both network branches on all 12 hours and retain every candidate,
-   unavailable source, and failed-QC interval without repair;
-2. checksum and freeze the complete time-only network union before catalog
-   adjudication and before opening any held-out DAS HDF5;
-3. audit the immutable network union against known-event catalogs without
-   deleting raw candidates; and
-4. only then run frozen DAS v2 independently and compare unique events at the
-   registered operating point.
+1. pin the 33-row union hash and catalog-query rules before reading event rows;
+2. attach target-region and broader regional catalog evidence without deleting
+   or changing any raw network candidate;
+3. register the held-out DAS-v2 replay implementation and keep it blind to
+   network candidate times, catalog times, and family labels during generation;
+4. materialize every DAS-v2 candidate before cross-pipeline matching; and
+5. compare unique adjudicated events with interval-level uncertainty and the
+   generic branch's development STOP retained.
 
 A positive DAS result must add independently adjudicated events beyond the full
-network union or improve held-out family resolution. Neither registration nor
-the development two-of-65 replay passes that scientific gate.
+network union or improve held-out family resolution. The 33 raw network rows do
+not yet establish the baseline false-discovery rate, and the development
+two-of-65 DAS replay does not pass the scientific extension gate.

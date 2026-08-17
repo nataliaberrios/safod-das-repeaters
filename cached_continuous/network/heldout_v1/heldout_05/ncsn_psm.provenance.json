@@ -1,0 +1,30 @@
+{
+  "access_role": "registered_heldout_network_only",
+  "byte_count": 827392,
+  "catalog_event_rows_opened": 0,
+  "channels": [
+    "EHE",
+    "EHN",
+    "EHZ"
+  ],
+  "family_label_rows_opened": 0,
+  "heldout_DAS_HDF5_files_opened": 0,
+  "heldout_network_config_sha256": "2ef3a0c994ef8ec9b0856b74d87ca94c5b54f086ad581f39c71088fb0083ef77",
+  "interval_end_utc": "2024-12-25T06:11:40.832Z",
+  "interval_id": "heldout_05",
+  "interval_start_utc": "2024-12-25T05:11:40.832Z",
+  "maximum_trace_end_utc": "2024-12-25T06:11:55.823Z",
+  "minimum_trace_start_utc": "2024-12-25T05:11:25.833Z",
+  "network": "NC",
+  "parent_config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "request_url": "https://service.ncedc.org/fdsnws/dataselect/1/query?net=NC&sta=PSM&loc=%2A&cha=EHE%2CEHN%2CEHZ&start=2024-12-25T05%3A11%3A25.832Z&end=2024-12-25T06%3A11%3A55.832Z",
+  "retrieved_utc": "2026-08-17T06:05:29Z",
+  "runner_commit_sha": "08099bea76899f7afc82193eef56b4faf330d947",
+  "source_name": "ncsn_psm",
+  "stage": "registered_heldout_network_download",
+  "stations": [
+    "PSM"
+  ],
+  "trace_count": 3,
+  "waveform_sha256": "843c1deb88cd79cdf9506f39e1dad130722fa31c5124a42bb541e6e5b322f109"
+}

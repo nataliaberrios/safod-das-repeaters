@@ -1,0 +1,9 @@
+interval_id,candidate_id,trigger_time,trigger_epoch_s,coincidence_score,threshold,coincidence_station_count,station_support_count_at_declared_ratio,station_characteristic_support_threshold,candidate_generation_label,catalog_fields_used_in_candidate_generation,DAS_fields_used_in_candidate_generation,family_assignment
+heldout_11,network_generic_heldout_11_0001,2025-04-02T02:45:36.709Z,1743561936.709,1.8514598608016968,1.5937319993972778,4,2,2.0,frozen_generic_network_candidate_arrival_not_origin,0,0,not_assigned
+heldout_11,network_generic_heldout_11_0002,2025-04-02T02:46:03.609Z,1743561963.6090002,1.802971363067627,1.5937319993972778,4,1,2.0,frozen_generic_network_candidate_arrival_not_origin,0,0,not_assigned
+heldout_11,network_generic_heldout_11_0003,2025-04-02T02:50:18.259Z,1743562218.259,1.6651569604873657,1.5937319993972778,4,0,2.0,frozen_generic_network_candidate_arrival_not_origin,0,0,not_assigned
+heldout_11,network_generic_heldout_11_0004,2025-04-02T02:50:54.159Z,1743562254.1590002,1.691145658493042,1.5937319993972778,4,0,2.0,frozen_generic_network_candidate_arrival_not_origin,0,0,not_assigned
+heldout_11,network_generic_heldout_11_0005,2025-04-02T02:53:45.509Z,1743562425.509,1.6883965730667114,1.5937319993972778,4,1,2.0,frozen_generic_network_candidate_arrival_not_origin,0,0,not_assigned
+heldout_11,network_generic_heldout_11_0006,2025-04-02T02:54:28.159Z,1743562468.1590002,1.6606453657150269,1.5937319993972778,4,0,2.0,frozen_generic_network_candidate_arrival_not_origin,0,0,not_assigned
+heldout_11,network_generic_heldout_11_0007,2025-04-02T02:55:03.709Z,1743562503.709,1.6278398036956787,1.5937319993972778,4,0,2.0,frozen_generic_network_candidate_arrival_not_origin,0,0,not_assigned
+heldout_11,network_generic_heldout_11_0008,2025-04-02T03:00:37.209Z,1743562837.209,1.79714035987854,1.5937319993972778,4,1,2.0,frozen_generic_network_candidate_arrival_not_origin,0,0,not_assigned
