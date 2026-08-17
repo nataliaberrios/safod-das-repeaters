@@ -256,14 +256,15 @@ local events, physically plausible regional arrivals, and unassociated
 candidates, but an unassociated row is not automatically a new earthquake or
 repeater. The network operating point may not be repaired after adjudication.
 
-That preregistration is now materialized and PASS. It pins the immutable union,
-the existing 404-row NCSS target-catalog file by hash without parsing its rows,
-the inherited 3 s template-origin and 12 s generic-origin audit tolerances, and
-12 exact broader-NCSS query URLs using the registered 2.5--8 km/s physical
-arrival rule. All 33 network rows remain present. Catalog-event rows opened,
-family labels opened, family assignments made, and DAS files opened are all
-zero. The next permission gate is a tested catalog runner committed and pushed
-to the private remote; registration alone does not authorize catalog access.
+The preregistered catalog audit is now complete and PASS. All 33 raw rows remain
+unchanged, forming 32 event-level units. Five cataloged earthquakes explain six
+generic-trigger rows: one target-box event outside the family neighborhood and
+four regional events, one of which generated two triggers. The remaining 27
+rows comprise 12 template-only catalog misses for which a broad arrival veto is
+not applicable and 15 generic candidates with no plausible registered catalog
+arrival. None is automatically a new earthquake or repeater. No catalog
+conflict, family assignment, network-waveform read, or DAS HDF5 read occurred.
+The next permission gate is a separately registered independent DAS-v2 replay.
 
 Held-out DAS-v2 generation must still run independently of network candidate
 times, catalog times, and family labels. Every v2 candidate must be materialized

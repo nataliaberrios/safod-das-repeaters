@@ -31,3 +31,10 @@ immutable 33-row union, target-catalog byte hash, branch-specific timing rules,
 and zero catalog-event-row/DAS/family-label access. The accompanying
 catalog_audit_query_manifest.csv pins one broader NCSS URL per held-out interval;
 it is a pre-access contract, not a catalog-audit result.
+
+heldout_v2/network_catalog_audit/ contains the frozen catalog-only result. The
+adjudicated table preserves all 33 union rows byte-for-field, while
+network_evaluation_units.csv records 32 event units. Five known earthquakes
+explain six generic triggers; 27 candidates remain catalog unassociated. The
+status file records zero candidate deletion, family assignment, waveform read,
+or DAS access and keeps the scientific extension claim at STOP.

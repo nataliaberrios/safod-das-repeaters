@@ -50,6 +50,11 @@ counts, records source/QC availability, and provides display-only timing and
 interval controls. It never opens miniSEED, full score arrays, a catalog, family
 labels, or DAS HDF5, and it cannot retune a held-out threshold.
 
+Open notebooks/07_heldout_catalog_audit_checkpoint.ipynb for the frozen
+post-union catalog audit. It proves all 33 rows were retained, shows the five
+known earthquakes explaining six triggers, separates the 27 unresolved
+candidates by branch, and exposes only non-writing display filters.
+
 The checkpoint currently records nine decisive facts:
 
 1. A 12-event conventional model was frozen before prospective waveform access.
@@ -350,24 +355,19 @@ stress-drop geometry.
 
 ## Next registered computation
 
-The full 12-hour network comparator is now immutable: 12 template candidates,
-21 auxiliary generic candidates, and 33 time-only union rows. The catalog audit
-of those exact rows is now preregistered in `config/heldout_catalog_audit.json`.
-Its PASS registration record and 12 exact regional-query URLs were written with
-zero catalog event rows parsed. Catalog access remains stopped until the tested
-runner is committed, pushed, and remotely released. This is not threshold
-repair; it is annotation before an independently triggered held-out DAS-v2 run.
+The full 12-hour network comparator and catalog audit are now immutable. The 33
+raw rows become 32 event-level units: six rows are explained by five cataloged
+earthquakes, while 12 template-only and 15 generic candidates remain catalog
+unassociated. No row was deleted or changed, no catalog conflict occurred, and
+no family label or DAS HDF5 file was opened. The next stage is a separately
+registered, independently triggered held-out DAS-v2 run.
 
 The remaining order is fixed:
 
-1. use the now-pinned 33-row union hash and catalog-query rules;
-2. after runner release, attach target-region and broader regional catalog
-   evidence without deleting
-   or changing any raw network candidate;
-3. register the held-out DAS-v2 replay implementation and keep it blind to
+1. register the held-out DAS-v2 replay implementation and keep it blind to
    network candidate times, catalog times, and family labels during generation;
-4. materialize every DAS-v2 candidate before cross-pipeline matching; and
-5. compare unique adjudicated events with interval-level uncertainty and the
+2. materialize every DAS-v2 candidate before cross-pipeline matching; and
+3. compare unique adjudicated events with interval-level uncertainty and the
    generic branch's development STOP retained.
 
 A positive DAS result must add independently adjudicated events beyond the full
@@ -375,9 +375,9 @@ network union or improve held-out family resolution. The 33 raw network rows do
 not yet establish the baseline false-discovery rate, and the development
 two-of-65 DAS replay does not pass the scientific extension gate.
 
-The catalog registration pins the target NCSS catalog SHA-256, the inherited
-3 s template-origin and 12 s generic-origin audit tolerances, the physical
-2.5--8 km/s regional-arrival rule, and one exact query per interval. It also
-keeps two endpoints separate: a cataloged earthquake can still be a new
-repeater-family member, whereas an uncataloged candidate requires independent
-waveform confirmation before it can extend the routine detection catalog.
+The completed audit used the pinned target NCSS catalog, inherited 3 s
+template-origin and 12 s generic-origin tolerances, physical 2.5--8 km/s
+regional-arrival rule, and 12 exact interval queries. The catalog vetoes are
+audit evidence, not family truth. A cataloged earthquake can still be a new
+repeater-family member; a catalog-unassociated candidate still needs
+independent waveform confirmation before it can extend the detection catalog.
