@@ -25,3 +25,9 @@ network thresholds, 12 sealed intervals, Git release anchor, and zero held-out
 waveform/catalog access. network_template_input_inventory.csv pins all 30
 historical event/source combinations: 27 available waveform/sidecar pairs and
 three explicit missing sources. It contains no held-out waveform product.
+
+heldout_v2/registration/catalog_audit_registration_status.json records the
+immutable 33-row union, target-catalog byte hash, branch-specific timing rules,
+and zero catalog-event-row/DAS/family-label access. The accompanying
+catalog_audit_query_manifest.csv pins one broader NCSS URL per held-out interval;
+it is a pre-access contract, not a catalog-audit result.

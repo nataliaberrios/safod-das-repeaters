@@ -14,8 +14,10 @@ cached_continuous/**/*.npz
 cached_continuous/**/*.partial
 
 # Public source catalogs are reproducibly downloaded and checksum verified.
-cached_catalogs/*.txt
-cached_catalogs/*.partial
+# Keep compact JSON provenance sidecars trackable at every directory depth.
+cached_catalogs/**/*.csv
+cached_catalogs/**/*.txt
+cached_catalogs/**/*.partial
 
 # SLURM logs are execution records, not compact scientific products.
 logs/*.out

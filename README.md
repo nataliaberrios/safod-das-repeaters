@@ -351,14 +351,18 @@ stress-drop geometry.
 ## Next registered computation
 
 The full 12-hour network comparator is now immutable: 12 template candidates,
-21 auxiliary generic candidates, and 33 time-only union rows. The next stage is
-not threshold repair. It is a separately registered catalog audit of those
-exact rows, followed by an independently triggered held-out DAS-v2 run.
+21 auxiliary generic candidates, and 33 time-only union rows. The catalog audit
+of those exact rows is now preregistered in `config/heldout_catalog_audit.json`.
+Its PASS registration record and 12 exact regional-query URLs were written with
+zero catalog event rows parsed. Catalog access remains stopped until the tested
+runner is committed, pushed, and remotely released. This is not threshold
+repair; it is annotation before an independently triggered held-out DAS-v2 run.
 
 The remaining order is fixed:
 
-1. pin the 33-row union hash and catalog-query rules before reading event rows;
-2. attach target-region and broader regional catalog evidence without deleting
+1. use the now-pinned 33-row union hash and catalog-query rules;
+2. after runner release, attach target-region and broader regional catalog
+   evidence without deleting
    or changing any raw network candidate;
 3. register the held-out DAS-v2 replay implementation and keep it blind to
    network candidate times, catalog times, and family labels during generation;
@@ -370,3 +374,10 @@ A positive DAS result must add independently adjudicated events beyond the full
 network union or improve held-out family resolution. The 33 raw network rows do
 not yet establish the baseline false-discovery rate, and the development
 two-of-65 DAS replay does not pass the scientific extension gate.
+
+The catalog registration pins the target NCSS catalog SHA-256, the inherited
+3 s template-origin and 12 s generic-origin audit tolerances, the physical
+2.5--8 km/s regional-arrival rule, and one exact query per interval. It also
+keeps two endpoints separate: a cataloged earthquake can still be a new
+repeater-family member, whereas an uncataloged candidate requires independent
+waveform confirmation before it can extend the routine detection catalog.
