@@ -46,6 +46,15 @@ def current_branch(project: Path) -> str:
     return branch
 
 
+def configured_remote_url(project: Path, remote: str) -> str:
+    """Return a remote URL using syntax supported by Git 1.8."""
+
+    url = _git(project, ["config", "--get", "remote.{}.url".format(remote)])
+    if not url:
+        raise RuntimeError("runner release remote URL is absent")
+    return url
+
+
 def remote_branch_sha(
     project: Path, remote: str, branch: str
 ) -> str:
@@ -137,7 +146,7 @@ def build_release_payload(
     expected_branch = str(registration["release_anchor"]["branch"])
     if branch != expected_branch:
         raise PermissionError("runner is on an unexpected branch")
-    remote_url = _git(project, ["remote", "get-url", remote])
+    remote_url = configured_remote_url(project, remote)
     expected_slug = str(registration["release_anchor"]["repository"])
     allowed_urls = {
         "git@github.com:{}.git".format(expected_slug),

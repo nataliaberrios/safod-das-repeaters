@@ -27,7 +27,10 @@ from src.heldout_network_access import (
     load_template_metadata,
     source_request_url,
 )
-from src.release_heldout_network_runner import current_branch
+from src.release_heldout_network_runner import (
+    configured_remote_url,
+    current_branch,
+)
 from src.run_heldout_network_interval import (
     finalize_generic_candidates,
     finalize_template_candidates,
@@ -361,6 +364,10 @@ class HeldoutNetworkRunnerTests(unittest.TestCase):
         self.assertEqual(
             current_branch(self.root),
             "agent/freeze-incremental-value-checkpoint",
+        )
+        self.assertEqual(
+            configured_remote_url(self.root, "origin"),
+            "git@github.com:nataliaberrios/safod-das-repeaters.git",
         )
 
     def test_release_hash_set_covers_runner_aggregate_and_tests(self):
