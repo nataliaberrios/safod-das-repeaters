@@ -27,6 +27,7 @@ from src.heldout_network_access import (
     load_template_metadata,
     source_request_url,
 )
+from src.release_heldout_network_runner import current_branch
 from src.run_heldout_network_interval import (
     finalize_generic_candidates,
     finalize_template_candidates,
@@ -355,6 +356,12 @@ class HeldoutNetworkRunnerTests(unittest.TestCase):
         ).read_text(encoding="utf-8")
         self.assertNotIn("null_bank_maxima", runner_source)
         self.assertNotIn("null_coincidence_maxima", runner_source)
+
+    def test_release_branch_lookup_supports_cluster_git(self):
+        self.assertEqual(
+            current_branch(self.root),
+            "agent/freeze-incremental-value-checkpoint",
+        )
 
     def test_release_hash_set_covers_runner_aggregate_and_tests(self):
         self.assertEqual(

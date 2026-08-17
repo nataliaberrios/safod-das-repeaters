@@ -37,6 +37,15 @@ def _sha256_bytes(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def current_branch(project: Path) -> str:
+    """Return the attached branch with compatibility for older Git builds."""
+
+    branch = _git(project, ["rev-parse", "--abbrev-ref", "HEAD"])
+    if not branch or branch == "HEAD":
+        raise PermissionError("runner release requires an attached Git branch")
+    return branch
+
+
 def remote_branch_sha(
     project: Path, remote: str, branch: str
 ) -> str:
@@ -124,7 +133,7 @@ def build_release_payload(
         raise PermissionError(
             "working tree must be completely clean before runner release"
         )
-    branch = _git(project, ["branch", "--show-current"])
+    branch = current_branch(project)
     expected_branch = str(registration["release_anchor"]["branch"])
     if branch != expected_branch:
         raise PermissionError("runner is on an unexpected branch")
