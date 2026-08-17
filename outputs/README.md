@@ -42,6 +42,13 @@ The later das_runner_release.json hashes the exact runner dependencies and
 records that commit `ed94600f8ee34be32680902b20ac332cbcbae94e` equaled the
 private remote before waveform access.
 
+heldout_v2/registration/comparison_registration_status.json records the
+pre-result DAS-versus-network comparison contract. It pins exact hashes and
+headers for 22 DAS candidates, 33 raw network candidates, 33 adjudicated
+network rows, and 32 network event units. It records zero candidate/evaluation
+rows, candidate-time fields, association rows, or family labels opened and
+keeps candidate-time access locked pending a tested remote runner release.
+
 heldout_v2/network_catalog_audit/ contains the frozen catalog-only result. The
 adjudicated table preserves all 33 union rows byte-for-field, while
 network_evaluation_units.csv records 32 event units. Five known earthquakes

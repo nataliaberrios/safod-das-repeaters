@@ -68,7 +68,13 @@ result. It verifies all aggregate hashes and access counters, shows the
 non-writing display filters. It opens no network/catalog candidate table,
 family label, raw HDF5, or full score cache.
 
-The checkpoint currently records twelve decisive facts:
+Open notebooks/10_heldout_comparison_registration_checkpoint.ipynb for the
+pre-result comparison contract. It verifies all frozen input hashes and exact
+schemas, shows the 22 DAS rows, 33 raw network rows, and 32 network event units,
+and exposes only registration-metadata controls. It parses no candidate row or
+time and reveals no match result.
+
+The checkpoint currently records thirteen decisive facts:
 
 1. A 12-event conventional model was frozen before prospective waveform access.
 2. All five 2024--2025 routine-catalog proximity candidates fail that frozen
@@ -108,6 +114,12 @@ The checkpoint currently records twelve decisive facts:
     (6, 2, 13, and 1). These are arrival candidates, not yet earthquakes,
     repeaters, or extensions, and all comparison/label access counters remain
     zero.
+13. The held-out comparison is registered against exact hashes and schemas
+    without parsing any candidate row or time. It inherits the untuned 8-second
+    deterministic one-to-one rule within intervals, retains all 22 DAS and 33
+    network rows, and preserves the 32-unit network ledger. Candidate-time
+    access remains locked pending a tested, committed, pushed, remotely
+    released runner.
 
 Those facts reshape the work into two linked primary aims:
 
@@ -280,6 +292,28 @@ row, or family label was read; no threshold was repaired, no support sweep was
 run, and no candidate was deleted. The freezer now refuses overwrite. This is
 successful independent candidate generation, not yet incremental value.
 
+## Held-out comparison registration checkpoint
+
+The comparison contract pins exact byte hashes and headers for the 22-row
+DAS-v2 table, 33-row catalog-blind network union, 33-row adjudicated union, and
+32-row network evaluation-unit ledger. Registration opened four headers and
+three status JSON files but parsed zero candidate/evaluation rows, zero
+candidate-time fields, zero association rows, and zero family labels.
+
+The time-only stage inherits the 8-second window already declared before
+held-out DAS access. It matches only within each interval and deterministically
+maximizes pair count before minimizing total absolute time difference. Every
+matched and unmatched row must remain. Network branch roles remain visible;
+the one duplicate network candidate is collapsed only for event-level metrics,
+never deleted. Catalog/evaluation rows cannot open until the time-only output
+is written and checksummed.
+
+This registration does not contain or imply a match result. Candidate-time
+access remains STOP until the runner and failure-path tests are committed,
+pushed, and verified against the private remote. DAS-only rows will remain
+pending independent catalog, forced-network-score, artifact, and waveform
+adjudication after matching.
+
 ## Reproduce compact products
 
 Run from this repository root in the das conda environment. The order preserves
@@ -319,6 +353,8 @@ released.
     sbatch heldout_das_interval_job.sh
     # Run only after all 12 DAS array tasks complete successfully.
     python -m src.freeze_heldout_das_candidates
+    python -m src.register_heldout_das_network_comparison
+    # Commit/push the tested comparison runner before candidate-time access.
     python -m src.build_checkpoint
     python -m unittest discover -s tests -v
     python ../../run_nb_cells.py notebooks/00_advisor_checkpoint.ipynb
@@ -330,6 +366,7 @@ released.
     python ../../run_nb_cells.py notebooks/07_heldout_catalog_audit_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/08_heldout_das_registration_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/09_heldout_das_freeze_checkpoint.ipynb
+    python ../../run_nb_cells.py notebooks/10_heldout_comparison_registration_checkpoint.ipynb
 
 The older clean-room pilot inputs can be rebuilt explicitly when needed:
 
@@ -367,6 +404,10 @@ windows. The advisor notebook does neither by default.
 - config/heldout_das_replay.json freezes the same 12 interval identities, DAS
   manifest selection, inherited v1 null mechanics, unchanged four-of-ten v2
   rule, output schemas, and comparison embargo.
+- config/heldout_das_network_comparison.json pins both frozen candidate tables,
+  network evaluation units, exact schemas, the inherited 8-second within-
+  interval matching rule, full row retention, and the post-time-only access
+  order before any match result is parsed.
 - outputs/development_network/status.json preserves the v4 generic-trigger STOP;
   candidate tables and injection_recovery_summary.csv provide its evidence.
   Full-rate scores, miniSEED, and the downloaded catalog cache remain ignored
@@ -397,6 +438,9 @@ windows. The advisor notebook does neither by default.
   724-row frozen base-v1 table, the exact 22-row v2 subset, and the aggregate
   freeze status. Full score arrays remain ignored; all comparison and
   family-label access counters are zero.
+- outputs/heldout_v2/registration/comparison_registration_status.json records
+  exact schema verification and zero candidate-row/time access. It releases
+  only implementation of a tested runner; it is not a comparison result.
 - outputs/incremental_value/network_baseline/network_model_frozen.json is the
   version-1 conventional verifier. Its thresholds may not be repaired after
   seeing prospective outcomes.
@@ -442,16 +486,20 @@ and 15 generic candidates remain catalog unassociated. The DAS replay read all
 four-of-ten v2 subset. No network/catalog candidate time or family label was
 opened during DAS generation.
 
+The separate comparison is now registered without parsing candidate rows. It
+pins both candidate-table hashes and schemas, the inherited 8-second tolerance,
+within-interval deterministic one-to-one assignment, complete row retention,
+and the 32-unit network ledger.
+
 The remaining order is fixed:
 
-1. register and commit a separate time-only DAS-versus-network comparison that
-   pins both frozen hashes, the arrival-time tolerance, one-to-one assignment,
-   and duplicate/event-unit rules before the two time tables are opened
-   together;
-2. write and checksum the time-only match/unmatched table before any catalog or
-   family-label access; and
-3. independently adjudicate unique events with interval-level uncertainty and
-   the generic network branch's development STOP retained.
+1. implement and test the fail-closed comparison runner, then commit, push, and
+   remotely release it before candidate-time access;
+2. match all 22 DAS and 33 network rows, write and checksum the time-only table,
+   then attach network event-unit context without changing any match; and
+3. independently adjudicate DAS-only candidates and unique events with
+   interval-level uncertainty and the generic network branch's development
+   STOP retained.
 
 A positive DAS result must add independently adjudicated events beyond the full
 network union or improve held-out family resolution. The 33 raw network rows do

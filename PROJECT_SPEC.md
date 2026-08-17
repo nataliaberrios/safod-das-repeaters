@@ -192,6 +192,15 @@ v2 subset. The v2 candidates occur in four intervals with counts 6, 2, 13, and
 for preregistered comparison and adjudication, not evidence by themselves of an
 earthquake, repeater, or catalog extension.
 
+The separate held-out comparison is now registered against exact hashes and
+schemas with zero candidate/evaluation rows or candidate-time fields parsed.
+It inherits the pre-held-out 8-second window, forbids cross-interval matching,
+uses deterministic one-to-one maximum-cardinality/minimum-distance assignment,
+and retains every one of the 22 DAS and 33 network rows. The 32-unit network
+ledger may collapse only one known duplicate for event-level metrics after the
+time-only output is checksummed. This registration is a pre-result contract,
+not evidence of a DAS increment.
+
 ## Primary metrics and pass gates
 
 | Claim | Primary comparison | Pass requirement |
@@ -267,23 +276,30 @@ hash, and its overwrite guard now refuses a second freeze. Neither detector's
 threshold, the four-block support rule, nor any candidate was changed after
 held-out access.
 
-The next allowed operation is a separately registered **time-only**
-DAS-versus-network comparison. Before either frozen time table is opened in the
-same process, that registration must pin their byte hashes and schemas and
-predeclare:
+The time-only comparison is now separately registered. It pins the exact
+22-row DAS table, 33-row network union, 33-row adjudicated network table, and
+32-unit network ledger by byte hash and exact schema. Registration opened only
+four CSV headers and three status JSON files: candidate/evaluation rows,
+candidate-time fields, association rows, and family labels all remain zero.
+The 8-second tolerance is inherited from the pre-held-out contract, matching is
+one-to-one and confined within intervals, and all matched/unmatched rows must be
+retained.
 
-1. which network table is the comparator and how its two branch roles remain
-   visible;
-2. the arrival-time tolerance and deterministic one-to-one assignment rule;
-3. handling of duplicate triggers and the 32 network event-unit ledger;
-4. complete retention of matched and unmatched rows from both pipelines; and
-5. outputs, access counters, STOP conditions, and a no-overwrite gate.
+Candidate-time access remains STOP until a fail-closed runner and its failure-
+path tests are committed, pushed, and remotely verified. Once released, the
+runner must:
 
-The time-only table must be written and checksummed before catalog association
-or family labels are opened. The 22 DAS-v2 rows cannot be tuned, deleted, or
-rank-selected after seeing network times. Any apparent DAS-only candidate must
-then pass independent waveform/catalog/regional-arrival/artifact adjudication;
-a network-catalog miss does not automatically establish a DAS extension.
+1. parse only the frozen 22 DAS and 33 network rows for the time-only stage;
+2. write and checksum the complete matched/unmatched table before opening any
+   adjudicated network or evaluation-unit row;
+3. attach network context by immutable ID without changing a match; and
+4. refuse overwrite, threshold/window repair, rank selection, row deletion,
+   cross-interval matching, and family assignment.
+
+Any DAS-only candidate must then pass independent forced-network-score,
+waveform, catalog/regional-arrival, and DAS-artifact adjudication. A network or
+catalog miss does not automatically establish an earthquake, repeater, or DAS
+extension.
 
 Scientific extension remains STOP until independently adjudicated event units
 show an increment beyond the full network union with interval-level uncertainty
