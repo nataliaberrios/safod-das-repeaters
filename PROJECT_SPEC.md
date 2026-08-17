@@ -141,14 +141,24 @@ arrival from NC event 75120096. No group is unassociated and no family label is
 assigned. This is a comparator-rule freeze for independent DAS development,
 not a claim of held-out detector performance.
 
-DAS-development version 1 is now registered before raw HDF5 access. Manifest
-times and acquisition configuration alone select 52 files spanning the shared
-interval plus 15-second filter padding. The initial candidate generator uses
-180 sampled columns in ten contiguous blocks, 5--20 Hz per-channel energy
-ratios, fourth-highest block coincidence, and 199 independent block-shift
-nulls. The registration status records zero raw HDF5, network-candidate,
-catalog-time, or held-out table opens. Detector performance remains unknown
-until the raw candidate table is materialized.
+DAS-development version 1 was registered before raw HDF5 access. Manifest
+times and acquisition configuration alone selected 52 files spanning the
+shared interval plus 15-second filter padding. The candidate generator used 180
+sampled columns in ten contiguous blocks, 5--20 Hz per-channel energy ratios,
+fourth-highest block coincidence, and 199 independent block-shift nulls. It
+materialized and checksummed 65 raw DAS triggers while recording zero network-
+candidate, catalog-time, or held-out table access.
+
+A separately committed comparison design then used ordered, one-to-one,
+time-only matching before catalog adjudication. DAS recovered both known local
+network events within 1.7--1.9 seconds and missed the known regional network
+arrival. The local events are score ranks 1 and 2 (4.43 and 3.34 versus 1.73 for
+the strongest other trigger) and have 10/10 and 8/10 blocks at the declared
+characteristic ratio of 2; every other trigger has at most one. This is
+promising development evidence for spatially coherent local sensitivity, but
+there are only two local positives, 54 catalog-unassociated raw triggers, zero
+validated DAS-only extensions, and no family assignments. Version 1 is not
+extension-ready and may not be repaired retrospectively.
 
 ## Primary metrics and pass gates
 
@@ -215,12 +225,17 @@ direction, and stress-drop geometry are not.
 - H5: If no incremental gain survives these controls, the extension claim fails
   even if individual DAS earthquakes are visually striking.
 
-## Immediate DAS-development access constraint
+## Immediate next access constraint
 
-The next allowed waveform step is the identical nonblind 50-minute interval
-plus the registered 15-second filter padding only. The DAS-only configuration,
-manifest selection, and access guard are frozen. Candidate generation must not
-read network candidate tables, catalog event times, or held-out intervals. Its
-raw candidate table and nulls must be materialized and checksummed before
-cross-pipeline matching. The 12 held-out hours remain sealed until DAS event
-grouping, blinded adjudication, and matched-FDR rules are frozen.
+The network union, raw DAS version 1 table, time-only comparison, and catalog
+audit are frozen for the nonblind 50-minute interval. The next allowed design
+step is a version-2 DAS detector that makes broad spatial coherence an explicit
+candidate gate. Requiring at least four blocks at the already declared
+characteristic ratio of 2 is the natural development hypothesis, but it is
+post-hoc tuning and must be labeled as such.
+
+Before any held-out waveform is opened, version 2, duplicate-trigger handling,
+waveform/spatial morphology adjudication, event-level false-discovery
+accounting, and the full network-union comparator must be specified, tested, and
+committed. The 12 held-out hours remain sealed. Version 1's 65 rows and null
+threshold remain immutable, and no held-out outcome may repair version 2.

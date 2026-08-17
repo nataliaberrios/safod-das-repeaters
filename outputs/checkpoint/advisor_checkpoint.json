@@ -2,14 +2,14 @@
   "branches": [
     {
       "branch": "Configuration and access-order provenance",
-      "evidence": "all config/model hashes agree; network stages opened zero DAS waveforms",
+      "evidence": "all config/model/result hashes agree; DAS candidate generation opened zero network, catalog-time, or held-out tables",
       "next_gate": "rerun any stale stage before scientific interpretation",
       "status": "PASS"
     },
     {
       "branch": "Archive population and held-out interval seal",
       "evidence": "404 official events; 266 have complete primary-DAS windows; 6297.4 contiguous hours; 12 one-hour intervals selected from the manifest only",
-      "next_gate": "develop only on the unsealed interval; preserve the 12 held-out hours until both detectors are frozen",
+      "next_gate": "preserve the 12 held-out hours until a version-2 DAS coherence rule and event-level validation protocol are frozen",
       "status": "PASS"
     },
     {
@@ -56,8 +56,8 @@
     },
     {
       "branch": "DAS detection/catalog extension",
-      "evidence": "no DAS-only continuous detector has yet been compared with a same-interval best-network detector at matched event-level FDR",
-      "next_gate": "run network-only then DAS-only on the development interval; freeze both before opening held-out intervals",
+      "evidence": "the independent 50-minute DAS scan recovered 2/2 known local network events as score ranks 1 and 2 with 8/10 and 10/10 strong blocks, but produced 65 raw triggers and zero validated catalog extensions",
+      "next_gate": "freeze a development-tuned spatial-coherence version 2, then measure held-out event recovery and false discoveries against the full frozen network union",
       "status": "STOP"
     },
     {
@@ -101,9 +101,9 @@
       "status": "MET_CONDITIONAL"
     },
     {
-      "criterion": "network-only continuous detector frozen first, independent DAS-only detector second, blind adjudication at matched FDR",
+      "criterion": "network union frozen first; independent DAS-only table frozen second; time-only matching written before catalog audit; 2/2 known local events occupy DAS score ranks 1 and 2",
       "name": "5. Development-interval incremental-value test",
-      "status": "NEXT"
+      "status": "MET_DEVELOPMENT_PROMISING_V1_SPECIFICITY_STOP"
     },
     {
       "criterion": "positive interval-bootstrap lower bound for DAS-only or joint gain without target-family overmerge",
@@ -117,17 +117,22 @@
     }
   ],
   "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
-  "decision_basis": "There is now a defensible DAS/repeater project: a frozen conventional verifier supports the 2026 deep event while rejecting its same-fiber control, independent catalogs disagree on the exact historical family partition, and conventional point-station features do not resolve that partition. These facts motivate a near-source DAS test; they do not yet establish catalog extension.",
-  "generated_utc": "2026-08-15T19:19:43Z",
+  "decision_basis": "The independent DAS-only development scan recovered both known local Parkfield earthquakes as the two strongest and most spatially coherent triggers while missing the network's distant regional arrival. That is promising evidence for near-fiber selectivity. Version 1 still produced many weak triggers, only two local positive examples were available, and no DAS-only catalog extension or family assignment has been validated.",
+  "generated_utc": "2026-08-17T04:26:20Z",
   "guardrails": {
     "absolute_spatial_claims_enabled": false,
-    "continuous_detection_status": "NOT_RUN",
+    "continuous_detection_status": "DEVELOPMENT_COMPLETE_V1_LOCAL_RANKING_PROMISING_SPECIFICITY_NOT_READY",
     "family_labels_from_catalog_proximity": 0,
     "frozen_model_version_repair_after_test": "forbidden; create version 2 with a new split",
+    "heldout_access_gate": "STOP_NOT_YET_AUTHORIZED",
     "network_scoring_das_waveforms_opened": 0
   },
   "hash_checks": {
     "archive_population": true,
+    "das_adjudicated_comparison": true,
+    "das_comparison_config": true,
+    "das_raw_candidate_table": true,
+    "das_time_only_comparison": true,
     "deep_das_pilot_config": true,
     "deep_named_model_sha256": true,
     "deep_named_network": true,
@@ -147,6 +152,16 @@
     "deep_candidate_network_decision": "target_family",
     "deep_control_event_id": "75343317",
     "deep_control_network_decision": "not_target_family",
+    "development_DAS_known_local_recovery": "2/2",
+    "development_DAS_known_local_score_ranks": [
+      1,
+      2
+    ],
+    "development_DAS_known_regional_recovery": "0/1",
+    "development_DAS_maximum_other_strong_block_support": 1,
+    "development_DAS_minimum_local_strong_block_support": 8,
+    "development_DAS_raw_triggers": 65,
+    "development_DAS_validated_catalog_extensions": 0,
     "exact_id_crosswalk_matches": 14,
     "heldout_hours_sealed": 12.0,
     "michel_catalog_events": 9680,
@@ -157,12 +172,12 @@
     "primary_manifest_timestamp_invalid_records": 1
   },
   "highest_value_metadata_request": "surveyed deep channel-to-MD/TVD/XYZ/cable-leg/tangent mapping",
-  "highest_value_next_analysis": "build and freeze the network-only continuous detector on the nonblind 2025-01-20 04:55--05:45 UTC development interval, then run an independently triggered DAS-only detector on exactly that 50-minute interval",
+  "highest_value_next_analysis": "freeze a version-2 DAS spatial-coherence gate transparently tuned on the completed development interval, then execute a sealed event-level comparison against the full network union",
   "highest_value_next_observation": "another independently network-classified event on the same deep DAS configuration",
   "network_model_freeze_status": "FROZEN_FOR_PROSPECTIVE_SCORING",
   "network_model_sha256": "bf6dfbd36ecf44721245dfb237b7bb36587d3cdb22dd0d03c4f835d9048357c3",
   "pilot_config_sha256": "1baa6c0b2bb1b381ef5da96fc4a1249a6a2f6dae62efb40b4c5a27dd927e9160",
-  "project_decision": "PROCEED_TO_DEVELOPMENT_SCAN",
+  "project_decision": "PROCEED_TO_REGISTER_V2_VALIDATION",
   "project_shape": [
     {
       "aim": "Aim 1: family-partition resolution",
@@ -171,7 +186,7 @@
     },
     {
       "aim": "Aim 2: catalog extension",
-      "current_status": "DEVELOPMENT_INTERVAL_NEXT",
+      "current_status": "PROMISING_DEVELOPMENT_V1_NOT_CATALOG_EXTENSION",
       "question": "Does a DAS-only or joint continuous scan recover independently adjudicated events missed by a fair same-interval network-only detector?"
     },
     {

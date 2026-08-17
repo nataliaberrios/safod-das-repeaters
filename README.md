@@ -6,10 +6,11 @@ question:
 > What does near-fault DAS add beyond a fair conventional seismic-network
 > workflow for detecting and assigning SAFOD repeating earthquakes?
 
-The current answer is: **the project is worth pursuing, but DAS catalog
-extension is not yet demonstrated.** The strongest opportunity is now a real
-published-catalog partition disagreement near the deep fiber, not a
-correlation-defined binary label that both catalogs support.
+The current answer is: **the project is worth pursuing, and the first
+independent continuous-DAS result is promising, but DAS catalog extension is
+not yet demonstrated.** Both known local earthquakes are the two strongest and
+most spatially coherent DAS triggers; the remaining specificity and held-out
+gates still matter.
 
 Read PROJECT_SPEC.md before interpreting an output. Fiber distance is not depth
 or source distance, a high waveform correlation is not a family label, and a
@@ -32,7 +33,12 @@ checkpoint. It shows the time-only union and post-union catalog audit, and lets
 an advisor vary the cross-branch matching window in memory without changing the
 registered result.
 
-The checkpoint currently records six decisive facts:
+Open notebooks/04_das_development_checkpoint.ipynb for the independent DAS
+checkpoint. It plots the frozen score and spatial-support separation, summarizes
+the time-only network comparison, and provides non-writing display and match-
+window controls.
+
+The checkpoint currently records seven decisive facts:
 
 1. A 12-event conventional model was frozen before prospective waveform access.
 2. All five 2024--2025 routine-catalog proximity candidates fail that frozen
@@ -50,6 +56,9 @@ The checkpoint currently records six decisive facts:
 6. The frozen development network union contains two known local events and one
    known regional arrival, with zero unassociated local candidates; catalog
    evidence was attached only after time-only grouping.
+7. The independent DAS-only scan recovered both local events at score ranks 1
+   and 2 with 8/10 and 10/10 strong blocks, while missing the regional arrival.
+   Version 1 retained 65 raw triggers and yielded zero validated extensions.
 
 Those facts reshape the work into two linked primary aims:
 
@@ -107,11 +116,28 @@ each side. The maximum manifest gap is 2.0 ms. The registration status records
 zero HDF5 file or dataset opens, zero network-candidate or catalog-time table
 opens, and zero held-out table opens.
 
-The initial detector is now predeclared: columns 0--899 sampled every five
+The initial detector was predeclared: columns 0--899 sampled every five
 columns (180 channels), ten 90-column blocks, 5--20 Hz processing at 100 Hz,
 per-channel 0.5/10 s energy STA/LTA, fourth-highest block coincidence, an
 8-second candidate separation, and 199 independent-block circular-shift nulls.
-These are development choices, not a claim that the detector will pass.
+
+## DAS development comparison checkpoint
+
+The raw detector materialized 65 triggers before any network or catalog event
+time was read. The comparison design was then committed separately. Under the
+frozen 8-second, one-to-one time-only rule, DAS matches both known local network
+events within 1.7--1.9 seconds and misses the known Carpinteria regional
+arrival. The two local events rank first and second by DAS score (4.43 and 3.34
+versus 1.73 for the strongest other trigger) and have 10/10 and 8/10 blocks at
+the declared ratio of 2; every other trigger has at most one such block.
+
+This is meaningful near-fiber selectivity evidence, but the development sample
+contains only two local positives. Fifty-four raw triggers are catalog-
+unassociated, broad travel-time compatibility links several weak triggers to
+distant events, and there are zero validated DAS-only catalog extensions.
+Version 1 is therefore preserved as promising but not extension-ready. Any hard
+spatial-support gate is a transparently development-tuned version 2 that must be
+frozen before held-out access.
 
 ## Reproduce compact products
 
@@ -129,14 +155,17 @@ released.
     python -m src.score_michel_continuations
     python -m src.build_partition_diagnostic
     python -m src.score_deep_named_network
-    python -m src.build_checkpoint
     python -m src.run_network_development_detector
     python -m src.freeze_network_union
     python -m src.register_das_development
+    python -m src.run_das_development_detector
+    python -m src.compare_das_network_development
+    python -m src.build_checkpoint
     python -m unittest discover -s tests -v
     python ../../run_nb_cells.py notebooks/00_advisor_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/02_network_development_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/03_network_union_checkpoint.ipynb
+    python ../../run_nb_cells.py notebooks/04_das_development_checkpoint.ipynb
 
 The older clean-room pilot inputs can be rebuilt explicitly when needed:
 
@@ -162,6 +191,9 @@ windows. The advisor notebook does neither by default.
 - config/das_development.json freezes the raw-access boundary, channel/block
   sampling, preprocessing, detector, null, and candidate-materialization order
   before HDF5 waveform access.
+- config/das_network_comparison.json pins the raw DAS table and frozen network
+  union, then predeclares one-to-one matching, catalog-event deduplication,
+  conflict handling, and claim limits before comparison rows are parsed.
 - outputs/development_network/status.json preserves the v4 generic-trigger STOP;
   candidate tables and injection_recovery_summary.csv provide its evidence.
   Full-rate scores, miniSEED, and the downloaded catalog cache remain ignored
@@ -173,6 +205,10 @@ windows. The advisor notebook does neither by default.
 - outputs/development_das/manifest_selection.csv and registration_status.json
   prove the manifest-only 52-file selection and the zero-waveform-access
   registration state.
+- outputs/development_das/candidate_detections_raw.csv is the immutable 65-row
+  DAS-only table. network_comparison_time_only.csv precedes catalog access;
+  network_comparison_adjudicated.csv and comparison_status.json preserve the
+  cautious post-hoc audit and the held-out STOP.
 - outputs/incremental_value/network_baseline/network_model_frozen.json is the
   version-1 conventional verifier. Its thresholds may not be repaired after
   seeing prospective outcomes.
@@ -210,17 +246,20 @@ stress-drop geometry.
 
 ## Next registered computation
 
-The network union and DAS-only pre-waveform registration are now frozen on the
-nonblind 2025-01-20 04:55--05:45 UTC interval. Continue on that interval only:
+The network union, raw DAS version 1 table, and post-hoc comparison are now
+frozen on the nonblind 2025-01-20 04:55--05:45 UTC interval. Do not repair or
+delete version 1 rows. Before opening held-out waveforms:
 
-1. implement and run the registered generic DAS array trigger without importing
-   network candidate times, catalog event times, or held-out intervals;
-2. materialize and checksum the raw DAS-only candidate table and detector nulls;
-3. only then compare the DAS candidates with the frozen network union;
-4. freeze cross-pipeline event matching, blinded adjudication, and matched-FDR
-   rules; and
-5. only then open any of the 12 held-out hours.
+1. register a version-2 DAS detector that turns broad spatial coherence into an
+   explicit candidate gate; the natural development hypothesis is at least four
+   blocks at the already declared characteristic ratio of 2;
+2. predeclare event-level false-discovery accounting, duplicate-trigger
+   handling, morphology review, and the full network-union comparator;
+3. preserve the 12 held-out hours and their access ledger until that design and
+   implementation are committed; and
+4. then evaluate held-out network-only, DAS-only, and joint results without
+   threshold repair.
 
 A positive DAS result must add independently adjudicated events beyond the full
-network union or improve held-out family resolution. A visually striking record
-section is not the pass criterion.
+network union or improve held-out family resolution. The top-two development
+ranking justifies the next test; it does not itself pass it.

@@ -3,6 +3,6 @@ name,status,criterion
 2. Conventional verifier freeze,MET_WITH_LABEL_WARNING,full BP array plus NC.PSM and BK.PKD model frozen before prospective waveform access
 3. Independent catalog reconciliation,MET_PROJECT_RESHAPED,exact-ID Michel crosswalk exposes M00413/M00414 partition conflict; neither catalog silently declared truth
 4. Deep-event cross-instrument checkpoint,MET_CONDITIONAL,2026 candidate passes frozen network verification and deep-DAS detectability; same-fiber control fails both relevant checks
-5. Development-interval incremental-value test,NEXT,"network-only continuous detector frozen first, independent DAS-only detector second, blind adjudication at matched FDR"
+5. Development-interval incremental-value test,MET_DEVELOPMENT_PROMISING_V1_SPECIFICITY_STOP,network union frozen first; independent DAS-only table frozen second; time-only matching written before catalog audit; 2/2 known local events occupy DAS score ranks 1 and 2
 6. Sealed held-out comparison,SEALED_NOT_RUN,positive interval-bootstrap lower bound for DAS-only or joint gain without target-family overmerge
 7. Stress drop and creep rate,STOP,"geometry, response, EGF/corner, completeness, recurrence, and slip-model gates"

@@ -43,6 +43,9 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
         project / "config" / "incremental_value.json"
     )
     pilot_config = load_config(project / "config" / "pilot.json")
+    comparison_config = load_config(
+        project / "config" / "das_network_comparison.json"
+    )
 
     population = _read_json(
         project / "outputs" / "incremental_value" / "population_status.json"
@@ -99,6 +102,9 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
     deep_das = _read_json(
         project / "outputs" / "deep_das" / "status.json"
     )
+    das_comparison = _read_json(
+        project / "outputs" / "development_das" / "comparison_status.json"
+    )
 
     prospective_decisions = _read_csv(
         project
@@ -139,6 +145,37 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
         "deep_das_pilot_config": (
             deep_das.get("config_sha256") == pilot_config["_config_sha256"]
         ),
+        "das_comparison_config": (
+            das_comparison.get("comparison_config_sha256")
+            == comparison_config["_config_sha256"]
+        ),
+        "das_raw_candidate_table": (
+            das_comparison.get("raw_DAS_candidate_table_sha256")
+            == sha256_file(
+                project
+                / "outputs"
+                / "development_das"
+                / "candidate_detections_raw.csv"
+            )
+        ),
+        "das_time_only_comparison": (
+            das_comparison.get("time_only_comparison_sha256")
+            == sha256_file(
+                project
+                / "outputs"
+                / "development_das"
+                / "network_comparison_time_only.csv"
+            )
+        ),
+        "das_adjudicated_comparison": (
+            das_comparison.get("adjudicated_comparison_sha256")
+            == sha256_file(
+                project
+                / "outputs"
+                / "development_das"
+                / "network_comparison_adjudicated.csv"
+            )
+        ),
     }
     provenance_gate = PASS if all(hash_checks.values()) else STOP
 
@@ -161,8 +198,8 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             "branch": "Configuration and access-order provenance",
             "status": provenance_gate,
             "evidence": (
-                "all config/model hashes agree; network stages opened zero DAS "
-                "waveforms"
+                "all config/model/result hashes agree; DAS candidate generation "
+                "opened zero network, catalog-time, or held-out tables"
                 if provenance_gate == PASS
                 else "one or more config/model provenance hashes disagree"
             ),
@@ -183,8 +220,8 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
                 hours=population["contiguous_coverage_hours"],
             ),
             "next_gate": (
-                "develop only on the unsealed interval; preserve the 12 held-out "
-                "hours until both detectors are frozen"
+                "preserve the 12 held-out hours until a version-2 DAS coherence "
+                "rule and event-level validation protocol are frozen"
             ),
         },
         {
@@ -295,12 +332,15 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             "branch": "DAS detection/catalog extension",
             "status": STOP,
             "evidence": (
-                "no DAS-only continuous detector has yet been compared with a "
-                "same-interval best-network detector at matched event-level FDR"
+                "the independent 50-minute DAS scan recovered 2/2 known local "
+                "network events as score ranks 1 and 2 with 8/10 and 10/10 "
+                "strong blocks, but produced 65 raw triggers and zero validated "
+                "catalog extensions"
             ),
             "next_gate": (
-                "run network-only then DAS-only on the development interval; "
-                "freeze both before opening held-out intervals"
+                "freeze a development-tuned spatial-coherence version 2, then "
+                "measure held-out event recovery and false discoveries against "
+                "the full frozen network union"
             ),
         },
         {
@@ -375,10 +415,11 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
         },
         {
             "name": "5. Development-interval incremental-value test",
-            "status": "NEXT",
+            "status": "MET_DEVELOPMENT_PROMISING_V1_SPECIFICITY_STOP",
             "criterion": (
-                "network-only continuous detector frozen first, independent "
-                "DAS-only detector second, blind adjudication at matched FDR"
+                "network union frozen first; independent DAS-only table frozen "
+                "second; time-only matching written before catalog audit; 2/2 "
+                "known local events occupy DAS score ranks 1 and 2"
             ),
         },
         {
@@ -400,14 +441,15 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
     ]
 
     return {
-        "project_decision": "PROCEED_TO_DEVELOPMENT_SCAN",
+        "project_decision": "PROCEED_TO_REGISTER_V2_VALIDATION",
         "decision_basis": (
-            "There is now a defensible DAS/repeater project: a frozen "
-            "conventional verifier supports the 2026 deep event while rejecting "
-            "its same-fiber control, independent catalogs disagree on the exact "
-            "historical family partition, and conventional point-station "
-            "features do not resolve that partition. These facts motivate a "
-            "near-source DAS test; they do not yet establish catalog extension."
+            "The independent DAS-only development scan recovered both known "
+            "local Parkfield earthquakes as the two strongest and most spatially "
+            "coherent triggers while missing the network's distant regional "
+            "arrival. That is promising evidence for near-fiber selectivity. "
+            "Version 1 still produced many weak triggers, only two local positive "
+            "examples were available, and no DAS-only catalog extension or "
+            "family assignment has been validated."
         ),
         "project_shape": [
             {
@@ -425,7 +467,9 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
                     "independently adjudicated events missed by a fair "
                     "same-interval network-only detector?"
                 ),
-                "current_status": "DEVELOPMENT_INTERVAL_NEXT",
+                "current_status": (
+                    "PROMISING_DEVELOPMENT_V1_NOT_CATALOG_EXTENSION"
+                ),
             },
             {
                 "aim": "Aim 3: source physics and creep",
@@ -437,10 +481,9 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             },
         ],
         "highest_value_next_analysis": (
-            "build and freeze the network-only continuous detector on the "
-            "nonblind 2025-01-20 04:55--05:45 UTC development interval, then "
-            "run an independently triggered DAS-only detector on exactly that "
-            "50-minute interval"
+            "freeze a version-2 DAS spatial-coherence gate transparently tuned "
+            "on the completed development interval, then execute a sealed "
+            "event-level comparison against the full network union"
         ),
         "highest_value_next_observation": (
             "another independently network-classified event on the same deep "
@@ -482,6 +525,31 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             "primary_manifest_timestamp_invalid_records": manifest_stats[
                 "primary_configuration_timestamp_invalid_rows"
             ],
+            "development_DAS_raw_triggers": das_comparison[
+                "raw_DAS_candidate_count"
+            ],
+            "development_DAS_known_local_recovery": das_comparison[
+                "known_target_network_event_recovery"
+            ],
+            "development_DAS_known_regional_recovery": das_comparison[
+                "known_regional_network_arrival_recovery"
+            ],
+            "development_DAS_known_local_score_ranks": das_comparison[
+                "ranking_diagnostics"
+            ]["matched_target_score_ranks"],
+            "development_DAS_minimum_local_strong_block_support": (
+                das_comparison["ranking_diagnostics"][
+                    "matched_target_minimum_declared_ratio_block_support"
+                ]
+            ),
+            "development_DAS_maximum_other_strong_block_support": (
+                das_comparison["ranking_diagnostics"][
+                    "other_candidate_maximum_declared_ratio_block_support"
+                ]
+            ),
+            "development_DAS_validated_catalog_extensions": das_comparison[
+                "eligible_catalog_extension_candidate_count"
+            ],
         },
         "guardrails": {
             "network_scoring_das_waveforms_opened": 0,
@@ -490,7 +558,11 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
             "frozen_model_version_repair_after_test": (
                 "forbidden; create version 2 with a new split"
             ),
-            "continuous_detection_status": "NOT_RUN",
+            "continuous_detection_status": (
+                "DEVELOPMENT_COMPLETE_V1_LOCAL_RANKING_PROMISING_"
+                "SPECIFICITY_NOT_READY"
+            ),
+            "heldout_access_gate": das_comparison["heldout_access_gate"],
         },
         "config_sha256": incremental_hash,
         "pilot_config_sha256": pilot_config["_config_sha256"],
