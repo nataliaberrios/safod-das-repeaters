@@ -174,8 +174,23 @@ requests were available, and the immutable catalog-blind output contains 12
 historical-template candidates plus 21 auxiliary generic candidates. No
 cross-branch times match within the registered 8 seconds, so the union has 33
 rows. This is a completed comparator-generation step, not evidence that all 33
-rows are earthquakes or repeaters. The catalog audit must retain every raw row,
-and the generic branch's development SNR-1 STOP remains part of interpretation.
+rows are earthquakes or repeaters. The generic branch's development SNR-1 STOP
+remains part of interpretation.
+
+A separately registered catalog audit retained all 33 rows as 32 event units.
+Five cataloged earthquakes explain six generic triggers; 12 template-only and
+15 generic triggers remain catalog unassociated. No candidate was deleted and
+no family was assigned. Catalog absence is not earthquake or repeater truth.
+
+The independently released DAS runner then completed all 12 held-out hours with
+zero network-candidate, catalog-time, association-row, or family-label access.
+All 738 registered HDF5 files were read; every interval retained 180 usable
+sampled channels and ten usable blocks. The fixed interval nulls retain all 724
+base-v1 candidates, and the unchanged four-of-ten rule retains the exact 22-row
+v2 subset. The v2 candidates occur in four intervals with counts 6, 2, 13, and
+1. Their uneven clustering and the single 10/10 high-score trigger are targets
+for preregistered comparison and adjudication, not evidence by themselves of an
+earthquake, repeater, or catalog extension.
 
 ## Primary metrics and pass gates
 
@@ -244,39 +259,34 @@ direction, and stress-drop geometry are not.
 
 ## Immediate next access constraint
 
-The 12-hour network-only comparator is frozen and checksummed. Its 33-row union
-was created with zero held-out catalog-event, family-label, or DAS HDF5 access;
-all 12 per-interval status files and ignored full-score caches verified before
-the union was written. Threshold recalibration, cross-interval matching,
-candidate deletion, and family assignment were not performed.
+The network union, network catalog audit, and DAS-only candidate generation are
+all frozen and checksummed. The DAS runner was committed, pushed, and verified
+equal to the private remote before waveform access. Slurm array 39362290 passed
+12/12 tasks, the freezer verified every interval-product and ignored-score-cache
+hash, and its overwrite guard now refuses a second freeze. Neither detector's
+threshold, the four-block support rule, nor any candidate was changed after
+held-out access.
 
-Catalog access is now allowed only through a separately registered audit that
-pins this union hash and preserves every row. The audit may distinguish known
-local events, physically plausible regional arrivals, and unassociated
-candidates, but an unassociated row is not automatically a new earthquake or
-repeater. The network operating point may not be repaired after adjudication.
+The next allowed operation is a separately registered **time-only**
+DAS-versus-network comparison. Before either frozen time table is opened in the
+same process, that registration must pin their byte hashes and schemas and
+predeclare:
 
-The preregistered catalog audit is now complete and PASS. All 33 raw rows remain
-unchanged, forming 32 event-level units. Five cataloged earthquakes explain six
-generic-trigger rows: one target-box event outside the family neighborhood and
-four regional events, one of which generated two triggers. The remaining 27
-rows comprise 12 template-only catalog misses for which a broad arrival veto is
-not applicable and 15 generic candidates with no plausible registered catalog
-arrival. None is automatically a new earthquake or repeater. No catalog
-conflict, family assignment, network-waveform read, or DAS HDF5 read occurred.
-The independent DAS-v2 replay is now separately preregistered. Manifest times,
-acquisition configuration, path existence, and file size alone selected 738
-distinct files (26,026,552,059 bytes) covering all 12 intervals plus 15 s filter
-padding. The maximum manifest gap is 0.002 s, below the frozen 0.01 s limit. No
-HDF5 file, header, or dataset; network/catalog candidate time; association row;
-or family label was opened during registration.
+1. which network table is the comparator and how its two branch roles remain
+   visible;
+2. the arrival-time tolerance and deterministic one-to-one assignment rule;
+3. handling of duplicate triggers and the 32 network event-unit ledger;
+4. complete retention of matched and unmatched rows from both pipelines; and
+5. outputs, access counters, STOP conditions, and a no-overwrite gate.
 
-Held-out DAS-v2 generation must still run independently of network candidate
-times, catalog times, and family labels. Every v2 candidate must be materialized
-before cross-pipeline comparison, and every base-v1 threshold candidate must be
-retained so the v2 filter is auditable. Waveform access remains STOP until the
-fail-closed runner and tests are committed, pushed, and remotely released. No
-held-out result may repair either network threshold, the per-interval registered
-v1 null rule, the four-block support gate, or any preprocessing setting.
-Scientific extension remains STOP until independent adjudication and
-interval-level uncertainty show an increment beyond the full network union.
+The time-only table must be written and checksummed before catalog association
+or family labels are opened. The 22 DAS-v2 rows cannot be tuned, deleted, or
+rank-selected after seeing network times. Any apparent DAS-only candidate must
+then pass independent waveform/catalog/regional-arrival/artifact adjudication;
+a network-catalog miss does not automatically establish a DAS extension.
+
+Scientific extension remains STOP until independently adjudicated event units
+show an increment beyond the full network union with interval-level uncertainty
+and the auxiliary generic branch's development SNR-1 limitation retained.
+Family classification, stress drop, and creep-rate inference remain downstream
+of their separate evidence gates.

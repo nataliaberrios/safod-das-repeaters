@@ -38,6 +38,9 @@ selected from interval and manifest metadata only; das_interval_selection.csv
 records complete padded coverage, 61--62 files per interval, and the observed
 gap/byte footprint. These are preregistration products, not waveform reads or
 detector results: every HDF5/header/dataset and comparison-time counter is zero.
+The later das_runner_release.json hashes the exact runner dependencies and
+records that commit `ed94600f8ee34be32680902b20ac332cbcbae94e` equaled the
+private remote before waveform access.
 
 heldout_v2/network_catalog_audit/ contains the frozen catalog-only result. The
 adjudicated table preserves all 33 union rows byte-for-field, while
@@ -45,3 +48,13 @@ network_evaluation_units.csv records 32 event units. Five known earthquakes
 explain six generic triggers; 27 candidates remain catalog unassociated. The
 status file records zero candidate deletion, family assignment, waveform read,
 or DAS access and keeps the scientific extension claim at STOP.
+
+heldout_v2/das/ contains the compact independent DAS result. Each interval
+subdirectory retains chunk/channel/block QC, 199 null maxima, every base-v1
+threshold trigger, the exact frozen v2 subset, and a checksummed status; ignored
+full-score NPZ files remain outside Git. The aggregate
+base_v1_candidates_time_only.csv has 724 rows and
+v2_candidates_time_only.csv has 22 rows. interval_status.csv and
+candidate_generation_status.json verify 12/12 PASS, all 738 selected files
+read, no repair/sweep/deletion, and zero network/catalog-time or family-label
+access. These are arrival candidates, not adjudicated earthquakes or repeaters.

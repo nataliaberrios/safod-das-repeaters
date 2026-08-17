@@ -6,12 +6,14 @@ question:
 > What does near-fault DAS add beyond a fair conventional seismic-network
 > workflow for detecting and assigning SAFOD repeating earthquakes?
 
-The current answer is: **the project is worth pursuing, DAS version 2 and a
-fair 12-hour held-out network comparator are now frozen, but DAS catalog
+The current answer is: **the project is worth pursuing, the independent
+12-hour network and DAS candidate tables are now frozen, but DAS catalog
 extension is not yet demonstrated.** Both known local development earthquakes
-are the two strongest and most spatially coherent DAS triggers. A transparently
-post-hoc four-of-ten-block rule retains those 2 of 65 development triggers; the
-held-out DAS run and independent adjudication must show whether it generalizes.
+were the two strongest and most spatially coherent DAS triggers. The disclosed
+four-of-ten-block rule retains 22 of 724 base triggers in the held-out replay,
+concentrated in four hours. A separately registered comparison and independent
+adjudication must now determine whether those triggers include events that the
+full network workflow missed.
 
 Read PROJECT_SPEC.md before interpreting an output. Fiber distance is not depth
 or source distance, a high waveform correlation is not a family label, and a
@@ -60,7 +62,13 @@ held-out DAS preregistration. It verifies the manifest-selection hashes, shows
 the 61--62 files and byte footprint registered for each interval, and provides
 display-only interval/file controls. It opens no HDF5 file or comparison table.
 
-The checkpoint currently records eleven decisive facts:
+Open notebooks/09_heldout_das_freeze_checkpoint.ipynb for the frozen DAS-only
+result. It verifies all aggregate hashes and access counters, shows the
+724-to-22 fixed-rule reduction and per-interval timing, and exposes only
+non-writing display filters. It opens no network/catalog candidate table,
+family label, raw HDF5, or full score cache.
+
+The checkpoint currently records twelve decisive facts:
 
 1. A 12-event conventional model was frozen before prospective waveform access.
 2. All five 2024--2025 routine-catalog proximity candidates fail that frozen
@@ -91,9 +99,15 @@ The checkpoint currently records eleven decisive facts:
     earthquakes explain six triggers; 12 template-only and 15 generic triggers
     remain catalog unassociated, not automatically new events or repeaters.
 11. Manifest-only DAS preregistration selected 738 distinct files (26.0 GB)
-    across all 12 padded intervals. No HDF5 header/dataset, comparison time, or
-    family label was opened; waveform access remains locked pending runner
-    implementation, tests, commit, push, and remote release.
+    across all 12 padded intervals. The fail-closed runner passed its tests and
+    was committed, pushed, and verified equal to the private remote before HDF5
+    access was released; no comparison time or family label was opened.
+12. Slurm array 39362290 completed 12/12 intervals with exit code 0 and read all
+    738 selected files. The fixed null thresholds retain 724 base-v1 triggers;
+    the unchanged four-of-ten rule retains 22 candidates in four intervals
+    (6, 2, 13, and 1). These are arrival candidates, not yet earthquakes,
+    repeaters, or extensions, and all comparison/label access counters remain
+    zero.
 
 Those facts reshape the work into two linked primary aims:
 
@@ -233,6 +247,39 @@ heldout_11. The generic branch still carries its development SNR-1 STOP, and
 neither branch has yet been checked against local or regional catalogs. Catalog,
 family-label, and DAS access remained zero through the union freeze.
 
+## Held-out catalog-audit checkpoint
+
+The separately registered catalog audit preserves all 33 network rows and
+represents them as 32 event units. Five cataloged earthquakes explain six
+generic triggers: one target-box event outside the family neighborhood and
+four physically plausible regional arrivals, one represented by two triggers.
+The other 27 candidates comprise 12 template-only catalog misses and 15 generic
+catalog-unassociated triggers. No row was deleted, no family was assigned, and
+catalog-unassociated does not mean uncataloged earthquake or repeater.
+
+## Held-out DAS runner and freeze checkpoint
+
+The DAS runner was committed at
+`ed94600f8ee34be32680902b20ac332cbcbae94e`, pushed, and verified exactly equal
+to the private GitHub remote before its release file permitted HDF5 reads.
+Slurm array 39362290 then completed all 12 registered tasks with exit code 0.
+Every selected file was read: 738 unique HDF5 files over 12 hours. All sampled
+180 channels and all ten registered blocks were usable in every interval.
+
+The interval-specific 95th-percentile block-shift nulls retain 724 complete
+base-v1 triggers. The frozen development-derived four-of-ten spatial-support
+gate retains 22 DAS-v2 arrival candidates: six in heldout_01, two in
+heldout_03, 13 in heldout_04, and one in heldout_08. The heldout_08 candidate
+has 10/10 strong blocks and the highest score-to-null ratio; that is a priority
+for later adjudication, not proof of an earthquake or repeater. The clustering
+in heldout_04 likewise requires explicit artifact/regional-arrival checks.
+
+Both aggregate tables and all interval products were checksummed before the
+final status was written. No network or catalog candidate time, association
+row, or family label was read; no threshold was repaired, no support sweep was
+run, and no candidate was deleted. The freezer now refuses overwrite. This is
+successful independent candidate generation, not yet incremental value.
+
 ## Reproduce compact products
 
 Run from this repository root in the das conda environment. The order preserves
@@ -262,6 +309,16 @@ released.
     sbatch heldout_network_interval_job.sh
     # Run only after all 12 array tasks complete successfully.
     python -m src.freeze_heldout_network_candidates
+    python -m src.register_heldout_catalog_audit
+    # Commit/push the registered audit runner before catalog access.
+    python -m src.release_heldout_catalog_runner
+    python -m src.run_heldout_catalog_audit
+    python -m src.register_heldout_das_replay
+    # Commit/push the tested DAS runner; release only succeeds when remote == HEAD.
+    python -m src.release_heldout_das_runner
+    sbatch heldout_das_interval_job.sh
+    # Run only after all 12 DAS array tasks complete successfully.
+    python -m src.freeze_heldout_das_candidates
     python -m src.build_checkpoint
     python -m unittest discover -s tests -v
     python ../../run_nb_cells.py notebooks/00_advisor_checkpoint.ipynb
@@ -269,6 +326,10 @@ released.
     python ../../run_nb_cells.py notebooks/03_network_union_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/04_das_development_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/05_das_v2_freeze_checkpoint.ipynb
+    python ../../run_nb_cells.py notebooks/06_heldout_network_freeze_checkpoint.ipynb
+    python ../../run_nb_cells.py notebooks/07_heldout_catalog_audit_checkpoint.ipynb
+    python ../../run_nb_cells.py notebooks/08_heldout_das_registration_checkpoint.ipynb
+    python ../../run_nb_cells.py notebooks/09_heldout_das_freeze_checkpoint.ipynb
 
 The older clean-room pilot inputs can be rebuilt explicitly when needed:
 
@@ -303,6 +364,9 @@ windows. The advisor notebook does neither by default.
 - config/heldout_network_validation.json freezes all 12 interval identities,
   both network thresholds, the ten-event historical template bank, strict QC,
   network-first access order, and catalog-after-union adjudication.
+- config/heldout_das_replay.json freezes the same 12 interval identities, DAS
+  manifest selection, inherited v1 null mechanics, unchanged four-of-ten v2
+  rule, output schemas, and comparison embargo.
 - outputs/development_network/status.json preserves the v4 generic-trigger STOP;
   candidate tables and injection_recovery_summary.csv provide its evidence.
   Full-rate scores, miniSEED, and the downloaded catalog cache remain ignored
@@ -329,6 +393,10 @@ windows. The advisor notebook does neither by default.
   source/QC ledgers, SLURM execution ledger, and the 33-row catalog-blind
   time-only union. candidate_generation_status.json pins every aggregate hash
   and records zero catalog, family-label, and DAS access through the freeze.
+- outputs/heldout_v2/das/ contains all 12 compact DAS interval ledgers, the
+  724-row frozen base-v1 table, the exact 22-row v2 subset, and the aggregate
+  freeze status. Full score arrays remain ignored; all comparison and
+  family-label access counters are zero.
 - outputs/incremental_value/network_baseline/network_model_frozen.json is the
   version-1 conventional verifier. Its thresholds may not be repaired after
   seeing prospective outcomes.
@@ -366,28 +434,30 @@ stress-drop geometry.
 
 ## Next registered computation
 
-The full 12-hour network comparator and catalog audit are now immutable. The 33
-raw rows become 32 event-level units: six rows are explained by five cataloged
-earthquakes, while 12 template-only and 15 generic candidates remain catalog
-unassociated. No row was deleted or changed, no catalog conflict occurred, and
-no family label or DAS HDF5 file was opened. The independently triggered
-held-out DAS-v2 scan is now separately registered: all 12 padded intervals map
-to 738 distinct manifest files (26,026,552,059 bytes), but no HDF5 header or
-dataset has yet been opened.
+The full 12-hour network comparator, catalog audit, and independently triggered
+DAS tables are now immutable. The 33 network rows become 32 event-level units:
+six rows are explained by five cataloged earthquakes, while 12 template-only
+and 15 generic candidates remain catalog unassociated. The DAS replay read all
+738 registered files and retained 724 base-v1 triggers plus the exact 22-row
+four-of-ten v2 subset. No network/catalog candidate time or family label was
+opened during DAS generation.
 
 The remaining order is fixed:
 
-1. implement and test the fail-closed held-out DAS runner, then commit, push,
-   and remotely release it before waveform access;
-2. scan all 12 complete intervals and materialize/checksum both every base-v1
-   candidate and the frozen four-of-ten v2 subset before comparison; and
-3. compare unique adjudicated events with interval-level uncertainty and the
-   generic branch's development STOP retained.
+1. register and commit a separate time-only DAS-versus-network comparison that
+   pins both frozen hashes, the arrival-time tolerance, one-to-one assignment,
+   and duplicate/event-unit rules before the two time tables are opened
+   together;
+2. write and checksum the time-only match/unmatched table before any catalog or
+   family-label access; and
+3. independently adjudicate unique events with interval-level uncertainty and
+   the generic network branch's development STOP retained.
 
 A positive DAS result must add independently adjudicated events beyond the full
 network union or improve held-out family resolution. The 33 raw network rows do
-not yet establish the baseline false-discovery rate, and the development
-two-of-65 DAS replay does not pass the scientific extension gate.
+not yet establish the baseline false-discovery rate, and neither the
+development two-of-65 replay nor the held-out 22-of-724 DAS table alone passes
+the scientific extension gate.
 
 The completed audit used the pinned target NCSS catalog, inherited 3 s
 template-origin and 12 s generic-origin tolerances, physical 2.5--8 km/s
