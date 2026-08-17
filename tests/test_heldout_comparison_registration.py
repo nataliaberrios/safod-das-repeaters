@@ -173,16 +173,21 @@ class HeldoutComparisonRegistrationTests(unittest.TestCase):
         ):
             self.assertEqual(status[field], 0)
 
-    def test_comparison_outputs_remain_absent_at_registration(self):
-        output = self.registration["output"]
-        root = self.root / output["comparison_directory"]
-        for field in (
-            "time_only_comparison_csv",
-            "network_context_csv",
-            "interval_summary_csv",
-            "comparison_status_json",
-        ):
-            self.assertFalse((root / output[field]).exists())
+    def test_registration_status_records_outputs_absent_before_registration(self):
+        # The registration checkpoint predates the later comparison products.
+        # Assert that historical fact from its immutable status ledger rather
+        # than assuming the workspace will remain empty after the run.
+        status = _load_json(
+            self.root
+            / "outputs"
+            / "heldout_v2"
+            / "registration"
+            / "comparison_registration_status.json"
+        )
+        self.assertEqual(
+            status["comparison_output_products_present_before_registration"],
+            0,
+        )
 
 
 if __name__ == "__main__":

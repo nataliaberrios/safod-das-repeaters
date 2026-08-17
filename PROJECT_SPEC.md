@@ -306,3 +306,20 @@ show an increment beyond the full network union with interval-level uncertainty
 and the auxiliary generic branch's development SNR-1 limitation retained.
 Family classification, stress drop, and creep-rate inference remain downstream
 of their separate evidence gates.
+
+
+## Held-out comparison result checkpoint
+
+The release-gated runner completed the fixed time-only comparison and retained
+all 22 DAS and 33 network rows. It produced one within-interval DAS+network
+match (0.1004 s apart in heldout_08), 21 DAS-only rows, and 32 network-only
+rows. No cross-interval match, threshold/support repair, rank selection,
+candidate deletion, or family assignment occurred. Network context was
+attached only after the time-only table was written and checksummed.
+
+The 21 DAS-only rows are not yet detections or repeater-family extensions. The
+next checkpoint is independent adjudication: force the frozen network score at
+each DAS-only time, test catalog/regional-arrival associations, review DAS
+persistence and morphology plus waveform evidence, and quantify interval-level
+uncertainty. Family labels remain withheld until independent evidence supports
+them.

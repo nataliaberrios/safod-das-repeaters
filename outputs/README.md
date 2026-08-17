@@ -48,6 +48,16 @@ headers for 22 DAS candidates, 33 raw network candidates, 33 adjudicated
 network rows, and 32 network event units. It records zero candidate/evaluation
 rows, candidate-time fields, association rows, or family labels opened and
 keeps candidate-time access locked pending a tested remote runner release.
+comparison_runner_release.json then records the private-remote-verified runner
+and zero pre-release candidate-time access.
+
+heldout_v2/comparison/ contains the first locked comparison result. The
+time-only table has 54 retained rows: one DAS+network match, 21 DAS-only rows,
+and 32 network-only rows. The one matched pair is 0.1004 s apart in heldout_08.
+The context table preserves the time-only fields and marks every DAS-only row
+pending independent adjudication; no family is assigned. interval_summary.csv
+and time_only_comparison_status.json preserve all 12 intervals, exact hashes,
+the 8-second inherited window, and the scientific STOP on extension claims.
 
 heldout_v2/network_catalog_audit/ contains the frozen catalog-only result. The
 adjudicated table preserves all 33 union rows byte-for-field, while

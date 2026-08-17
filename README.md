@@ -491,15 +491,21 @@ pins both candidate-table hashes and schemas, the inherited 8-second tolerance,
 within-interval deterministic one-to-one assignment, complete row retention,
 and the 32-unit network ledger.
 
-The remaining order is fixed:
+The released comparison runner has now completed the fixed first comparison.
+It retained all 22 DAS and 33 network rows, producing 54 time-only rows: one
+within-interval DAS+network match (0.1004 s apart), 21 DAS-only rows, and 32
+network-only rows. No cross-interval match, threshold/support repair, rank
+selection, candidate deletion, or family assignment occurred. Network context
+was attached only after the time-only table was written and checksummed. The
+21 DAS-only rows are explicitly pending independent catalog, forced-network-
+score, waveform, and DAS-artifact adjudication; they are not yet a detection or
+repeater-family extension.
 
-1. implement and test the fail-closed comparison runner, then commit, push, and
-   remotely release it before candidate-time access;
-2. match all 22 DAS and 33 network rows, write and checksum the time-only table,
-   then attach network event-unit context without changing any match; and
-3. independently adjudicate DAS-only candidates and unique events with
-   interval-level uncertainty and the generic network branch's development
-   STOP retained.
+The next registered computation is that independent DAS-only adjudication with
+interval-level uncertainty and the generic network branch development STOP
+retained. It must predeclare waveform-review and network-score access, artifact
+rejection, catalog/regional-arrival checks, and the rule that family assignment
+is withheld without independent evidence.
 
 A positive DAS result must add independently adjudicated events beyond the full
 network union or improve held-out family resolution. The 33 raw network rows do
