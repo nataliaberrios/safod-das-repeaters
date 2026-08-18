@@ -545,6 +545,6 @@ The targeted DAS review read only the registered raw HDF5 windows and reproduced
 
 The scientific state is **PARTIAL / STOP**: no DAS-only row is yet a validated event or catalog extension, no candidate was deleted, and no family was assigned. The next gate is manual waveform/artifact review followed by interval-stratified adjudication.
 
-## Advisor dashboard
+## Adjudication dashboard
 
-Open `notebooks/14_advisor_das_adjudication_dashboard.ipynb` for the presentation dashboard. It provides an evidence funnel, ranked DAS-support overview, interval-stratified counts, and a candidate browser controlled by the `candidate_number` variable. It reads compact products only and writes the overview figure to `outputs/heldout_v2/adjudication/advisor_dashboard_overview.png`; it cannot modify the frozen candidate set or assign families.
+Open `notebooks/14_heldout_adjudication_dashboard.ipynb` for the presentation dashboard. It provides an evidence funnel, ranked DAS-support overview, interval-stratified counts, and a candidate browser controlled by the `candidate_number` variable. It reads compact products only and writes the overview figure to `outputs/heldout_v2/adjudication/heldout_das_adjudication_overview.png`; it cannot modify the frozen candidate set or assign families.
