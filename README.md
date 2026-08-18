@@ -544,3 +544,7 @@ Open `notebooks/13_heldout_adjudication_waveform_checkpoint.ipynb` for the compa
 The targeted DAS review read only the registered raw HDF5 windows and reproduced the frozen DAS preprocessing. All 21 windows had complete finite coverage; the table records score persistence, four-block support duration, spatial support, and a common-mode variance ratio. The raw payload is int32 and has no declared full-scale limit, so saturation is explicitly not assessed. The saved PNG is an automated review aid, not an event classifier.
 
 The scientific state is **PARTIAL / STOP**: no DAS-only row is yet a validated event or catalog extension, no candidate was deleted, and no family was assigned. The next gate is manual waveform/artifact review followed by interval-stratified adjudication.
+
+## Advisor dashboard
+
+Open `notebooks/14_advisor_das_adjudication_dashboard.ipynb` for the presentation dashboard. It provides an evidence funnel, ranked DAS-support overview, interval-stratified counts, and a candidate browser controlled by the `candidate_number` variable. It reads compact products only and writes the overview figure to `outputs/heldout_v2/adjudication/advisor_dashboard_overview.png`; it cannot modify the frozen candidate set or assign families.
