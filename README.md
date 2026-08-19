@@ -553,6 +553,8 @@ Open `notebooks/14_heldout_adjudication_dashboard.ipynb` for the presentation da
 
 The presentation result is in `notebooks/16_deep_das_family_result.ipynb` and `outputs/deep_das/figure_deep_das_family_match.png`. Event 75336682 is spatially coherent on the deep DAS recording and matches six known target-family earthquakes in the frozen seismic-network comparison (median correlation 0.979; median timing mismatch 5.2 ms). Same-fiber control 75343317 is detectable on DAS but fails the family comparison (median correlation 0.391; median timing mismatch 63.3 ms). The family name remains provisional because the published catalog partitions disagree; this is not a slip-rate or stress-drop result.
 
+The neighborhood comparison is in `outputs/deep_das/figure_deep_das_neighborhood_screen.png` (with PDF and SVG versions). The same frozen family test rejects all five nearby catalog events selected by location, while the deep DAS event passes. This supports family verification rather than a claim that nearby events automatically belong to the family; the five nearby events have not yet been independently tested on the deep fiber.
+
 ## Waveform validation figures
 
 `notebooks/15_waveform_validation_figures.ipynb` contains the rendered waveform figures. Figure 1 shows two known earthquakes as checks. Figure 2 shows four possible events visible in DAS recordings but not in the selected seismometer recordings. Both figures use the same 5–20 Hz display band and the same time alignment. Figure 1 is a known-earthquake processing check; Figure 2 is an exploratory list of possible events and does not prove that they are earthquakes or assign repeater families.
