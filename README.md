@@ -548,3 +548,7 @@ The scientific state is **PARTIAL / STOP**: no DAS-only row is yet a validated e
 ## Adjudication dashboard
 
 Open `notebooks/14_heldout_adjudication_dashboard.ipynb` for the presentation dashboard. It provides an evidence funnel, ranked DAS-support overview, interval-stratified counts, and a candidate browser controlled by the `candidate_number` variable. It reads compact products only and writes the overview figure to `outputs/heldout_v2/adjudication/heldout_das_adjudication_overview.png`; it cannot modify the frozen candidate set or assign families.
+
+## Waveform validation figures
+
+`notebooks/15_waveform_validation_figures.ipynb` contains rendered DAS/station waveform panels. The standalone figures are `outputs/heldout_v2/figures/development_positive_control_waveforms.png` and `outputs/heldout_v2/figures/heldout_das_only_waveform_panels.png`. The first shows two known local development controls; the second shows the four strongest held-out DAS-only candidates. These are waveform-evidence panels for adjudication, not automatic event or family assignments.
