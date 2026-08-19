@@ -77,7 +77,7 @@ def _draw_das(axis: Any, times: np.ndarray, values: np.ndarray, title: str) -> A
         interpolation="nearest",
     )
     axis.set_title(title, loc="left")
-    axis.set_ylabel("DAS channel index")
+    axis.set_ylabel("DAS channel number")
     axis.set_yticks([0, 45, 90, 135, 179])
     axis.set_yticklabels(["0", "225", "450", "675", "895"])
     axis.set_xticklabels([])
@@ -106,18 +106,18 @@ def _draw_blocks(axis: Any, times: np.ndarray, blocks: np.ndarray, block_ids: np
 
 
 def _draw_stations(axis: Any, stream: Any, title: str, network_offset_s: float | None = None) -> None:
+    """Draw filtered seismometer recordings on the same relative-time axis."""
     traces = list(stream)[:4]
     for index, trace in enumerate(traces):
-        # The stream was trimmed to center +/- 10 s by the calling helper.
-        time = np.arange(len(trace), dtype=float) / float(trace.stats.sampling_rate)
-        time += -10.0
-        axis.plot(time, np.asarray(trace.data, dtype=float) + 1.25 * index, color=INK, linewidth=0.65)
-        axis.text(6.15, 1.25 * index, trace.id, va="center", fontsize=7.5)
+        time = np.arange(len(trace), dtype=float) / float(trace.stats.sampling_rate) - 10.0
+        axis.plot(time, np.asarray(trace.data, dtype=float) + 1.35 * index, color=INK, linewidth=0.7)
+        axis.text(6.15, 1.35 * index, trace.id, va="center", fontsize=7.5)
     axis.set_title(title, loc="left")
     axis.set_yticks([])
-    axis.set_xlabel("seconds relative to DAS trigger")
+    axis.set_ylim(-0.9, max(1.0, 1.35 * max(len(traces), 1) - 0.1))
+    axis.set_xlabel("seconds from the marked DAS time")
     if network_offset_s is not None:
-        axis.axvline(network_offset_s, color=ORANGE, linestyle="--", linewidth=1.0, label="network arrival")
+        axis.axvline(network_offset_s, color=ORANGE, linestyle="--", linewidth=1.0, label="seismometer arrival")
         axis.legend(fontsize=7, loc="upper right", frameon=False)
     _style_axis(axis)
 
@@ -135,25 +135,24 @@ def _control_figure(output: Path, config: Dict[str, Any]) -> None:
     manifest = [Path(row["path"]) for row in _csv(project_root() / "outputs" / "development_das" / "manifest_selection.csv")]
     station_paths = sorted((project_root() / "cached_continuous" / "network" / "development").glob("*.mseed"))
     controls = [
-        ("75120101", 1737350090.4516, 1737350088.490, 8),
-        ("75120116", 1737350671.0016, 1737350669.130, 10),
+        ("75120101", 1737350090.4516, 1737350088.490),
+        ("75120116", 1737350671.0016, 1737350669.130),
     ]
-    fig, axes = plt.subplots(2, 3, figsize=(13.2, 7.6), sharex=True, constrained_layout=True)
-    for row, (event_id, das_epoch, network_epoch, support) in enumerate(controls):
-        times, values, blocks, block_ids, _ = _das_panel(manifest, das_epoch, config)
+    fig, axes = plt.subplots(2, 2, figsize=(12.5, 7.4), sharex=True, constrained_layout=True)
+    if axes.ndim == 1:
+        axes = axes[None, :]
+    das_image = None
+    for row, (event_id, das_epoch, network_epoch) in enumerate(controls):
+        times, values, _blocks, _block_ids, _ = _das_panel(manifest, das_epoch, config)
         stream = _station_stream(station_paths, das_epoch, 10.0)
-        das_image = _draw_das(axes[row, 0], times, values, "DAS waveform" if row == 0 else "")
-        block_image = _draw_blocks(axes[row, 1], times, blocks, block_ids, "Block characteristic" if row == 0 else "")
-        _draw_stations(axes[row, 2], stream, "Station traces" if row == 0 else "", network_epoch - das_epoch)
-        axes[row, 0].text(-0.24, 0.5, f"Event {event_id}\n{support}/10 strong blocks", transform=axes[row, 0].transAxes, ha="right", va="center", fontweight="bold")
-        if row == 1:
-            axes[row, 0].set_xlabel("seconds relative to DAS trigger")
-            axes[row, 1].set_xlabel("seconds relative to DAS trigger")
-    fig.suptitle("Known local events are coherent on deep DAS and the seismic network", fontsize=16, fontweight="bold")
-    fig.text(0.5, 0.005, "DAS rows use sampled HDF5 channel index; traces are display-normalized 5–20 Hz waveforms. Dashed lines mark the network arrival.", ha="center", fontsize=8, color="#4d5b63")
-    fig.colorbar(das_image, ax=axes[:, 0], fraction=0.025, pad=0.02, label="row-normalized phase")
-    fig.colorbar(block_image, ax=axes[:, 1], fraction=0.025, pad=0.02, label="block characteristic")
-    _save_bundle(fig, output, "figure_1_known_local_controls")
+        das_image = _draw_das(axes[row, 0], times, values, "DAS recording" if row == 0 else "")
+        _draw_stations(axes[row, 1], stream, "Seismometer recordings (5–20 Hz)" if row == 0 else "", network_epoch - das_epoch)
+        axes[row, 0].text(-0.12, 0.5, f"Known earthquake\n{event_id}", transform=axes[row, 0].transAxes, ha="right", va="center", fontweight="bold", fontsize=9)
+    fig.suptitle("Known earthquakes appear in DAS and seismometer recordings", fontsize=16, fontweight="bold")
+    fig.text(0.5, 0.005, "Both instruments are filtered from 5–20 Hz. Each horizontal row is one DAS channel; the dashed line marks the seismometer arrival.", ha="center", fontsize=8, color="#4d5b63")
+    if das_image is not None:
+        fig.colorbar(das_image, ax=axes[:, 0], fraction=0.025, pad=0.02, label="scaled DAS recording")
+    _save_bundle(fig, output, "figure_1_known_earthquake_checks")
     plt.close(fig)
 
 
@@ -166,27 +165,26 @@ def _candidate_figure(output: Path, config: Dict[str, Any], registration: Dict[s
         key=lambda row: float(row["DAS_coincidence_score"]),
         reverse=True,
     )[:4]
-    intervals = {row["interval_id"]: row for row in registered_interval_rows(project, registration, status)}
-    fig, axes = plt.subplots(4, 3, figsize=(13.2, 14.0), sharex=True, constrained_layout=True)
+    fig, axes = plt.subplots(4, 2, figsize=(12.5, 12.5), sharex=True, constrained_layout=True)
+    if axes.ndim == 1:
+        axes = axes[None, :]
+    das_image = None
     for row, candidate in enumerate(candidates):
         interval_id = candidate["interval_id"]
         interval = registered_interval(project, registration, status, interval_id)
         manifest = [Path(item["path"]) for item in registered_manifest_rows(project, registration, status, interval)]
         station_paths = sorted((project / "cached_continuous" / "network" / "heldout_v1" / interval_id).glob("*.mseed"))
         epoch = float(candidate["DAS_trigger_epoch_s"])
-        times, values, blocks, block_ids, _ = _das_panel(manifest, epoch, v1)
+        times, values, _blocks, _block_ids, _ = _das_panel(manifest, epoch, v1)
         stream = _station_stream(station_paths, epoch, 10.0)
-        das_image = _draw_das(axes[row, 0], times, values, "DAS waveform" if row == 0 else "")
-        block_image = _draw_blocks(axes[row, 1], times, blocks, block_ids, "Block characteristic" if row == 0 else "")
-        _draw_stations(axes[row, 2], stream, "Station traces" if row == 0 else "")
-        axes[row, 0].text(-0.24, 0.5, f"{candidate['DAS_candidate_id']}\n{interval_id}", transform=axes[row, 0].transAxes, ha="right", va="center", fontweight="bold", fontsize=8)
-        if row == 3:
-            for column in axes[row]: column.set_xlabel("seconds relative to DAS trigger")
-    fig.suptitle("Independent-test DAS candidates: waveform evidence for adjudication", fontsize=16, fontweight="bold")
-    fig.text(0.5, 0.005, "These candidates were not detected by the frozen network branches and have no cached regional association within 30 s. This figure does not validate them as earthquakes.", ha="center", fontsize=8, color="#4d5b63")
-    fig.colorbar(das_image, ax=axes[:, 0], fraction=0.025, pad=0.02, label="row-normalized phase")
-    fig.colorbar(block_image, ax=axes[:, 1], fraction=0.025, pad=0.02, label="block characteristic")
-    _save_bundle(fig, output, "figure_2_independent_test_candidates")
+        das_image = _draw_das(axes[row, 0], times, values, "DAS recording" if row == 0 else "")
+        _draw_stations(axes[row, 1], stream, "Seismometer recordings (5–20 Hz)" if row == 0 else "")
+        axes[row, 0].text(-0.12, 0.5, f"Possible event\n{candidate['DAS_candidate_id']}", transform=axes[row, 0].transAxes, ha="right", va="center", fontweight="bold", fontsize=8)
+    fig.suptitle("Possible earthquakes seen in DAS but not the seismometer recordings", fontsize=16, fontweight="bold")
+    fig.text(0.5, 0.005, "Both instruments are filtered from 5–20 Hz. These four possible events are visible in DAS recordings but not in the selected seismometer recordings; each still needs event and noise review.", ha="center", fontsize=8, color="#4d5b63")
+    if das_image is not None:
+        fig.colorbar(das_image, ax=axes[:, 0], fraction=0.025, pad=0.02, label="scaled DAS recording")
+    _save_bundle(fig, output, "figure_2_das_possible_events")
     plt.close(fig)
     return [row["DAS_candidate_id"] for row in candidates]
 
@@ -206,11 +204,11 @@ def main() -> None:
     write_json(output / "publication_figure_status.json", {
         "status": "PARTIAL",
         "generated_utc": utc_now(),
-        "figure_1": "figure_1_known_local_controls",
-        "figure_2": "figure_2_independent_test_candidates",
-        "independent_test_candidate_ids": candidate_ids,
+        "figure_1": "figure_1_known_earthquake_checks",
+        "figure_2": "figure_2_das_possible_events",
+        "fiber_only_possible_event_ids": candidate_ids,
         "formats": ["png_300dpi", "pdf_vector", "svg_vector"],
-        "interpretation": "publication_style_waveform_evidence_not_event_validation_or_family_assignment",
+        "interpretation": "These plots support review; they do not prove earthquakes or assign repeater families.",
         "depth_or_strain_claim": False,
         "family_assignments_made": 0,
     })

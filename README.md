@@ -551,4 +551,4 @@ Open `notebooks/14_heldout_adjudication_dashboard.ipynb` for the presentation da
 
 ## Waveform validation figures
 
-`notebooks/15_waveform_validation_figures.ipynb` contains rendered publication-style DAS/station waveform panels. The vector/PDF/PNG figures are `outputs/heldout_v2/figures/figure_1_known_local_controls.*` and `outputs/heldout_v2/figures/figure_2_independent_test_candidates.*`. Figure 1 shows two known local development controls; Figure 2 shows the four strongest independent-test candidates. These are waveform-evidence panels for adjudication, not automatic event or family assignments.
+`notebooks/15_waveform_validation_figures.ipynb` contains the rendered waveform figures. Figure 1 shows two known earthquakes as checks. Figure 2 shows four possible earthquakes visible in DAS recordings but not in the selected seismometer recordings. The figures are for review; they do not by themselves prove that the possible events are earthquakes or assign repeater families.
