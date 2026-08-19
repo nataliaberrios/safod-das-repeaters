@@ -549,6 +549,10 @@ The scientific state is **PARTIAL / STOP**: no DAS-only row is yet a validated e
 
 Open `notebooks/14_heldout_adjudication_dashboard.ipynb` for the presentation dashboard. It provides an evidence funnel, ranked DAS-support overview, interval-stratified counts, and a candidate browser controlled by the `candidate_number` variable. It reads compact products only and writes the overview figure to `outputs/heldout_v2/adjudication/heldout_das_adjudication_overview.png`; it cannot modify the frozen candidate set or assign families.
 
+## Deep DAS family result
+
+The presentation result is in `notebooks/16_deep_das_family_result.ipynb` and `outputs/deep_das/figure_deep_das_family_match.png`. Event 75336682 is spatially coherent on the deep DAS recording and matches six known target-family earthquakes in the frozen seismic-network comparison (median correlation 0.979; median timing mismatch 5.2 ms). Same-fiber control 75343317 is detectable on DAS but fails the family comparison (median correlation 0.391; median timing mismatch 63.3 ms). The family name remains provisional because the published catalog partitions disagree; this is not a slip-rate or stress-drop result.
+
 ## Waveform validation figures
 
 `notebooks/15_waveform_validation_figures.ipynb` contains the rendered waveform figures. Figure 1 shows two known earthquakes as checks. Figure 2 shows four possible events visible in DAS recordings but not in the selected seismometer recordings. Both figures use the same 5–20 Hz display band and the same time alignment. Figure 1 is a known-earthquake processing check; Figure 2 is an exploratory list of possible events and does not prove that they are earthquakes or assign repeater families.

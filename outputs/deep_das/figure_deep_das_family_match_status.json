@@ -1,0 +1,14 @@
+{
+  "control_event_id": 75343317,
+  "control_median_correlation": 0.390702,
+  "control_median_timing_mismatch_s": 0.063346,
+  "correlation_threshold": 0.966109,
+  "event_id": 75336682,
+  "generated_utc": "2026-08-19T19:21:39Z",
+  "interpretation": "The deep DAS event is detectable and matches the known family across six known family earthquakes; the same-fiber control fails the family match. The family name remains provisional because published catalog partitions disagree.",
+  "known_family_earthquake_count": 6,
+  "status": "PRESENTATION_RESULT",
+  "target_median_correlation": 0.978975,
+  "target_median_timing_mismatch_s": 0.005176,
+  "timing_threshold_s": 0.012012
+}
