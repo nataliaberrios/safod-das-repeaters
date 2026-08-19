@@ -551,4 +551,4 @@ Open `notebooks/14_heldout_adjudication_dashboard.ipynb` for the presentation da
 
 ## Waveform validation figures
 
-`notebooks/15_waveform_validation_figures.ipynb` contains rendered DAS/station waveform panels. The standalone figures are `outputs/heldout_v2/figures/development_positive_control_waveforms.png` and `outputs/heldout_v2/figures/heldout_das_only_waveform_panels.png`. The first shows two known local development controls; the second shows the four strongest held-out DAS-only candidates. These are waveform-evidence panels for adjudication, not automatic event or family assignments.
+`notebooks/15_waveform_validation_figures.ipynb` contains rendered publication-style DAS/station waveform panels. The vector/PDF/PNG figures are `outputs/heldout_v2/figures/figure_1_known_local_controls.*` and `outputs/heldout_v2/figures/figure_2_independent_test_candidates.*`. Figure 1 shows two known local development controls; Figure 2 shows the four strongest independent-test candidates. These are waveform-evidence panels for adjudication, not automatic event or family assignments.
