@@ -1,0 +1,26 @@
+{
+  "bands_hz": [
+    [
+      2.0,
+      10.0
+    ],
+    [
+      5.0,
+      20.0
+    ],
+    [
+      10.0,
+      40.0
+    ],
+    [
+      2.0,
+      40.0
+    ]
+  ],
+  "conclusion": "No single band is best for both known earthquakes; 5-20 Hz is retained only as the registered comparison band, not as an optimized choice.",
+  "controls": [
+    "Known earthquake 75120101",
+    "Known earthquake 75120116"
+  ],
+  "status": "CHECK_COMPLETE"
+}

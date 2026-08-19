@@ -135,21 +135,21 @@ def _control_figure(output: Path, config: Dict[str, Any]) -> None:
     manifest = [Path(row["path"]) for row in _csv(project_root() / "outputs" / "development_das" / "manifest_selection.csv")]
     station_paths = sorted((project_root() / "cached_continuous" / "network" / "development").glob("*.mseed"))
     controls = [
-        ("75120101", 1737350090.4516, 1737350088.490),
-        ("75120116", 1737350671.0016, 1737350669.130),
+        ("75120101", 1737350090.4516),
+        ("75120116", 1737350671.0016),
     ]
     fig, axes = plt.subplots(2, 2, figsize=(12.5, 7.4), sharex=True, constrained_layout=True)
     if axes.ndim == 1:
         axes = axes[None, :]
     das_image = None
-    for row, (event_id, das_epoch, network_epoch) in enumerate(controls):
+    for row, (event_id, das_epoch) in enumerate(controls):
         times, values, _blocks, _block_ids, _ = _das_panel(manifest, das_epoch, config)
         stream = _station_stream(station_paths, das_epoch, 10.0)
         das_image = _draw_das(axes[row, 0], times, values, "DAS recording" if row == 0 else "")
-        _draw_stations(axes[row, 1], stream, "Seismometer recordings (5–20 Hz)" if row == 0 else "", network_epoch - das_epoch)
+        _draw_stations(axes[row, 1], stream, "Seismometer recordings (5–20 Hz)" if row == 0 else "")
         axes[row, 0].text(-0.12, 0.5, f"Known earthquake\n{event_id}", transform=axes[row, 0].transAxes, ha="right", va="center", fontweight="bold", fontsize=9)
-    fig.suptitle("Known earthquakes appear in DAS and seismometer recordings", fontsize=16, fontweight="bold")
-    fig.text(0.5, 0.005, "Both instruments are filtered from 5–20 Hz. Each horizontal row is one DAS channel; the dashed line marks the seismometer arrival.", ha="center", fontsize=8, color="#4d5b63")
+    fig.suptitle("Known-earthquake checks: DAS and seismometer recordings", fontsize=16, fontweight="bold")
+    fig.text(0.5, 0.005, "Both recordings use the registered 5–20 Hz display band. Time zero is the marked DAS time; each horizontal row is one DAS channel.", ha="center", fontsize=8, color="#4d5b63")
     if das_image is not None:
         fig.colorbar(das_image, ax=axes[:, 0], fraction=0.025, pad=0.02, label="scaled DAS recording")
     _save_bundle(fig, output, "figure_1_known_earthquake_checks")
@@ -180,8 +180,8 @@ def _candidate_figure(output: Path, config: Dict[str, Any], registration: Dict[s
         das_image = _draw_das(axes[row, 0], times, values, "DAS recording" if row == 0 else "")
         _draw_stations(axes[row, 1], stream, "Seismometer recordings (5–20 Hz)" if row == 0 else "")
         axes[row, 0].text(-0.12, 0.5, f"Possible event\n{candidate['DAS_candidate_id']}", transform=axes[row, 0].transAxes, ha="right", va="center", fontweight="bold", fontsize=8)
-    fig.suptitle("Possible earthquakes seen in DAS but not the seismometer recordings", fontsize=16, fontweight="bold")
-    fig.text(0.5, 0.005, "Both instruments are filtered from 5–20 Hz. These four possible events are visible in DAS recordings but not in the selected seismometer recordings; each still needs event and noise review.", ha="center", fontsize=8, color="#4d5b63")
+    fig.suptitle("Possible events seen in DAS but not seismometer recordings", fontsize=16, fontweight="bold")
+    fig.text(0.5, 0.005, "Both instruments are filtered from 5–20 Hz. These four possible events are visible in DAS recordings but not in the selected seismometer recordings. They are not yet confirmed earthquakes.", ha="center", fontsize=8, color="#4d5b63")
     if das_image is not None:
         fig.colorbar(das_image, ax=axes[:, 0], fraction=0.025, pad=0.02, label="scaled DAS recording")
     _save_bundle(fig, output, "figure_2_das_possible_events")

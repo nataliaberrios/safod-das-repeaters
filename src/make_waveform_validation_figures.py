@@ -51,6 +51,7 @@ def _das_panel(
     epoch_s: float,
     config: Mapping[str, Any],
     half_width_s: float = 10.0,
+    band_hz: Tuple[float, float] | None = None,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, float]:
     sampling = config["channel_sampling"]
     preprocessing = config["preprocessing"]
@@ -67,9 +68,11 @@ def _das_panel(
     )
     values = np.asarray(window.data, dtype=np.float32)
     values = values - np.mean(values, axis=0, dtype=np.float64).astype(np.float32)
+    if band_hz is None:
+        band_hz = tuple(float(value) for value in preprocessing["primary_band_hz"])
     sos = butter(
         4,
-        preprocessing["primary_band_hz"],
+        band_hz,
         btype="bandpass",
         fs=raw_rate,
         output="sos",
@@ -89,7 +92,12 @@ def _das_panel(
     return times - epoch_s, _standardize_rows(processed.T), blocks, np.asarray(block_ids), float(target_rate)
 
 
-def _station_stream(paths: Iterable[Path], center_epoch_s: float, half_width_s: float) -> Stream:
+def _station_stream(
+    paths: Iterable[Path],
+    center_epoch_s: float,
+    half_width_s: float,
+    band_hz: Tuple[float, float] = (5.0, 20.0),
+) -> Stream:
     stream = Stream()
     for path in paths:
         stream += read(str(path))
@@ -106,7 +114,7 @@ def _station_stream(paths: Iterable[Path], center_epoch_s: float, half_width_s: 
         if len(trace) < 100:
             continue
         trace.detrend("demean")
-        trace.filter("bandpass", freqmin=5.0, freqmax=20.0, corners=4, zerophase=True)
+        trace.filter("bandpass", freqmin=float(band_hz[0]), freqmax=float(band_hz[1]), corners=4, zerophase=True)
         data = np.asarray(trace.data, dtype=np.float64)
         data -= np.median(data)
         scale = np.percentile(np.abs(data), 99.0)

@@ -551,4 +551,4 @@ Open `notebooks/14_heldout_adjudication_dashboard.ipynb` for the presentation da
 
 ## Waveform validation figures
 
-`notebooks/15_waveform_validation_figures.ipynb` contains the rendered waveform figures. Figure 1 shows two known earthquakes as checks. Figure 2 shows four possible earthquakes visible in DAS recordings but not in the selected seismometer recordings. The figures are for review; they do not by themselves prove that the possible events are earthquakes or assign repeater families.
+`notebooks/15_waveform_validation_figures.ipynb` contains the rendered waveform figures. Figure 1 shows two known earthquakes as checks. Figure 2 shows four possible events visible in DAS recordings but not in the selected seismometer recordings. Both figures use the same 5–20 Hz display band and the same time alignment. Figure 1 is a known-earthquake processing check; Figure 2 is an exploratory list of possible events and does not prove that they are earthquakes or assign repeater families.
