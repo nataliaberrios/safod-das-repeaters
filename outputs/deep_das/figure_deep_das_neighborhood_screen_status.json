@@ -1,9 +1,0 @@
-{
-  "nearby_catalog_event_count": 5,
-  "nearby_catalog_events_passing": 0,
-  "deep_das_event_id": "75336682",
-  "deep_das_event_decision": "target_family",
-  "same_fiber_comparison_event_id": "75343317",
-  "same_fiber_comparison_decision": "not_target_family",
-  "interpretation": "The deep DAS event is the only event in this small comparison set that passes the frozen known-family test. Nearby events were selected by location, not by family waveform score. This is a family-verification result, not a catalog-extension, slip-rate, or stress-drop result."
-}
