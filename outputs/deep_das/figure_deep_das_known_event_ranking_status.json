@@ -1,0 +1,17 @@
+{
+  "interval": "2025-01-20T04:55:00Z to 2025-01-20T05:45:00Z",
+  "initial_das_detection_count": 65,
+  "known_local_event_count": 2,
+  "known_local_event_ranks": [
+    1,
+    2
+  ],
+  "known_local_event_ids": [
+    "75120101",
+    "75120116"
+  ],
+  "next_best_other_score": 1.728666067123413,
+  "minimum_known_score": 3.339193344116211,
+  "score_margin": 1.6105272769927979,
+  "interpretation": "In this development interval, both known local target events were the two strongest DAS detections. This supports DAS recovery of known events, but the other detections have not been independently validated as earthquakes."
+}

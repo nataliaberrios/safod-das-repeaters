@@ -555,6 +555,8 @@ The presentation result is in `notebooks/16_deep_das_family_result.ipynb` and `o
 
 The neighborhood comparison is in `outputs/deep_das/figure_deep_das_neighborhood_screen.png` (with PDF and SVG versions). The same frozen family test rejects all five nearby catalog events selected by location, while the deep DAS event passes. This supports family verification rather than a claim that nearby events automatically belong to the family; the five nearby events have not yet been independently tested on the deep fiber.
 
+A more direct development check is in `outputs/deep_das/figure_deep_das_known_event_ranking.png` (with PDF and SVG versions). In a 50-minute development interval, the DAS detector produced 65 initial detections; the two known local earthquakes were ranked first and second, with a score margin of 1.61 over the next-highest detection. This is a known-event recovery result, not a catalog-extension result: the other 63 detections are not yet independently confirmed earthquakes.
+
 ## Waveform validation figures
 
 `notebooks/15_waveform_validation_figures.ipynb` contains the rendered waveform figures. Figure 1 shows two known earthquakes as checks. Figure 2 shows four possible events visible in DAS recordings but not in the selected seismometer recordings. Both figures use the same 5–20 Hz display band and the same time alignment. Figure 1 is a known-earthquake processing check; Figure 2 is an exploratory list of possible events and does not prove that they are earthquakes or assign repeater families.
