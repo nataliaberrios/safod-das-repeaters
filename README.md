@@ -19,11 +19,11 @@ Read PROJECT_SPEC.md before interpreting an output. Fiber distance is not depth
 or source distance, a high waveform correlation is not a family label, and a
 DAS-visible event is not automatically a DAS catalog extension.
 
-## Advisor checkpoint
+## Initial checkpoint
 
-Open notebooks/00_advisor_checkpoint.ipynb and run all cells. It reads compact
+Open notebooks/00_initial_checkpoint.ipynb and run all cells. It reads compact
 tracked products by default and does not open raw DAS or download network data.
-The first control cell lets an advisor vary correlation and differential-lag
+The first control cell lets a reviewer vary correlation and differential-lag
 thresholds as an explicitly exploratory sandbox; it never overwrites the frozen
 model.
 
@@ -33,7 +33,7 @@ and exposes only a non-writing SNR/acceptance sandbox.
 
 Open notebooks/03_network_union_checkpoint.ipynb for the frozen network-union
 checkpoint. It shows the time-only union and post-union catalog audit, and lets
-an advisor vary the cross-branch matching window in memory without changing the
+a reviewer vary the cross-branch matching window in memory without changing the
 registered result.
 
 Open notebooks/04_das_development_checkpoint.ipynb for the independent DAS
@@ -357,7 +357,7 @@ released.
     # Commit/push the tested comparison runner before candidate-time access.
     python -m src.build_checkpoint
     python -m unittest discover -s tests -v
-    python ../../run_nb_cells.py notebooks/00_advisor_checkpoint.ipynb
+    python ../../run_nb_cells.py notebooks/00_initial_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/02_network_development_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/03_network_union_checkpoint.ipynb
     python ../../run_nb_cells.py notebooks/04_das_development_checkpoint.ipynb
@@ -378,7 +378,7 @@ The older clean-room pilot inputs can be rebuilt explicitly when needed:
     python -m src.run_network_family_benchmark
 
 These commands may read shared read-only data or retrieve official waveform
-windows. The advisor notebook does neither by default.
+windows. The interactive notebook does neither by default.
 
 ## Canonical products
 
@@ -456,7 +456,7 @@ windows. The advisor notebook does neither by default.
   network decisions for the named 2026 deep candidate and hard control.
 - outputs/incremental_value/heldout_intervals.csv contains the sealed,
   manifest-only one-hour intervals.
-- outputs/checkpoint/advisor_checkpoint.json is the current claim and next-gate
+- outputs/checkpoint/initial_checkpoint.json is the current claim and next-gate
   ledger.
 
 Downloaded public catalog text and miniSEED waveform caches are ignored by Git.

@@ -1,4 +1,4 @@
-"""Assemble the advisor checkpoint from authoritative clean-room products.
+"""Assemble the initial checkpoint from authoritative clean-room products.
 
 This module reports gates conservatively.  A PASS can describe a completed
 procedural prerequisite; it never promotes a prospective event to published
@@ -727,12 +727,12 @@ def assemble_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
 
 
 def write_checkpoint(root: Optional[Path] = None) -> Dict[str, Any]:
-    """Write compact JSON/CSV products consumed by the advisor notebook."""
+    """Write compact JSON/CSV products consumed by the reviewer notebook."""
 
     project = project_root() if root is None else Path(root)
     payload = assemble_checkpoint(project)
     output = project / "outputs" / "checkpoint"
-    write_json(output / "advisor_checkpoint.json", payload)
+    write_json(output / "initial_checkpoint.json", payload)
     write_rows(output / "branch_status.csv", payload["branches"])
     write_rows(output / "milestones.csv", payload["checkpoints"])
     return payload
