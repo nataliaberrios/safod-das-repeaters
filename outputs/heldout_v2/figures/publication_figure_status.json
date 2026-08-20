@@ -1,0 +1,20 @@
+{
+  "depth_or_strain_claim": false,
+  "family_assignments_made": 0,
+  "fiber_only_possible_event_ids": [
+    "das_v2_heldout_04_0001",
+    "das_v2_heldout_01_0005",
+    "das_v2_heldout_04_0005",
+    "das_v2_heldout_01_0004"
+  ],
+  "figure_1": "figure_1_known_earthquake_checks",
+  "figure_2": "figure_2_das_possible_events",
+  "formats": [
+    "png_300dpi",
+    "pdf_vector",
+    "svg_vector"
+  ],
+  "generated_utc": "2026-08-19T19:15:00Z",
+  "interpretation": "These plots support review; they do not prove earthquakes or assign repeater families.",
+  "status": "PARTIAL"
+}

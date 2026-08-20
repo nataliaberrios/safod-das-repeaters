@@ -249,7 +249,9 @@ def write_rows(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
             if key not in keys:
                 keys.append(key)
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=keys, extrasaction="ignore")
+        writer = csv.DictWriter(
+            handle, fieldnames=keys, extrasaction="ignore", lineterminator="\n"
+        )
         writer.writeheader()
         writer.writerows(rows)
 

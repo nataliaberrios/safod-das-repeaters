@@ -1,0 +1,26 @@
+{
+  "catalog_event_count": 404,
+  "catalog_query_url": "https://service.ncedc.org/fdsnws/event/1/query?starttime=2024-05-07T23%3A46%3A07Z&endtime=2025-07-25T20%3A05%3A12Z&format=text&orderby=time&catalog=NCSS&minlatitude=35.75&maxlatitude=36.15&minlongitude=-120.75&maxlongitude=-120.35&mindepth=-2.0&maxdepth=15.0&minmagnitude=-1.0",
+  "catalog_retrieved_utc": "2026-08-15T19:16:06Z",
+  "catalog_role": "routine_event_nomination_and_later_adjudication_not_family_labels",
+  "config_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/config/incremental_value.json",
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "generated_utc": "2026-08-15T19:16:06Z",
+  "manifest_path": "/oak/stanford/groups/ettore88/data/SAFOD/SAFODAS1-harddrive-transfer/SAFOD_2024_2025.csv",
+  "manifest_sha256": "686fb5d055c44fadd67573de12619ec0fcbc40488d23832c463cdec86d4030a1",
+  "manifest_stats": {
+    "manifest_rows": 392095,
+    "path_rewrite_count": 1,
+    "placeholder_or_numeric_invalid_rows": 16,
+    "primary_configuration_time_valid_rows": 378050,
+    "primary_configuration_timestamp_invalid_rows": 1,
+    "timestamp_invalid_rows": 1,
+    "valid_other_configuration_rows": 14028
+  },
+  "path_rewrites": [
+    {
+      "filesystem_prefix": "/oak/stanford/groups/ettore88/data/SAFOD/SAFODAS1-harddrive-transfer",
+      "manifest_prefix": "/oak/stanford/groups/ettore88/data/SAFODAS1-harddrive-transfer"
+    }
+  ]
+}

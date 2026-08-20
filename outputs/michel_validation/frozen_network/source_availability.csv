@@ -1,0 +1,13 @@
+event_id,origin_time,source_name,network,status,trace_count,error,michel_sequence_id
+72599170,2016-02-28T07:33:50.673Z,hrsn_full,BP,available,32,,M00413
+72599170,2016-02-28T07:33:50.673Z,ncsn_psm,NC,available,3,,M00413
+72599170,2016-02-28T07:33:50.673Z,bdsn_pkd,BK,available,3,,M00413
+72753200,2017-01-17T07:13:45.413Z,hrsn_full,BP,available,32,,M00413
+72753200,2017-01-17T07:13:45.413Z,ncsn_psm,NC,available,3,,M00413
+72753200,2017-01-17T07:13:45.413Z,bdsn_pkd,BK,available,3,,M00413
+73039936,2018-07-03T23:18:44.272Z,hrsn_full,BP,available,32,,M00414
+73039936,2018-07-03T23:18:44.272Z,ncsn_psm,NC,available,3,,M00414
+73039936,2018-07-03T23:18:44.272Z,bdsn_pkd,BK,available,3,,M00414
+73335796,2020-02-05T05:44:58.608Z,hrsn_full,BP,available,32,,M00413
+73335796,2020-02-05T05:44:58.608Z,ncsn_psm,NC,available,3,,M00413
+73335796,2020-02-05T05:44:58.608Z,bdsn_pkd,BK,available,3,,M00413

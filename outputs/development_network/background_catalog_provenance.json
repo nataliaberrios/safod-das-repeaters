@@ -1,0 +1,11 @@
+{
+  "association_role": "known_regional_event_veto_and_audit_only",
+  "cache_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/cached_catalogs/network_development_background.txt",
+  "cache_sha256": "e1b399016ff69d6dbd43c65be18ab0fabfb018d752cbfabf50f80cd26803ca74",
+  "catalog_event_count": 6,
+  "catalog_name": "NCSS",
+  "query_url": "https://service.ncedc.org/fdsnws/event/1/query?starttime=2025-01-20T04%3A50%3A00.000Z&endtime=2025-01-20T05%3A45%3A00.000Z&format=text&orderby=time&catalog=NCSS&minlatitude=32&maxlatitude=42.5&minlongitude=-125&maxlongitude=-114&mindepth=-5&maxdepth=40&minmagnitude=-1",
+  "retrieval_status": "cache_hit",
+  "retrieved_utc": "2026-08-15T20:10:24Z",
+  "status": "DEVELOPMENT_ADJUDICATION_ONLY_NOT_CANDIDATE_GENERATION"
+}

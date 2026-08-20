@@ -1,0 +1,13 @@
+interval_id,DAS_v2_candidate_count,network_raw_candidate_count,matched_pair_count,DAS_only_candidate_count,network_only_candidate_count,network_event_unit_count,network_event_units_with_DAS_match,network_event_units_without_DAS_match,network_duplicate_raw_candidate_count,DAS_only_independent_adjudication_pending_count,catalog_fields_used_in_time_matching,family_assignments_made
+heldout_01,6,5,0,6,5,5,0,5,0,6,0,0
+heldout_02,0,1,0,0,1,1,0,1,0,0,0,0
+heldout_03,2,7,0,2,7,7,0,7,0,2,0,0
+heldout_04,13,1,0,13,1,1,0,1,0,13,0,0
+heldout_05,0,0,0,0,0,0,0,0,0,0,0,0
+heldout_06,0,1,0,0,1,1,0,1,0,0,0,0
+heldout_07,0,2,0,0,2,2,0,2,0,0,0,0
+heldout_08,1,3,1,0,2,2,1,1,1,0,0,0
+heldout_09,0,2,0,0,2,2,0,2,0,0,0,0
+heldout_10,0,3,0,0,3,3,0,3,0,0,0,0
+heldout_11,0,8,0,0,8,8,0,8,0,0,0,0
+heldout_12,0,0,0,0,0,0,0,0,0,0,0,0

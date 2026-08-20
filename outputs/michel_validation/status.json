@@ -1,0 +1,29 @@
+{
+  "catalog_event_count": 9680,
+  "catalog_sequence_count": 1471,
+  "classification_label_gate": "STOP",
+  "config_sha256": "87ea5389f35f6171fb3f94de2d3725bdf65f8926d759068693428b2b679ad317",
+  "das_opportunity": "test whether dense near-source moveout supports the split or merge partition",
+  "exact_id_match_count": 14,
+  "frozen_network_model_status": "MECHANICALLY_FROZEN_BUT_LABEL_INTERPRETATION_SUPERSEDED_BY_CONFLICT",
+  "generated_utc": "2026-08-15T18:53:38Z",
+  "partition_conflict_count": 2,
+  "partition_conflict_types": [
+    "waldhauser_schaff_family_split_by_michel",
+    "michel_family_merges_waldhauser_schaff_families"
+  ],
+  "post_2014_continuation_event_count": 4,
+  "post_2014_continuation_event_ids": [
+    "72599170",
+    "72753200",
+    "73039936",
+    "73335796"
+  ],
+  "reason": "independent exact-ID catalogs disagree on the target-family partition",
+  "status": "STOP",
+  "target_maps_to_michel_sequence_ids": [
+    "M00413",
+    "M00414"
+  ],
+  "waldhauser_schaff_population_event_count": 18
+}

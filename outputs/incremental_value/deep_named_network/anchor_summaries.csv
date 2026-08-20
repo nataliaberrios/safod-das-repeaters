@@ -1,0 +1,13 @@
+event_id,named_role,target_anchor_event_id,usable_metric_count,minimum_components_per_supported_band,minimum_stations_per_supported_band,overall_median_correlation,status
+75336682,prospective_deep_das_candidate,51214531,71,17,7,0.9746559239619418,PASS
+75336682,prospective_deep_das_candidate,71325295,79,19,7,0.976646998628428,PASS
+75336682,prospective_deep_das_candidate,71567810,95,23,9,0.9790938160479455,PASS
+75336682,prospective_deep_das_candidate,71908906,103,25,10,0.9739286952242175,PASS
+75336682,prospective_deep_das_candidate,72154411,96,23,9,0.9662718086164385,PASS
+75336682,prospective_deep_das_candidate,72359026,87,21,8,0.9718733659500466,PASS
+75343317,prospective_same_fiber_hard_control,51214531,84,21,9,0.3661732573747628,PASS
+75343317,prospective_same_fiber_hard_control,71325295,92,23,8,0.3806792812342287,PASS
+75343317,prospective_same_fiber_hard_control,71567810,108,27,10,0.39183368565088156,PASS
+75343317,prospective_same_fiber_hard_control,71908906,115,28,11,0.3696921041917222,PASS
+75343317,prospective_same_fiber_hard_control,72154411,109,27,10,0.3832600512807362,PASS
+75343317,prospective_same_fiber_hard_control,72359026,100,25,9,0.37654885360761425,PASS

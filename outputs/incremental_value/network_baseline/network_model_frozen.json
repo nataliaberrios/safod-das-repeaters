@@ -1,0 +1,134 @@
+{
+  "balanced_accuracy": 0.8333333333333333,
+  "candidate_threshold_pair_count": 144,
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "correlation_threshold": 0.966109158079069,
+  "differential_lag_rms_threshold_s": 0.012012057489268927,
+  "false_negative": 0,
+  "false_positive": 2,
+  "feature_definition": {
+    "amplitude_used": false,
+    "correlation": "median normalized positive-peak correlation over target anchors",
+    "differential_lag": "median target-anchor network station-lag RMS after common-shift removal",
+    "instrument_response_removed": false
+  },
+  "fit_interpretation": "apparent historical training performance; prospective validation required",
+  "fit_population_event_count": 12,
+  "freeze_gate": {
+    "eligible_historical_neighbor_events": 6,
+    "eligible_historical_target_events": 6,
+    "minimum_historical_neighbor_events": 3,
+    "minimum_historical_target_events": 4,
+    "status": "PASS"
+  },
+  "freeze_status": "FROZEN_FOR_PROSPECTIVE_SCORING",
+  "generated_utc": "2026-08-15T18:45:08Z",
+  "historical_available_event_ids": [
+    "10088629",
+    "21088307",
+    "21100860",
+    "21204713",
+    "21212835",
+    "21260770",
+    "21260771",
+    "213203",
+    "30066019",
+    "40220017",
+    "40237728",
+    "51214531",
+    "524545",
+    "71325295",
+    "71567810",
+    "71908906",
+    "72154411",
+    "72359026"
+  ],
+  "model_band_hz": [
+    5.0,
+    20.0
+  ],
+  "neighbor_specificity": 0.6666666666666666,
+  "network_sources": [
+    {
+      "channels": [
+        "DP1",
+        "DP2",
+        "DP3"
+      ],
+      "location": "*",
+      "name": "hrsn_full",
+      "network": "BP",
+      "stations": [
+        "CCRB",
+        "EADB",
+        "FROB",
+        "GHIB",
+        "JCNB",
+        "JCSB",
+        "LCCB",
+        "MMNB",
+        "RMNB",
+        "SCYB",
+        "SMNB",
+        "VARB"
+      ]
+    },
+    {
+      "channels": [
+        "EHE",
+        "EHN",
+        "EHZ"
+      ],
+      "location": "*",
+      "name": "ncsn_psm",
+      "network": "NC",
+      "stations": [
+        "PSM"
+      ]
+    },
+    {
+      "channels": [
+        "HHE",
+        "HHN",
+        "HHZ"
+      ],
+      "location": "*",
+      "name": "bdsn_pkd",
+      "network": "BK",
+      "stations": [
+        "PKD"
+      ]
+    }
+  ],
+  "reason": "model mechanics are frozen; apparent historical fit is not prospective validation",
+  "scientific_status": "CONDITIONAL",
+  "selection_order": [
+    "balanced_accuracy",
+    "target_precision",
+    "target_recall",
+    "higher_correlation_threshold",
+    "lower_differential_lag_threshold"
+  ],
+  "target_anchor_event_ids": [
+    "51214531",
+    "71325295",
+    "71567810",
+    "71908906",
+    "72154411",
+    "72359026"
+  ],
+  "target_precision": 0.75,
+  "target_recall": 1.0,
+  "target_sequence_id": "R1.2900.11955.0",
+  "threshold_fit_rule": "exhaustive_midpoint_grid_on_historical_exact_id_labels_only",
+  "training_population_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/outputs/external_validation/published_validation_population.csv",
+  "training_population_rule": "published_exact_id_families_only",
+  "training_population_sha256": "c710d4b4bcec652a97683efda71f08acbd3fd8236cfa44503dd5a23d31a6c757",
+  "training_product_sha256": {
+    "historical_pair_features.csv": "16cbfc72070cfb1cabd3f12c7b13925bbfeb0ec4a872ddd6ac69a3905b753eae",
+    "historical_pair_metrics.csv": "d653f12ade6cbc408fed99c173083fd0e01a6b12438d7a397f89388fa2adcb2d",
+    "historical_target_scores.csv": "2ead0b5631b2f90a2efe180e82bccffe55d776c110ae7caf4792dbc02c9146ce"
+  },
+  "true_negative": 4,
+  "true_positive": 6
+}

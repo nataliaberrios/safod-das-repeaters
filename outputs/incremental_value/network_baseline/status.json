@@ -1,0 +1,25 @@
+{
+  "candidate_waveform_access": "RELEASED_FOR_BLIND_NETWORK_SCORING",
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "continuous_detection_status": "NOT_RUN",
+  "events_with_any_network_waveform": 18,
+  "generated_utc": "2026-08-15T18:45:08Z",
+  "historical_apparent_balanced_accuracy": 0.8333333333333333,
+  "historical_apparent_target_precision": 0.75,
+  "historical_apparent_target_recall": 1.0,
+  "historical_neighbor_events_eligible": 6,
+  "historical_target_events_eligible": 6,
+  "labeled_population_events": 18,
+  "model_freeze_status": "FROZEN_FOR_PROSPECTIVE_SCORING",
+  "model_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/outputs/incremental_value/network_baseline/network_model_frozen.json",
+  "prospective_validation_status": "NOT_RUN",
+  "source_availability_counts": {
+    "bdsn_pkd:available": 8,
+    "bdsn_pkd:unavailable": 10,
+    "hrsn_full:available": 12,
+    "hrsn_full:unavailable": 6,
+    "ncsn_psm:available": 17,
+    "ncsn_psm:unavailable": 1
+  },
+  "status": "CONDITIONAL"
+}

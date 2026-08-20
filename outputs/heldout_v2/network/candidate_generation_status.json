@@ -1,0 +1,72 @@
+{
+  "DAS_access_gate": "PASS_COMPLETE_HELDOUT_NETWORK_UNION_IS_FROZEN_REGISTER_DAS_REPLAY_BEFORE_WAVEFORM_ACCESS",
+  "all_interval_candidate_tables_checksums_verified_before_union": true,
+  "available_source_count": 35,
+  "branch_status_counts": {
+    "generic": {
+      "PASS": 12
+    },
+    "template": {
+      "PASS": 12
+    }
+  },
+  "candidate_deletion_after_review_performed": false,
+  "candidate_family_assignments_made": 0,
+  "catalog_access_gate": "PASS_COMPLETE_NETWORK_TIME_ONLY_UNION_IS_CHECKSUMMED",
+  "conditional_interval_count": 0,
+  "cross_branch_pair_count": 0,
+  "cross_interval_candidate_matching_performed": false,
+  "failed_interval_count": 0,
+  "family_assignment_gate": "STOP_FAMILY_ASSIGNMENT_FORBIDDEN",
+  "generated_utc": "2026-08-17T06:11:56Z",
+  "generic_candidate_count": 21,
+  "generic_candidate_sha256": "1af8f743db81c827a9d343b67873c2673a8a3a07fe46b873e0870fa80666f091",
+  "generic_development_SNR1_STOP_preserved": true,
+  "generic_threshold": 1.5937319993972778,
+  "heldout_DAS_HDF5_datasets_opened": 0,
+  "heldout_DAS_HDF5_files_opened": 0,
+  "heldout_catalog_event_rows_opened": 0,
+  "heldout_family_label_rows_opened": 0,
+  "heldout_network_config_sha256": "2ef3a0c994ef8ec9b0856b74d87ca94c5b54f086ad581f39c71088fb0083ef77",
+  "heldout_network_waveform_files_opened": 35,
+  "heldout_total_duration_h": 12.0,
+  "historical_template_waveform_files_opened": 324,
+  "interval_count": 12,
+  "interval_generation_status_counts": {
+    "PASS": 12
+  },
+  "interval_ids": [
+    "heldout_01",
+    "heldout_02",
+    "heldout_03",
+    "heldout_04",
+    "heldout_05",
+    "heldout_06",
+    "heldout_07",
+    "heldout_08",
+    "heldout_09",
+    "heldout_10",
+    "heldout_11",
+    "heldout_12"
+  ],
+  "interval_status_sha256": "888eb78ad15fba407b16a778185157ce143c33813b38ad667f4baacd9f24b99e",
+  "network_registration_status_sha256": "fd9d16bcdcda93e0b27d41a356bf06e8ae771d8431db2786c107b32a7807ef3c",
+  "network_runner_release_sha256": "d3b88a427cb5cac69e97e493c23a82285d420b8bf1a79d160d08bb41c2760e55",
+  "network_union_complete_and_frozen": true,
+  "next_stage_gate": "PASS_REGISTER_POST_UNION_CATALOG_AUDIT_AND_HELDOUT_DAS_REPLAY",
+  "runner_commit_sha": "08099bea76899f7afc82193eef56b4faf330d947",
+  "source_request_ledger_sha256": "ecf67d10b5ab2fc129c9a265ebdc2aec1b00f92b6916741be15637f5e5e88fa8",
+  "source_request_row_count": 36,
+  "stage": "heldout_network_time_only_union_frozen_before_catalog_or_DAS_access",
+  "status": "PASS",
+  "template_candidate_count": 12,
+  "template_candidate_sha256": "583be2faa20538bc887cf5376ea00c443dfb86db1e3c529ee8e34b897cda4b31",
+  "template_threshold": 0.10883580148220062,
+  "threshold_recalibration_performed": false,
+  "time_only_cross_branch_match_window_s": 8.0,
+  "time_only_union_candidate_count": 33,
+  "time_only_union_sha256": "0492b046355a310d131e80cda638b37af1544d8c3d943bbf93a1e44f3bb756b7",
+  "trace_QC_row_count": 356,
+  "trace_QC_sha256": "ad9e8559e464b5da108ce5c4aa999a7e9cd843d30a4ce979090885259d5e425d",
+  "usable_trace_count": 335
+}

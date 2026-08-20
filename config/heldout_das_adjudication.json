@@ -1,0 +1,116 @@
+{
+  "design_version": "heldout_das_positive_control_and_adjudication_v1",
+  "created_utc": "2026-08-17T00:00:00Z",
+  "registration_state": "REGISTERED_AFTER_HELDOUT_COMPARISON_BEFORE_DAS_ONLY_ADJUDICATION",
+  "purpose": "determine whether DAS can recover known local positive controls and whether any heldout DAS_only candidates survive independent event adjudication",
+  "release_anchor": {
+    "repository": "nataliaberrios/safod-das-repeaters",
+    "repository_visibility": "private",
+    "branch": "agent/freeze-incremental-value-checkpoint",
+    "comparison_result_checkpoint_commit_sha": "19d5ddc98a915c557bf946156c5895d8eb5bd747",
+    "remote_branch_sha_verified_equal_before_registration": true
+  },
+  "frozen_inputs": {
+    "heldout_time_only_comparison": {
+      "path": "outputs/heldout_v2/comparison/das_network_time_only.csv",
+      "sha256": "e8c25b24d24249c949bf4d72787b7587e346a63d11d1010043e26b9c67474c77",
+      "expected_row_count": 54
+    },
+    "heldout_network_context": {
+      "path": "outputs/heldout_v2/comparison/das_network_network_context.csv",
+      "sha256": "07297e6eab2e7c3b5c799d0a0250ee7e4dc7e872417caa4da188b506e80d2899",
+      "expected_row_count": 54
+    },
+    "development_comparison_status": {
+      "path": "outputs/development_das/comparison_status.json",
+      "sha256": "a36d859ce3c87a364b02969a6f3530e2fa90ac897bca8872f3d19513fe8faa0c"
+    },
+    "published_family_partition_status": {
+      "path": "outputs/michel_validation/status.json",
+      "sha256": "9c32d80acaffbf934c24e24f60849081676e8acd25b617bf6432a40cb9ceabee"
+    },
+    "published_family_exact_id_crosswalk": {
+      "path": "outputs/michel_validation/exact_id_crosswalk.csv",
+      "sha256": "a1682fdd6e5d36d83229c5fcc6f27e37180060f192b6e82b88a8d0661465b6bc"
+    },
+    "published_post_2014_continuations": {
+      "path": "outputs/michel_validation/post_2014_continuations.csv",
+      "sha256": "69da61b37cc6eb9f32821d22370443fb4456eeedb6e96be02f32d390b295fe5e"
+    }
+  },
+  "known_positive_controls": {
+    "population_role": "development_only_known_local_catalog_events_not_heldout_validation",
+    "count": 2,
+    "controls": [
+      {
+        "DAS_candidate_id": "das_generic_dev_0028",
+        "network_event_id": "75120101",
+        "DAS_score_rank": 2,
+        "strong_block_count_of_10": 8,
+        "development_comparison_class": "matched_frozen_network_known_target_event"
+      },
+      {
+        "DAS_candidate_id": "das_generic_dev_0045",
+        "network_event_id": "75120116",
+        "DAS_score_rank": 1,
+        "strong_block_count_of_10": 10,
+        "development_comparison_class": "matched_frozen_network_known_target_event"
+      }
+    ],
+    "required_statement": "2_of_2_known_local_development_events_recovered_is_a_sanity_check_not_a_family_recall_estimate"
+  },
+  "published_repeater_population": {
+    "waldhauser_schaff_event_count": 18,
+    "waldhauser_schaff_family_count": 4,
+    "target_sequence_id": "R1.2900.11955.0",
+    "michel_target_sequence_ids": ["M00413", "M00414"],
+    "post_2014_continuation_count": 4,
+    "partition_status": "STOP_INDEPENDENT_EXACT_ID_CATALOGS_DISAGREE",
+    "family_labels_may_be_used_for": "positive_control_population_definition_and_later_partition_metrics_only",
+    "family_labels_may_not_be_used_for": "heldout_DAS_candidate_generation_or_time_matching"
+  },
+  "heldout_DAS_only_adjudication": {
+    "population": "all_21_rows_with_comparison_membership_DAS_only",
+    "retain_every_row": true,
+    "forced_network_score": "evaluate_the_frozen_network_branches_at_each_DAS_time_without_threshold_repair_or_window_sweep",
+    "catalog_association": "use_registered_catalog_sources_and_report_target_or_regional_matches_with_ambiguity_preserved",
+    "DAS_artifact_review": "require_persistence_across_channels_or_blocks_and_record_nonseismic_transient_tests",
+    "waveform_review": "review_the_declared_DAS_window_and_available_station_waveforms_without_using_a_new_detection_threshold",
+    "interval_uncertainty": "report_interval_stratified_counts_and_predeclared bootstrap confidence intervals only after adjudication",
+    "family_assignment": "FORBIDDEN_UNTIL_INDEPENDENT_EVENT_EVIDENCE_AND_PARTITION_RECONCILIATION",
+    "candidate_deletion": "FORBIDDEN",
+    "threshold_repair": "FORBIDDEN",
+    "matching_window_sweep": "FORBIDDEN",
+    "outcomes": [
+      "validated_event",
+      "cataloged_event_not_new_network_detection",
+      "regional_or_nonlocal_arrival",
+      "DAS_artifact_or_nonseismic_transient",
+      "inconclusive_abstention"
+    ]
+  },
+  "decision_gates": {
+    "known_positive_control_gate": "PASS_ONLY_AS_DEVELOPMENT_SANITY_CHECK",
+    "DAS_detection_extension_PASS": "at_least_one_independently_validated_local_DAS_only_event_beyond_the_full_network_union_with_interval_uncertainty",
+    "family_classification_PASS": "event_heldout_partition_improvement_without_increased_cross_family_merging_after_partition_reconciliation",
+    "zero_validated_DAS_only_action": "STOP_catalog_extension_and_report_detector_limitation",
+    "insufficient_positive_count_action": "descriptive_result_only_no_population_recall_claim"
+  },
+  "access_ledger_at_registration": {
+    "heldout_DAS_only_rows_opened": 21,
+    "heldout_raw_DAS_HDF5_files_opened": 0,
+    "heldout_network_waveform_files_opened": 0,
+    "new_catalog_event_rows_opened": 0,
+    "family_assignment_rows_opened": 0,
+    "family_assignments_made": 0
+  },
+  "output": {
+    "registration_status_json": "outputs/heldout_v2/registration/adjudication_registration_status.json",
+    "adjudication_directory": "outputs/heldout_v2/adjudication"
+  },
+  "access_gate": {
+    "next_allowed_stage": "IMPLEMENT_TEST_AND_RUN_INDEPENDENT_DAS_ONLY_ADJUDICATION",
+    "scientific_extension_claim": "STOP_UNTIL_ADJUDICATION_AND_INTERVAL_UNCERTAINTY_PASS",
+    "family_assignment": "FORBIDDEN"
+  }
+}

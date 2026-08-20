@@ -7,6 +7,18 @@ cached_event_windows/**/*.mseed
 cached_event_windows/**/*.npz
 cached_event_windows/**/*.partial
 
+# Continuous waveforms and full-rate score arrays are local data products.
+# Compact request sidecars and result tables remain trackable.
+cached_continuous/**/*.mseed
+cached_continuous/**/*.npz
+cached_continuous/**/*.partial
+
 # Public source catalogs are reproducibly downloaded and checksum verified.
-cached_catalogs/*.txt
-cached_catalogs/*.partial
+# Keep compact JSON provenance sidecars trackable at every directory depth.
+cached_catalogs/**/*.csv
+cached_catalogs/**/*.txt
+cached_catalogs/**/*.partial
+
+# SLURM logs are execution records, not compact scientific products.
+logs/*.out
+logs/*.err

@@ -1,0 +1,21 @@
+{
+  "accuracy_not_reported_reason": "Michel and Waldhauser-Schaff family partitions conflict on exact shared events",
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "continuation_population_sha256": "69da61b37cc6eb9f32821d22370443fb4456eeedb6e96be02f32d390b295fe5e",
+  "event_count": 4,
+  "frozen_model_predicted_target_count": 3,
+  "frozen_model_predicted_target_event_ids": [
+    "72753200",
+    "73039936",
+    "73335796"
+  ],
+  "generated_utc": "2026-08-15T18:55:51Z",
+  "michel_sequence_ids": [
+    "M00413",
+    "M00414"
+  ],
+  "network_model_sha256": "bf6dfbd36ecf44721245dfb237b7bb36587d3cdb22dd0d03c4f835d9048357c3",
+  "scored_event_count": 4,
+  "stage": "post_freeze_external_exact_id_diagnostic",
+  "status": "CONDITIONAL"
+}

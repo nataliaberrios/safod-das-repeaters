@@ -1,0 +1,13 @@
+interval_id,start_utc,end_utc,duration_s,coverage_segment_id,selection_draw_index,selection_seed,selection_inputs,analysis_status
+heldout_01,2024-05-27T16:52:37.448Z,2024-05-27T17:52:37.448Z,3600.0,6,10,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN
+heldout_02,2024-06-12T21:57:21.083Z,2024-06-12T22:57:21.083Z,3600.0,20,7,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN
+heldout_03,2024-06-16T03:19:11.909Z,2024-06-16T04:19:11.909Z,3600.0,20,0,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN
+heldout_04,2024-06-18T12:09:53.565Z,2024-06-18T13:09:53.565Z,3600.0,20,8,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN
+heldout_05,2024-12-25T05:11:40.832Z,2024-12-25T06:11:40.832Z,3600.0,109,1,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN
+heldout_06,2025-01-03T03:54:15.472Z,2025-01-03T04:54:15.472Z,3600.0,109,11,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN
+heldout_07,2025-01-27T01:33:30.406Z,2025-01-27T02:33:30.406Z,3600.0,109,4,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN
+heldout_08,2025-02-18T07:21:08.087Z,2025-02-18T08:21:08.087Z,3600.0,113,9,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN
+heldout_09,2025-03-18T14:59:11.634Z,2025-03-18T15:59:11.634Z,3600.0,113,2,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN
+heldout_10,2025-03-30T20:53:34.987Z,2025-03-30T21:53:34.987Z,3600.0,113,3,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN
+heldout_11,2025-04-02T02:06:54.459Z,2025-04-02T03:06:54.459Z,3600.0,113,5,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN
+heldout_12,2025-04-17T03:00:02.033Z,2025-04-17T04:00:02.033Z,3600.0,113,6,20260815,DAS_manifest_only_blind_to_catalog_and_waveform_scores,SEALED_NOT_RUN

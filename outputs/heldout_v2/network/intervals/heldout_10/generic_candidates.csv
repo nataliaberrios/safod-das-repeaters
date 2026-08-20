@@ -1,0 +1,4 @@
+interval_id,candidate_id,trigger_time,trigger_epoch_s,coincidence_score,threshold,coincidence_station_count,station_support_count_at_declared_ratio,station_characteristic_support_threshold,candidate_generation_label,catalog_fields_used_in_candidate_generation,DAS_fields_used_in_candidate_generation,family_assignment
+heldout_10,network_generic_heldout_10_0001,2025-03-30T20:57:45.487Z,1743368265.487,3.1178019046783447,1.5937319993972778,4,4,2.0,frozen_generic_network_candidate_arrival_not_origin,0,0,not_assigned
+heldout_10,network_generic_heldout_10_0002,2025-03-30T20:57:54.487Z,1743368274.487,1.7794013023376465,1.5937319993972778,4,1,2.0,frozen_generic_network_candidate_arrival_not_origin,0,0,not_assigned
+heldout_10,network_generic_heldout_10_0003,2025-03-30T21:50:49.887Z,1743371449.887,1.9520933628082275,1.5937319993972778,4,1,2.0,frozen_generic_network_candidate_arrival_not_origin,0,0,not_assigned

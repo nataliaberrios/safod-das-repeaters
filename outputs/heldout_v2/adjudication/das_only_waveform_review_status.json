@@ -1,0 +1,20 @@
+{
+  "coverage_failures": 0,
+  "family_assignments_made": 0,
+  "figure_sha256": "420576ede1936137afa741f2caeacbd399b1e2b0e64bcdb2ec81062fe1babd45",
+  "generated_utc": "2026-08-17T23:04:00Z",
+  "heldout_DAS_only_row_count": 21,
+  "interval_count": 3,
+  "manual_waveform_review_status": "PENDING_MANUAL_FIGURE_REVIEW",
+  "next_gate": "manual_review_of_das_only_waveform_review_png_and_interval_stratified_adjudication",
+  "preprocessing": "frozen_DAS_v1_development_band_and_block_characteristic; no_new_detection_threshold",
+  "raw_HDF5_access": "registered_manifest_only_read_only",
+  "result_sha256": "df2abb627324c0d2c762708f6eb0ebb88d83d826ebe00465e322d4dea376407c",
+  "review_half_width_s": 1.0,
+  "saturation_assessment": "NOT_ASSESSED_RAW_INT32_HAS_NO_DECLARED_FULL_SCALE_LIMIT",
+  "saturation_flags": 0,
+  "scientific_extension_claim": "STOP_PENDING_MANUAL_DAS_ARTIFACT_AND_WAVEFORM_REVIEW",
+  "stage": "heldout_DAS_only_targeted_waveform_artifact_review_metrics_complete",
+  "status": "PARTIAL",
+  "window_half_width_s": 15.0
+}

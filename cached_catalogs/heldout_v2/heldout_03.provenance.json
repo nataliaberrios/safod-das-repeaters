@@ -1,0 +1,17 @@
+{
+  "access_role": "post_union_catalog_adjudication_only",
+  "cache_path": "/home/groups/ettore88/nberrios/safod_das_git/notebooks/faultzone/repeaters_v2/cached_catalogs/heldout_v2/heldout_03.csv",
+  "cache_sha256": "581b62d3929851ce52d1b54341602dfd33ffbaee09a67582a0eb326ceba5bc37",
+  "catalog_audit_config_sha256": "998a1571bbe168c8ba5d0a126cdc15633b7f4f5e7c58d5d7953273b102a6600d",
+  "event_row_count": 5,
+  "family_label_rows_opened": 0,
+  "heldout_DAS_HDF5_files_opened": 0,
+  "http_status": 200,
+  "interval_id": "heldout_03",
+  "network_waveform_files_opened": 0,
+  "request_url": "https://service.ncedc.org/fdsnws/event/1/query?starttime=2024-06-16T03%3A14%3A11.909Z&endtime=2024-06-16T04%3A19%3A11.909Z&format=text&orderby=time&catalog=NCSS&minlatitude=32.0&maxlatitude=42.5&minlongitude=-125.0&maxlongitude=-114.0&mindepth=-5.0&maxdepth=40.0&minmagnitude=-1.0",
+  "response_sha256": "928ca9d3ad94c993c9363ff432551743b70e9929918bac0b7740608c6c70df48",
+  "retrieved_utc": "2026-08-17T06:53:59Z",
+  "runner_commit_sha": "281e4e033aab61d8430ff3786cb3c757f8fb24aa",
+  "stage": "heldout_broader_catalog_download_after_remote_release"
+}

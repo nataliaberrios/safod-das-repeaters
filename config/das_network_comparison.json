@@ -1,0 +1,127 @@
+{
+  "design_version": "das_network_posthoc_comparison_v1",
+  "created_utc": "2026-08-15T21:36:05Z",
+  "registration_state": "SPECIFIED_AFTER_RAW_DAS_MATERIALIZATION_BEFORE_NETWORK_OR_CATALOG_EVENT_TIME_ROW_ACCESS",
+  "purpose": "compare_the_independent_raw_DAS_trigger_population_with_the_frozen_full_network_union_without_redefining_either_detector",
+  "frozen_inputs": {
+    "das_development_config": {
+      "path": "config/das_development.json",
+      "sha256": "ca6db7eba41278712520539046a5a5ae6aa34f6340a85c6b0aaed7fe00a54094"
+    },
+    "raw_das_status": {
+      "path": "outputs/development_das/status_raw.json",
+      "sha256": "86a92c29a19c13b052f9643e37c3653c85f47ed06046cf12284ad69c7b33eeb2"
+    },
+    "raw_das_candidates": {
+      "path": "outputs/development_das/candidate_detections_raw.csv",
+      "sha256": "743f93007ec599a0a51400084c0454b1a88e11b6faf9c753d5196ecf12c13e65",
+      "expected_row_count": 65
+    },
+    "network_union_config": {
+      "path": "config/network_union.json",
+      "sha256": "b559b940d7402ed82fe465188832c25f1a74d9d450649669c8b92f948984d2f4"
+    },
+    "network_union_status": {
+      "path": "outputs/development_network/network_union_status.json",
+      "sha256": "ff55d3c4123bc9918f922b6f818f32db11541e4fb162bd5cd2d72bf639f155eb"
+    },
+    "network_union_time_only": {
+      "path": "outputs/development_network/network_candidate_union_time_only.csv",
+      "sha256": "c35f14b66a929673b0b9bbf879fa25df66672a5197036e11ccc51b973fcdc599"
+    },
+    "network_union_adjudicated": {
+      "path": "outputs/development_network/network_candidate_union_adjudicated.csv",
+      "sha256": "f891adbc3ac72bc7c96796000d74737828f9114adc3a199cb464e2955adfc8b9"
+    },
+    "background_catalog": {
+      "path": "outputs/development_network/background_catalog.csv",
+      "sha256": "e1b399016ff69d6dbd43c65be18ab0fabfb018d752cbfabf50f80cd26803ca74"
+    },
+    "development_config": {
+      "path": "config/development_detection.json",
+      "sha256": "05f7c80970a4587bd8b47e32878449b021013de8a3e866a94541af908891c1d9"
+    },
+    "parent_config": {
+      "path": "config/incremental_value.json",
+      "sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32"
+    }
+  },
+  "precomparison_access_ledger": {
+    "raw_das_candidate_rows_read_for_DAS_only_QC": 65,
+    "network_union_status_metadata_opened": true,
+    "network_candidate_event_time_rows_parsed": 0,
+    "catalog_event_time_rows_parsed": 0,
+    "heldout_interval_rows_parsed": 0,
+    "checksum_bytes_read_are_not_event_time_row_access": true
+  },
+  "time_only_matching": {
+    "DAS_identifier_field": "candidate_id",
+    "DAS_time_field": "trigger_epoch_s",
+    "DAS_time_meaning": "energy_arrival",
+    "network_identifier_field": "union_candidate_id",
+    "network_time_field": "representative_epoch_s",
+    "network_time_meaning": "template_origin_when_present_else_generic_trigger_arrival",
+    "maximum_absolute_time_difference_s": 8.0,
+    "window_source": "reuse_frozen_network_union_cross_branch_window_without_post_DAS_tuning",
+    "matching_algorithm": "ordered_one_to_one_maximum_cardinality_then_minimum_total_absolute_time_difference",
+    "objective_order": [
+      "maximize_pair_count",
+      "minimize_total_absolute_time_difference",
+      "deterministic_chronological_index_tie_break"
+    ],
+    "catalog_fields_allowed": false,
+    "family_fields_allowed": false,
+    "retain_unmatched_DAS_rows": true,
+    "retain_unmatched_network_rows": true,
+    "time_semantics_caution": "the_8_second_window_is_conservative_because_template_representatives_are_origins_while_DAS_times_are_arrivals"
+  },
+  "catalog_adjudication": {
+    "order": "only_after_time_only_comparison_is_materialized_and_checksummed",
+    "association_method": "reuse_frozen_background_catalog_physical_arrival_bounds_and_minimum_absolute_nominal_timing_residual",
+    "minimum_plausible_phase_velocity_km_s": 2.5,
+    "maximum_plausible_phase_velocity_km_s": 8.0,
+    "nominal_ranking_phase_velocity_km_s": 6.0,
+    "early_arrival_slack_s": 2.0,
+    "late_arrival_slack_s": 5.0,
+    "target_reference_latitude": 36.02009,
+    "target_reference_longitude": -120.57759,
+    "target_maximum_horizontal_distance_km": 0.75,
+    "catalog_role": "known_event_audit_not_family_truth",
+    "catalog_event_deduplication": {
+      "unit": "catalog_event_id",
+      "representative_priority": [
+        "DAS_candidate_matched_to_same_frozen_network_event",
+        "smallest_absolute_nominal_timing_residual",
+        "highest_DAS_coincidence_score",
+        "earliest_DAS_candidate_id"
+      ],
+      "nonrepresentative_action": "retain_as_secondary_trigger_not_an_additional_event"
+    },
+    "network_catalog_conflict_action": "STOP_and_retain_for_manual_blind_adjudication"
+  },
+  "candidate_interpretation": {
+    "matched_frozen_network_union": "same_event_evidence_not_DAS_catalog_extension",
+    "DAS_only_known_target_catalog_event": "network_detection_increment_but_not_catalog_extension",
+    "DAS_only_known_regional_catalog_arrival": "known_event_or_veto_not_local_extension",
+    "secondary_trigger_for_same_catalog_event": "not_an_additional_event",
+    "unassociated_raw_DAS_trigger": "requires_blind_waveform_and_spatial_morphology_adjudication_not_automatically_an_earthquake",
+    "family_assignment": "FORBIDDEN_AT_THIS_STAGE",
+    "catalog_extension_claim": "FORBIDDEN_AT_THIS_STAGE"
+  },
+  "detector_policy": {
+    "raw_DAS_threshold_may_be_repaired_after_comparison": false,
+    "raw_DAS_rows_may_be_deleted_after_comparison": false,
+    "development_result_role": "diagnose_v1_and_predeclare_any_v2_before_heldout_access",
+    "matched_false_discovery_rate_claim": "NOT_AVAILABLE_FROM_THIS_NONBLIND_INTERVAL"
+  },
+  "output": {
+    "directory": "outputs/development_das",
+    "time_only_comparison_csv": "network_comparison_time_only.csv",
+    "adjudicated_comparison_csv": "network_comparison_adjudicated.csv",
+    "status_json": "comparison_status.json"
+  },
+  "access_gate": {
+    "allowed_next_stage": "posthoc_network_and_catalog_comparison_on_same_nonblind_interval_only",
+    "heldout_access": "STOP_NOT_YET_AUTHORIZED"
+  }
+}

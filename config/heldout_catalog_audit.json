@@ -1,0 +1,177 @@
+{
+  "design_version": "heldout_catalog_audit_v1",
+  "created_utc": "2026-08-17T06:26:29Z",
+  "registration_state": "SPECIFIED_AFTER_REMOTE_NETWORK_UNION_FREEZE_BEFORE_ANY_POST_UNION_CATALOG_EVENT_ROW_ACCESS",
+  "purpose": "annotate_every_row_of_the_immutable_33_row_network_union_with_routine_and_regional_catalog_evidence_without_deleting_candidates_or_assigning_repeater_families",
+  "release_anchor": {
+    "repository": "nataliaberrios/safod-das-repeaters",
+    "repository_visibility": "private",
+    "branch": "agent/freeze-incremental-value-checkpoint",
+    "network_union_freeze_commit_sha": "10a35ef01d1ac285aabd92d59cf61bc72aaa8b95",
+    "remote_branch_sha_verified_equal_before_registration": true,
+    "draft_pull_request": 1
+  },
+  "frozen_inputs": {
+    "parent_config": {
+      "path": "config/incremental_value.json",
+      "sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32"
+    },
+    "development_config": {
+      "path": "config/development_detection.json",
+      "sha256": "05f7c80970a4587bd8b47e32878449b021013de8a3e866a94541af908891c1d9"
+    },
+    "heldout_network_config": {
+      "path": "config/heldout_network_validation.json",
+      "sha256": "2ef3a0c994ef8ec9b0856b74d87ca94c5b54f086ad581f39c71088fb0083ef77"
+    },
+    "heldout_intervals": {
+      "path": "outputs/incremental_value/heldout_intervals.csv",
+      "sha256": "5ef432d9504a300dd379331cf89c686503136267db17fa00815eeb31f208b9b9"
+    },
+    "network_candidate_generation_status": {
+      "path": "outputs/heldout_v2/network/candidate_generation_status.json",
+      "sha256": "9b69377c85704835066fcf9ba59e4d2f2bdaef13c67e9d0a1653fe0d29479081"
+    },
+    "network_interval_status": {
+      "path": "outputs/heldout_v2/network/interval_status.csv",
+      "sha256": "888eb78ad15fba407b16a778185157ce143c33813b38ad667f4baacd9f24b99e"
+    },
+    "network_time_only_union": {
+      "path": "outputs/heldout_v2/network/network_union_time_only.csv",
+      "sha256": "0492b046355a310d131e80cda638b37af1544d8c3d943bbf93a1e44f3bb756b7"
+    },
+    "target_catalog_provenance": {
+      "path": "outputs/incremental_value/catalog_provenance.json",
+      "sha256": "e9b32d776852fd0fff9e9b4457c891a68fbb8d249cf895e50d1c651c74c02747"
+    },
+    "target_catalog": {
+      "path": "outputs/incremental_value/ncedc_archive_catalog.csv",
+      "sha256": "7acefb87dc2cd2615bda4478cc736297b4837b9590ef2ebc79810a514735bab1"
+    }
+  },
+  "immutable_network_union": {
+    "candidate_count": 33,
+    "template_only_count": 12,
+    "generic_only_count": 21,
+    "cross_branch_count": 0,
+    "interval_count": 12,
+    "catalog_fields_used_in_grouping": 0,
+    "candidate_deletion": "FORBIDDEN",
+    "candidate_time_editing": "FORBIDDEN",
+    "candidate_identifier_editing": "FORBIDDEN",
+    "retain_every_raw_union_row": true
+  },
+  "target_region_catalog": {
+    "path": "outputs/incremental_value/ncedc_archive_catalog.csv",
+    "sha256": "7acefb87dc2cd2615bda4478cc736297b4837b9590ef2ebc79810a514735bab1",
+    "expected_event_row_count_from_preexisting_provenance": 404,
+    "catalog_name": "NCSS",
+    "role": "routine_event_annotation_not_repeater_family_truth",
+    "template_origin_association": {
+      "candidate_time_field": "template_origin_epoch_s",
+      "catalog_time_field": "origin_time",
+      "maximum_absolute_residual_s": 3.0,
+      "boundary": "inclusive",
+      "ranking": "minimum_absolute_time_residual_then_event_id",
+      "candidate_reuse_of_one_catalog_event": "allowed_but_grouped_for_event_level_evaluation"
+    },
+    "generic_trigger_association": {
+      "candidate_time_field": "generic_trigger_epoch_s",
+      "catalog_time_field": "origin_time",
+      "maximum_absolute_residual_s": 12.0,
+      "boundary": "inclusive",
+      "ranking": "minimum_absolute_time_residual_then_event_id",
+      "interpretation": "development_inherited_direct_origin_time_audit_not_a_travel_time_model"
+    }
+  },
+  "family_neighborhood_annotation": {
+    "reference_latitude": 36.02009,
+    "reference_longitude": -120.57759,
+    "reference_depth_km": 4.831,
+    "maximum_horizontal_distance_km": 0.75,
+    "maximum_depth_difference_km": 1.5,
+    "boundary": "inclusive",
+    "role": "spatial_annotation_only_never_repeater_membership"
+  },
+  "broader_regional_catalog": {
+    "retrieval_unit": "one_query_per_registered_heldout_interval",
+    "event_service": "https://service.ncedc.org/fdsnws/event/1/query",
+    "catalog": "NCSS",
+    "origin_time_padding_before_s": 300.0,
+    "origin_time_padding_after_s": 0.0,
+    "bounds": {
+      "minlatitude": 32.0,
+      "maxlatitude": 42.5,
+      "minlongitude": -125.0,
+      "maxlongitude": -114.0,
+      "mindepth": -5.0,
+      "maxdepth": 40.0,
+      "minmagnitude": -1.0
+    },
+    "cache_directory": "cached_catalogs/heldout_v2",
+    "cache_key": "interval_id",
+    "force_redownload_default": false,
+    "association_role": "known_regional_event_arrival_veto_and_audit_only",
+    "candidate_scope": "generic_trigger_members_only_because_template_times_are_estimated_origins_not_array_arrivals",
+    "template_only_broader_catalog_disposition": "not_applicable_without_a_registered_array_arrival_time",
+    "array_reference_latitude": 36.02009,
+    "array_reference_longitude": -120.57759,
+    "array_reference_depth_km": 0.0,
+    "minimum_plausible_phase_velocity_km_s": 2.5,
+    "maximum_plausible_phase_velocity_km_s": 8.0,
+    "nominal_ranking_phase_velocity_km_s": 6.0,
+    "early_arrival_slack_s": 2.0,
+    "late_arrival_slack_s": 5.0,
+    "ranking": "minimum_absolute_nominal_arrival_residual_then_event_id",
+    "plausible_boundary": "inclusive"
+  },
+  "adjudication": {
+    "order": "target_catalog_then_broader_physical_arrival_audit_after_union_freeze",
+    "target_and_broader_different_event_ids": "catalog_conflict_STOP_retain_row",
+    "known_catalog_event_action": "retain_and_annotate_not_a_detection_catalog_extension",
+    "catalog_unassociated_action": "retain_for_independent_DAS_and_later_family_adjudication_not_automatically_new",
+    "cataloged_event_can_still_extend_repeater_family": true,
+    "uncataloged_event_can_only_extend_detection_catalog_after_independent_waveform_confirmation": true,
+    "known_event_duplicate_grouping": "same_unambiguous_catalog_event_id_gets_one_evaluation_unit_without_deleting_raw_rows",
+    "unassociated_grouping": "one_evaluation_unit_per_frozen_union_candidate",
+    "candidate_deletion": "FORBIDDEN",
+    "family_assignment": "FORBIDDEN"
+  },
+  "independence_guards": {
+    "DAS_candidate_generation_may_read_catalog_audit_outputs": false,
+    "DAS_candidate_generation_may_read_network_candidate_times": false,
+    "DAS_waveform_window_selection_from_network_or_catalog_times": "FORBIDDEN",
+    "heldout_DAS_replay_scope": "all_12_complete_registered_intervals_from_manifest_only",
+    "network_threshold_recalibration": "FORBIDDEN",
+    "catalog_tolerance_recalibration_after_row_access": "FORBIDDEN"
+  },
+  "registration_access_ledger": {
+    "network_union_rows_opened": 33,
+    "heldout_interval_metadata_rows_opened": 12,
+    "target_catalog_files_hashed_without_row_parsing": 1,
+    "target_catalog_event_rows_opened": 0,
+    "broader_catalog_event_rows_opened": 0,
+    "heldout_network_waveform_files_opened": 0,
+    "heldout_DAS_HDF5_files_opened": 0,
+    "heldout_family_label_rows_opened": 0
+  },
+  "output": {
+    "registration_directory": "outputs/heldout_v2/registration",
+    "query_manifest_csv": "catalog_audit_query_manifest.csv",
+    "registration_status_json": "catalog_audit_registration_status.json",
+    "catalog_audit_directory": "outputs/heldout_v2/network_catalog_audit",
+    "target_associations_csv": "target_catalog_associations.csv",
+    "broader_source_ledger_csv": "broader_catalog_source_ledger.csv",
+    "broader_associations_csv": "broader_catalog_associations.csv",
+    "adjudicated_union_csv": "network_union_adjudicated.csv",
+    "evaluation_units_csv": "network_evaluation_units.csv",
+    "final_status_json": "network_catalog_audit_status.json"
+  },
+  "access_gate": {
+    "next_allowed_stage": "IMPLEMENT_TEST_COMMIT_PUSH_AND_REMOTE_RELEASE_CATALOG_AUDIT_RUNNER",
+    "catalog_event_row_access": "STOP_UNTIL_RUNNER_IMPLEMENTATION_AND_TESTS_ARE_COMMITTED_AND_REMOTE_PUSH_VERIFIED",
+    "heldout_DAS_waveform_access": "STOP_UNTIL_CATALOG_AUDIT_IS_FROZEN_AND_DAS_REPLAY_IS_SEPARATELY_REGISTERED",
+    "heldout_family_label_access": "FORBIDDEN",
+    "candidate_family_assignment": "FORBIDDEN"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "allowed_interpretation": "comparator diagnostic motivating a held-out DAS spatial-resolution test",
+  "between_pair_count": 12,
+  "conventional_partition_separation_claim": "STOP",
+  "correlation_pair_auc_within_vs_between": 0.4166666666666667,
+  "differential_lag_pair_auc_within_vs_between": 0.6302083333333334,
+  "generated_utc": "2026-08-15T18:57:43Z",
+  "mapped_event_count": 8,
+  "mapped_event_ids": [
+    "40220017",
+    "40237728",
+    "51214531",
+    "71325295",
+    "71567810",
+    "71908906",
+    "72154411",
+    "72359026"
+  ],
+  "reason": "diagnostic pair distributions overlap and labels are not event-independent",
+  "status": "STOP",
+  "uncertainty_status": "event_block_bootstrap_not_identifiable_with_two_M00413_historical_events",
+  "within_pair_count": 16
+}

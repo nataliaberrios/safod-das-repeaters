@@ -1,0 +1,112 @@
+{
+  "design_version": "incremental_value_v1",
+  "created_utc": "2026-08-15T00:00:00Z",
+  "reference_pilot_config_sha256": "1baa6c0b2bb1b381ef5da96fc4a1249a6a2f6dae62efb40b4c5a27dd927e9160",
+  "archive_catalog": {
+    "event_service": "https://service.ncedc.org/fdsnws/event/1/query",
+    "catalog": "NCSS",
+    "starttime": "2024-05-07T23:46:07Z",
+    "endtime": "2025-07-25T20:05:12Z",
+    "bounds": {
+      "minlatitude": 35.75,
+      "maxlatitude": 36.15,
+      "minlongitude": -120.75,
+      "maxlongitude": -120.35,
+      "mindepth": -2.0,
+      "maxdepth": 15.0,
+      "minmagnitude": -1.0
+    }
+  },
+  "archive": {
+    "manifest": "/oak/stanford/groups/ettore88/data/SAFOD/SAFODAS1-harddrive-transfer/SAFOD_2024_2025.csv",
+    "path_rewrites": [
+      {
+        "manifest_prefix": "/oak/stanford/groups/ettore88/data/SAFODAS1-harddrive-transfer",
+        "filesystem_prefix": "/oak/stanford/groups/ettore88/data/SAFOD/SAFODAS1-harddrive-transfer"
+      }
+    ],
+    "event_window_s": [-10.0, 30.0],
+    "primary_configuration": {
+      "sample_rate_hz": 500.0,
+      "channel_count": 900,
+      "gauge_length_m": 16.335237503051758
+    },
+    "maximum_internal_gap_s": 0.01
+  },
+  "family_neighborhood": {
+    "reference_latitude": 36.02009,
+    "reference_longitude": -120.57759,
+    "reference_depth_km": 4.831,
+    "maximum_horizontal_distance_m": 750.0,
+    "maximum_depth_difference_km": 1.5,
+    "minimum_magnitude": -0.5,
+    "maximum_magnitude": 3.0,
+    "role": "prospective_candidate_only_not_a_family_label"
+  },
+  "development_interval": {
+    "start_utc": "2025-01-20T04:55:00Z",
+    "end_utc": "2025-01-20T05:45:00Z",
+    "selection_role": "nonblind_pipeline_development_interval_centered_on_two_close_routine_catalog_events"
+  },
+  "heldout_intervals": {
+    "selection_seed": 20260815,
+    "interval_duration_s": 3600.0,
+    "count": 12,
+    "selection_inputs": "DAS_manifest_only_blind_to_catalog_and_waveform_scores"
+  },
+  "network_array": {
+    "dataselect_service": "https://service.ncedc.org/fdsnws/dataselect/1/query",
+    "request_window_s": [-10.0, 30.0],
+    "noise_window_s": [-8.0, -2.0],
+    "signal_window_s": [0.5, 10.0],
+    "bands_hz": [[2.0, 10.0], [5.0, 20.0], [10.0, 40.0], [2.0, 40.0]],
+    "max_lag_s": 0.5,
+    "minimum_trace_snr": 3.0,
+    "minimum_usable_components": 6,
+    "minimum_usable_stations": 3,
+    "sources": [
+      {
+        "name": "hrsn_full",
+        "network": "BP",
+        "stations": ["CCRB", "EADB", "FROB", "GHIB", "JCNB", "JCSB", "LCCB", "MMNB", "RMNB", "SCYB", "SMNB", "VARB"],
+        "location": "*",
+        "channels": ["DP1", "DP2", "DP3"]
+      },
+      {
+        "name": "ncsn_psm",
+        "network": "NC",
+        "stations": ["PSM"],
+        "location": "*",
+        "channels": ["EHE", "EHN", "EHZ"]
+      },
+      {
+        "name": "bdsn_pkd",
+        "network": "BK",
+        "stations": ["PKD"],
+        "location": "*",
+        "channels": ["HHE", "HHN", "HHZ"]
+      }
+    ],
+    "training_population": "published_exact_id_families_only",
+    "prospective_embargo": "do_not_download_2024_2025_candidate_waveforms_until_model_is_frozen"
+  },
+  "network_verifier": {
+    "target_sequence_id": "R1.2900.11955.0",
+    "model_band_hz": [5.0, 20.0],
+    "maximum_target_anchors": 6,
+    "minimum_target_anchors": 2,
+    "minimum_pair_components": 6,
+    "minimum_pair_stations": 3,
+    "threshold_fit": "exhaustive_midpoint_grid_on_historical_exact_id_labels_only",
+    "selection_order": [
+      "balanced_accuracy",
+      "target_precision",
+      "target_recall",
+      "higher_correlation_threshold",
+      "lower_differential_lag_threshold"
+    ],
+    "prospective_decision": "target_if_correlation_at_or_above_threshold_and_differential_lag_rms_at_or_below_threshold_else_not_target_or_abstain",
+    "minimum_historical_target_events": 4,
+    "minimum_historical_neighbor_events": 3
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "access_role": "historical_exact_id_training",
+  "byte_count": 606208,
+  "channels": [
+    "DP1",
+    "DP2",
+    "DP3"
+  ],
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "event_id": "71325295",
+  "frozen_model_training_population_sha256": "",
+  "network": "BP",
+  "origin_time": "2009-12-23T13:47:13.791Z",
+  "request_url": "https://service.ncedc.org/fdsnws/dataselect/1/query?net=BP&sta=CCRB%2CEADB%2CFROB%2CGHIB%2CJCNB%2CJCSB%2CLCCB%2CMMNB%2CRMNB%2CSCYB%2CSMNB%2CVARB&loc=%2A&cha=DP1%2CDP2%2CDP3&start=2009-12-23T13%3A47%3A03.791Z&end=2009-12-23T13%3A47%3A43.791Z",
+  "retrieved_utc": "2026-08-15T18:44:05Z",
+  "scientific_use": "normalized waveform shape and differential arrival-time features",
+  "source_name": "hrsn_full",
+  "stations": [
+    "CCRB",
+    "EADB",
+    "FROB",
+    "GHIB",
+    "JCNB",
+    "JCSB",
+    "LCCB",
+    "MMNB",
+    "RMNB",
+    "SCYB",
+    "SMNB",
+    "VARB"
+  ],
+  "trace_count": 33
+}

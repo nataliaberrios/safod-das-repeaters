@@ -1,0 +1,34 @@
+interval_id,union_candidate_id,broader_catalog_applicable,plausible_match_count,event_id,origin_time,location_name,magnitude,horizontal_distance_km,path_distance_km,observed_delay_s,earliest_plausible_arrival_s,latest_plausible_arrival_s,nominal_arrival_s,nominal_timing_residual_s,association_status
+heldout_01,network_union_heldout_01_0001,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_01,network_union_heldout_01_0002,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_01,network_union_heldout_01_0003,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_01,network_union_heldout_01_0004,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_01,network_union_heldout_01_0005,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_02,network_union_heldout_02_0001,True,0,,,,,,,,,,,,none
+heldout_03,network_union_heldout_03_0001,True,1,75022827,2024-06-16T03:37:46.130Z,"Avenal, CA",0.7,23.3975016853301,24.362823832943192,5.928999900817871,1.045352979117899,14.745129533177277,4.060470638823865,1.8685292619940057,physically_plausible_known_event_arrival
+heldout_03,network_union_heldout_03_0002,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_03,network_union_heldout_03_0003,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_03,network_union_heldout_03_0004,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_03,network_union_heldout_03_0005,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_03,network_union_heldout_03_0006,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_03,network_union_heldout_03_0007,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_04,network_union_heldout_04_0001,False,0,,,,,,,,,,,,not_applicable_template_time_is_origin_not_array_arrival
+heldout_06,network_union_heldout_06_0001,True,0,,,,,,,,,,,,none
+heldout_07,network_union_heldout_07_0001,True,0,,,,,,,,,,,,none
+heldout_07,network_union_heldout_07_0002,True,0,,,,,,,,,,,,none
+heldout_08,network_union_heldout_08_0001,True,1,75135522,2025-02-18T07:44:25.320Z,"San Miguel, CA",0.5,4.5952411705257505,4.869121215917187,1.316999912261963,-1.3913598480103517,6.947648486366875,0.8115202026528645,0.5054797096090984,physically_plausible_known_event_arrival
+heldout_08,network_union_heldout_08_0002,True,1,75135552,2025-02-18T08:18:16.360Z,"Pinnacles, CA",1.6,68.58587557777302,68.74947220720871,15.726999998092651,6.593684025901089,32.499788882883486,11.458245367868118,4.268754630224533,physically_plausible_known_event_arrival
+heldout_08,network_union_heldout_08_0003,True,1,75135552,2025-02-18T08:18:16.360Z,"Pinnacles, CA",1.6,68.58587557777302,68.74947220720871,24.07699990272522,6.593684025901089,32.499788882883486,11.458245367868118,12.618754534857102,physically_plausible_known_event_arrival
+heldout_09,network_union_heldout_09_0001,True,0,,,,,,,,,,,,none
+heldout_09,network_union_heldout_09_0002,True,2,75151092,2025-03-18T15:39:24.140Z,"The Geysers, CA",-0.0,371.2931102332178,371.297819286158,63.543999910354614,44.41222741076975,153.5191277144632,61.882969881026334,1.6610300293282805,physically_plausible_known_event_arrival
+heldout_10,network_union_heldout_10_0001,True,0,,,,,,,,,,,,none
+heldout_10,network_union_heldout_10_0002,True,0,,,,,,,,,,,,none
+heldout_10,network_union_heldout_10_0003,True,1,75157837,2025-03-30T21:48:48.590Z,"The Geysers, CA",2.1,366.11738468146285,366.1200614088147,121.29700016975403,43.76500767610184,151.44802456352588,61.02001023480245,60.27698993495158,physically_plausible_known_event_arrival
+heldout_11,network_union_heldout_11_0001,True,0,,,,,,,,,,,,none
+heldout_11,network_union_heldout_11_0002,True,0,,,,,,,,,,,,none
+heldout_11,network_union_heldout_11_0003,True,0,,,,,,,,,,,,none
+heldout_11,network_union_heldout_11_0004,True,0,,,,,,,,,,,,none
+heldout_11,network_union_heldout_11_0005,True,0,,,,,,,,,,,,none
+heldout_11,network_union_heldout_11_0006,True,0,,,,,,,,,,,,none
+heldout_11,network_union_heldout_11_0007,True,0,,,,,,,,,,,,none
+heldout_11,network_union_heldout_11_0008,True,0,,,,,,,,,,,,none

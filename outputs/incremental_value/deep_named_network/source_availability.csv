@@ -1,0 +1,7 @@
+event_id,origin_time,source_name,network,status,trace_count,error,named_role
+75336682,2026-04-01T01:24:18.650Z,hrsn_full,BP,available,29,,prospective_deep_das_candidate
+75336682,2026-04-01T01:24:18.650Z,ncsn_psm,NC,unavailable,0,RuntimeError: empty ncsn_psm response for event 75336682,prospective_deep_das_candidate
+75336682,2026-04-01T01:24:18.650Z,bdsn_pkd,BK,available,3,,prospective_deep_das_candidate
+75343317,2026-04-13T06:35:49.710Z,hrsn_full,BP,available,32,,prospective_same_fiber_hard_control
+75343317,2026-04-13T06:35:49.710Z,ncsn_psm,NC,unavailable,0,RuntimeError: empty ncsn_psm response for event 75343317,prospective_same_fiber_hard_control
+75343317,2026-04-13T06:35:49.710Z,bdsn_pkd,BK,available,3,,prospective_same_fiber_hard_control

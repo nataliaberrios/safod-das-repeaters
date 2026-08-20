@@ -1,0 +1,142 @@
+{
+  "design_version": "network_continuous_development_v4",
+  "created_utc": "2026-08-16T00:00:00Z",
+  "parent_config_path": "config/incremental_value.json",
+  "parent_config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "interval": {
+    "start_utc": "2025-01-20T04:55:00Z",
+    "end_utc": "2025-01-20T05:45:00Z",
+    "duration_s": 3000,
+    "role": "nonblind_development_only",
+    "heldout_access": "FORBIDDEN"
+  },
+  "continuous_network": {
+    "request_padding_s": 15,
+    "cache_directory": "cached_continuous/network/development",
+    "source_settings_inherited_from_parent": true,
+    "merge_maximum_gap_s": 0.05
+  },
+  "repeater_template_bank": {
+    "population_path": "outputs/external_validation/published_validation_population.csv",
+    "eligibility_path": "outputs/incremental_value/network_baseline/historical_frozen_decisions.csv",
+    "eligibility_rule": "score_status_PASS_only",
+    "template_window_s": [
+      0.5,
+      10
+    ],
+    "template_noise_window_s": [
+      -8,
+      -2
+    ],
+    "band_hz": [
+      5,
+      20
+    ],
+    "target_sample_rate_hz": 100,
+    "minimum_template_trace_snr": 3,
+    "minimum_components_per_template": 6,
+    "minimum_stations_per_template": 3,
+    "component_aggregation": "median_within_station",
+    "station_aggregation": "unweighted_mean_across_available_stations",
+    "bank_aggregation": "maximum_across_eligible_historical_templates",
+    "correlation_polarity": "positive",
+    "score_sample_rate_hz": 20,
+    "candidate_minimum_separation_s": 8,
+    "station_support_recording_threshold": 0.2,
+    "catalog_association_tolerance_s": 3
+  },
+  "null_calibration": {
+    "method": "independent_station_circular_shifts_of_template_score_curves",
+    "random_seed": 20260816,
+    "replicate_count": 99,
+    "minimum_absolute_shift_s": 30,
+    "familywise_threshold_quantile": 0.95,
+    "interpretation": "development_interval_false_alarm_calibration_not_heldout_FDR"
+  },
+  "background_catalog": {
+    "status": "DEVELOPMENT_ADJUDICATION_ONLY_NOT_CANDIDATE_GENERATION",
+    "event_service": "https://service.ncedc.org/fdsnws/event/1/query",
+    "catalog": "NCSS",
+    "origin_time_padding_before_s": 300,
+    "origin_time_padding_after_s": 0,
+    "bounds": {
+      "minlatitude": 32,
+      "maxlatitude": 42.5,
+      "minlongitude": -125,
+      "maxlongitude": -114,
+      "mindepth": -5,
+      "maxdepth": 40,
+      "minmagnitude": -1
+    },
+    "cache_path": "cached_catalogs/network_development_background.txt",
+    "array_reference_inherited_from_parent_family_neighborhood": true,
+    "array_reference_depth_km": 0,
+    "minimum_plausible_phase_velocity_km_s": 2.5,
+    "maximum_plausible_phase_velocity_km_s": 8,
+    "nominal_ranking_phase_velocity_km_s": 6,
+    "early_arrival_slack_s": 2,
+    "late_arrival_slack_s": 5,
+    "association_role": "known_regional_event_veto_and_audit_only"
+  },
+  "generic_network_trigger": {
+    "status": "DEVELOPMENT_SPECIFIED_NOT_FROZEN",
+    "purpose": "protect_fairness_against_events_outside_the_repeater_template_bank",
+    "input_band_hz_inherited_from_repeater_template_bank": true,
+    "characteristic_function": "component_sta_lta_energy_ratio_then_median_within_station",
+    "sta_window_s": 0.5,
+    "lta_window_s": 10,
+    "coincidence_station_count": 4,
+    "station_characteristic_support_threshold": 2,
+    "score_sample_rate_hz": 20,
+    "candidate_minimum_separation_s": 8,
+    "catalog_association_tolerance_s": 12,
+    "null_method": "independent_station_circular_shifts_of_characteristic_curves",
+    "random_seed": 20260817,
+    "replicate_count": 99,
+    "minimum_absolute_shift_s": 30,
+    "familywise_threshold_quantile": 0.95,
+    "interpretation": "development_interval_false_alarm_calibration_not_heldout_FDR"
+  },
+  "injection_recovery": {
+    "status": "DEVELOPMENT_ONLY_NOT_HELDOUT_PERFORMANCE",
+    "source_population": "eligible_historical_template_bank_events",
+    "amplitude_definition": "injected_template_rms_divided_by_preinjection_noise_rms_per_component",
+    "amplitude_snr_levels": [
+      0,
+      0.25,
+      0.5,
+      1,
+      2,
+      4
+    ],
+    "noise_position_count": 5,
+    "random_seed": 20260818,
+    "position_grid_interval_s": 0.05,
+    "minimum_position_separation_s": 60,
+    "event_exclusion_half_width_s": 25,
+    "local_window_s": [
+      -12,
+      14
+    ],
+    "noise_window_s": [
+      -8,
+      -2
+    ],
+    "template_peak_tolerance_s": 1,
+    "generic_peak_search_window_s": [
+      0,
+      12
+    ],
+    "template_detector_excludes_injected_event": true,
+    "detector_thresholds_fixed_before_injection": true,
+    "primary_acceptance_validation_role": "target_positive",
+    "reference_amplitude_snr": 1,
+    "minimum_primary_recovery_fraction": 0.9,
+    "interpretation": "algorithmic_waveform_shape_recovery_not_magnitude_completeness"
+  },
+  "output": {
+    "directory": "outputs/development_network",
+    "full_score_cache": "cached_continuous/analysis/network_development_scores.npz",
+    "preview_sample_interval_s": 0.5
+  }
+}

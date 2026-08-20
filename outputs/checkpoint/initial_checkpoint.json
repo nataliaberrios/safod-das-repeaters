@@ -1,0 +1,235 @@
+{
+  "branches": [
+    {
+      "branch": "Configuration and access-order provenance",
+      "evidence": "all config/model/result hashes agree; DAS candidate generation opened zero network, catalog-time, or held-out tables",
+      "next_gate": "rerun any stale stage before scientific interpretation",
+      "status": "PASS"
+    },
+    {
+      "branch": "Archive population and held-out interval seal",
+      "evidence": "404 official events; 266 have complete primary-DAS windows; 6297.4 contiguous hours; 12 one-hour intervals selected from the manifest only",
+      "next_gate": "run and freeze the network-only union on all 12 held-out intervals before opening any held-out DAS waveform",
+      "status": "PASS"
+    },
+    {
+      "branch": "Single-catalog binary family labels",
+      "evidence": "14 exact shared IDs reveal two partition conflicts: the Waldhauser-Schaff target is split into M00413/M00414, while Michel M00414 merges target and former hard-negative IDs",
+      "next_gate": "report both catalog partitions and adjudicate them with independent waveform/location evidence",
+      "status": "STOP"
+    },
+    {
+      "branch": "Frozen conventional-network verifier",
+      "evidence": "12 historical events eligible; apparent training balanced accuracy 0.833, recall 1.000, precision 0.750; mechanics frozen before prospective scoring",
+      "next_gate": "do not tune version 1 on post-freeze outcomes; a future version needs a new split and a robust local-lag rule",
+      "status": "CONDITIONAL"
+    },
+    {
+      "branch": "Five routine-catalog proximity candidates",
+      "evidence": "all five were scored by the frozen network model and rejected as target-family events; DAS waveforms opened by this stage: 0",
+      "next_gate": "use DAS as an independent continuous candidate generator, not as a post-hoc check of location-only nominees",
+      "status": "PASS"
+    },
+    {
+      "branch": "Conventional M00413/M00414 partition resolution",
+      "evidence": "pairwise correlation AUC 0.417; differential-lag AUC 0.630; event-bootstrap uncertainty is not identifiable with only two historical M00413 events",
+      "next_gate": "test preregistered deep-DAS spatial features on event-held-out members and controls",
+      "status": "STOP"
+    },
+    {
+      "branch": "Published post-2014 continuation diagnostic",
+      "evidence": "3 of 4 Michel M00413/M00414 continuations pass the frozen verifier; one high-correlation event fails because the current lag statistic admits station cycle skips",
+      "next_gate": "retain this post-freeze result; design any robust lag version on a new development split",
+      "status": "CONDITIONAL"
+    },
+    {
+      "branch": "2026 deep-fiber cross-instrument opportunity",
+      "evidence": "event 75336682 passes the frozen network verifier and is strongly detected on deep DAS; same-fiber control 75343317 fails the verifier and the frozen DAS hard-negative test",
+      "next_gate": "call the family name provisional; compare near-source DAS features against historical/continuation templates",
+      "status": "CONDITIONAL"
+    },
+    {
+      "branch": "Deep channel geometry",
+      "evidence": "channel spacing and a channel-1702 hairpin convention exist, but no surveyed channel-to-MD/TVD/XYZ/cable-tangent table was found",
+      "next_gate": "obtain or reconstruct a surveyed geometry table before depth, source-distance, or directivity claims",
+      "status": "STOP"
+    },
+    {
+      "branch": "DAS version-2 procedural freeze",
+      "evidence": "the disclosed development-tuned gate retains 2 of 65 v1 triggers using at least 4 of 10 blocks at the existing ratio of 2; all 12 held-out hours remained sealed",
+      "next_gate": "preserve the frozen v2 rule while the registered network-first held-out baseline is implemented and executed",
+      "status": "PASS"
+    },
+    {
+      "branch": "Held-out network-only registration",
+      "evidence": "all 12 held-out hours were registered with fixed template/generic thresholds and 27 historical template files; held-out network, catalog, and DAS access remained zero",
+      "next_gate": "implement, test, commit, and push the exact network runner before opening held-out network waveforms",
+      "status": "PASS"
+    },
+    {
+      "branch": "DAS detection/catalog extension",
+      "evidence": "the independent 50-minute DAS scan recovered 2/2 known local network events as score ranks 1 and 2 with 8/10 and 10/10 strong blocks; v2 retains those 2 of 65 by a transparently post-hoc development rule, with zero validated extensions",
+      "next_gate": "freeze the held-out network-only union first, then measure held-out DAS recovery and false discoveries without repair",
+      "status": "STOP"
+    },
+    {
+      "branch": "DAS family-partition extension",
+      "evidence": "the catalog disagreement and weak conventional separation define the test, but held-out DAS spatial classification has not run",
+      "next_gate": "require improved event-held-out partition metrics without increased merge rate",
+      "status": "STOP"
+    },
+    {
+      "branch": "Relative source size / stress drop",
+      "evidence": "no same-epoch independently classified EGF pair and no passed corner-frequency/model gate",
+      "next_gate": "response audit, same-path EGF ensemble, in-band corner, geometry/model sensitivity, and synthetic recovery",
+      "status": "STOP"
+    },
+    {
+      "branch": "Repeater-derived creep rate",
+      "evidence": "family membership, continuous completeness, event slip, and at least three complete recurrence intervals are not yet jointly constrained",
+      "next_gate": "attempt only after a validated DAS-assisted family extension and source-size model",
+      "status": "STOP"
+    }
+  ],
+  "checkpoints": [
+    {
+      "criterion": "primary configuration reconciled; development interval separate; 12 held-out hours selected without catalog labels",
+      "name": "1. Archive population and blind interval seal",
+      "status": "MET"
+    },
+    {
+      "criterion": "full BP array plus NC.PSM and BK.PKD model frozen before prospective waveform access",
+      "name": "2. Conventional verifier freeze",
+      "status": "MET_WITH_LABEL_WARNING"
+    },
+    {
+      "criterion": "exact-ID Michel crosswalk exposes M00413/M00414 partition conflict; neither catalog silently declared truth",
+      "name": "3. Independent catalog reconciliation",
+      "status": "MET_PROJECT_RESHAPED"
+    },
+    {
+      "criterion": "2026 candidate passes frozen network verification and deep-DAS detectability; same-fiber control fails both relevant checks",
+      "name": "4. Deep-event cross-instrument checkpoint",
+      "status": "MET_CONDITIONAL"
+    },
+    {
+      "criterion": "network union frozen first; independent DAS-only table frozen second; time-only matching written before catalog audit; 2/2 known local events occupy DAS score ranks 1 and 2",
+      "name": "5. Development-interval incremental-value test",
+      "status": "MET_DEVELOPMENT_PROMISING_V1_SPECIFICITY_STOP"
+    },
+    {
+      "criterion": "single four-of-ten spatial-support gate registered, tested, and replayed while held-out waveform access remained zero",
+      "name": "6. DAS version-2 procedural freeze",
+      "status": "MET_POSTHOC_DEVELOPMENT_TUNING_DISCLOSED"
+    },
+    {
+      "criterion": "run all 12 intervals using frozen network branches and write the time-only union before catalog adjudication or DAS access",
+      "name": "7. Held-out network-only baseline",
+      "status": "REGISTERED_RUNNER_IMPLEMENTATION_NEXT"
+    },
+    {
+      "criterion": "positive interval-bootstrap lower bound for DAS-only or joint gain without target-family overmerge",
+      "name": "8. Sealed held-out DAS comparison",
+      "status": "SEALED_NOT_RUN"
+    },
+    {
+      "criterion": "geometry, response, EGF/corner, completeness, recurrence, and slip-model gates",
+      "name": "9. Stress drop and creep rate",
+      "status": "STOP"
+    }
+  ],
+  "config_sha256": "7da34f8f8353ce39ab6f2b44246937d04583b9f8354dc08189c562ab81ea8e32",
+  "decision_basis": "The independent DAS-only development scan recovered both known local Parkfield earthquakes as the two strongest and most spatially coherent triggers while missing the network's distant regional arrival. A disclosed version-2 support gate mechanically retains those two and rejects the other 63 development triggers without changing the v1 score threshold. This is post-hoc tuning, not validation; no DAS-only catalog extension or family assignment has yet been demonstrated. The network-first held-out operating point is now registered with zero held-out waveform or catalog access.",
+  "generated_utc": "2026-08-17T05:23:34Z",
+  "guardrails": {
+    "absolute_spatial_claims_enabled": false,
+    "continuous_detection_status": "HELDOUT_NETWORK_REGISTERED_RUNNER_IMPLEMENTATION_PENDING",
+    "family_labels_from_catalog_proximity": 0,
+    "frozen_model_version_repair_after_test": "forbidden; create version 2 with a new split",
+    "heldout_DAS_access_gate": "STOP_UNTIL_COMPLETE_HELDOUT_NETWORK_UNION_IS_FROZEN",
+    "heldout_catalog_access_gate": "STOP_UNTIL_ALL_NETWORK_TIME_ONLY_UNION_ROWS_ARE_MATERIALIZED_AND_CHECKSUMMED",
+    "heldout_network_access_gate": "STOP_PENDING_TESTED_RUNNER_IMPLEMENTATION_AND_REMOTE_PUSH",
+    "network_scoring_das_waveforms_opened": 0
+  },
+  "hash_checks": {
+    "archive_population": true,
+    "das_adjudicated_comparison": true,
+    "das_comparison_config": true,
+    "das_raw_candidate_table": true,
+    "das_time_only_comparison": true,
+    "das_v2_candidate_table": true,
+    "das_v2_registration_config": true,
+    "das_v2_registration_status": true,
+    "das_v2_replay_config": true,
+    "deep_das_pilot_config": true,
+    "deep_named_model_sha256": true,
+    "deep_named_network": true,
+    "frozen_model": true,
+    "heldout_network_registration_config": true,
+    "heldout_network_template_inventory": true,
+    "network_baseline": true,
+    "prospective_model_sha256": true,
+    "prospective_network": true
+  },
+  "headline_results": {
+    "archive_candidates_network_predicted_target": 0,
+    "archive_catalog_events": 404,
+    "archive_events_with_complete_das_windows": 266,
+    "archive_proximity_candidates": 5,
+    "catalog_partition_conflicts": 2,
+    "deep_candidate_das_detectability": "PASS",
+    "deep_candidate_event_id": "75336682",
+    "deep_candidate_network_decision": "target_family",
+    "deep_control_event_id": "75343317",
+    "deep_control_network_decision": "not_target_family",
+    "development_DAS_known_local_recovery": "2/2",
+    "development_DAS_known_local_score_ranks": [
+      1,
+      2
+    ],
+    "development_DAS_known_regional_recovery": "0/1",
+    "development_DAS_maximum_other_strong_block_support": 1,
+    "development_DAS_minimum_local_strong_block_support": 8,
+    "development_DAS_raw_triggers": 65,
+    "development_DAS_v2_minimum_strong_blocks": 4,
+    "development_DAS_v2_rejected_triggers": 63,
+    "development_DAS_v2_retained_triggers": 2,
+    "development_DAS_validated_catalog_extensions": 0,
+    "exact_id_crosswalk_matches": 14,
+    "heldout_hours_sealed": 12.0,
+    "heldout_network_registered_generic_threshold": 1.5937319993972778,
+    "heldout_network_registered_hours": 12.0,
+    "heldout_network_registered_template_files": 27,
+    "heldout_network_registered_template_threshold": 0.10883580148220062,
+    "michel_catalog_events": 9680,
+    "michel_catalog_sequences": 1471,
+    "post_2014_continuations": 4,
+    "post_2014_continuations_network_positive": 3,
+    "primary_manifest_time_valid_records": 378050,
+    "primary_manifest_timestamp_invalid_records": 1
+  },
+  "highest_value_metadata_request": "surveyed deep channel-to-MD/TVD/XYZ/cable-leg/tangent mapping",
+  "highest_value_next_analysis": "implement, test, commit, and push the registered held-out network runner, then execute all 12 hours before any held-out DAS access",
+  "highest_value_next_observation": "another independently network-classified event on the same deep DAS configuration",
+  "network_model_freeze_status": "FROZEN_FOR_PROSPECTIVE_SCORING",
+  "network_model_sha256": "bf6dfbd36ecf44721245dfb237b7bb36587d3cdb22dd0d03c4f835d9048357c3",
+  "pilot_config_sha256": "1baa6c0b2bb1b381ef5da96fc4a1249a6a2f6dae62efb40b4c5a27dd927e9160",
+  "project_decision": "IMPLEMENT_AND_PUSH_HELDOUT_NETWORK_RUNNER",
+  "project_shape": [
+    {
+      "aim": "Aim 1: family-partition resolution",
+      "current_status": "READY_FOR_DAS_FEATURE_DEVELOPMENT",
+      "question": "Can deep near-source DAS distinguish M00413 from M00414, or support their merger, better than the conventional array?"
+    },
+    {
+      "aim": "Aim 2: catalog extension",
+      "current_status": "HELDOUT_NETWORK_REGISTERED_RUNNER_IMPLEMENTATION_NEXT",
+      "question": "Does a DAS-only or joint continuous scan recover independently adjudicated events missed by a fair same-interval network-only detector?"
+    },
+    {
+      "aim": "Aim 3: source physics and creep",
+      "current_status": "DOWNSTREAM_STOP",
+      "question": "Can validated repeated events constrain relative source size, stress drop, recurrence, and eventually slip rate?"
+    }
+  ]
+}

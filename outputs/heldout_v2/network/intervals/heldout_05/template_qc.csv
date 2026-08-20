@@ -1,0 +1,11 @@
+interval_id,template_event_id,usable_component_count,usable_station_count,median_template_trace_snr,scored_component_count,scored_station_count,status,reason
+heldout_05,21204713,23,9,149.10242800888082,23,9,PASS,eligible_template
+heldout_05,21212835,19,8,31.979877455935778,19,8,PASS,eligible_template
+heldout_05,40220017,26,9,71.58027185286818,26,9,PASS,eligible_template
+heldout_05,40237728,24,9,64.43201238650619,24,9,PASS,eligible_template
+heldout_05,51214531,25,10,232.84371191928932,25,10,PASS,eligible_template
+heldout_05,71325295,26,9,181.81215849574232,26,9,PASS,eligible_template
+heldout_05,71567810,27,10,416.0084779671523,27,10,PASS,eligible_template
+heldout_05,71908906,29,11,162.4084801204925,29,11,PASS,eligible_template
+heldout_05,72154411,24,9,245.3526787199363,24,9,PASS,eligible_template
+heldout_05,72359026,28,10,93.78315920819199,28,10,PASS,eligible_template

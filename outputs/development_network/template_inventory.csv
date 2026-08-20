@@ -1,0 +1,13 @@
+event_id,origin_time,sequence_id,validation_role,usable_component_count,usable_station_count,median_template_trace_snr,scored_component_count,scored_station_count,status,reason
+21204713,2001-12-05T18:50:57.500Z,R1.0697.5199.0,neighbor_family_negative,20,8,140.1895303567158,20,8,PASS,eligible_template
+21212835,2002-02-15T09:34:42.140Z,R1.2172.7737.0,neighbor_family_negative,16,7,28.957662620387225,16,7,PASS,eligible_template
+21260770,2002-12-22T12:44:44.500Z,R1.0697.5199.0,neighbor_family_negative,4,2,49.09674093681626,,,STOP,insufficient_template_components_or_stations
+21260771,2002-12-22T12:53:13.200Z,R1.2172.7737.0,neighbor_family_negative,4,2,6.223016236787599,,,STOP,insufficient_template_components_or_stations
+40220017,2008-07-01T14:19:01.180Z,R1.3027.11698.0,neighbor_family_negative,26,9,71.58027185286818,26,9,PASS,eligible_template
+40237728,2009-06-06T17:16:40.140Z,R1.3027.11698.0,neighbor_family_negative,24,9,64.43201238650619,24,9,PASS,eligible_template
+51214531,2009-01-03T16:23:06.250Z,R1.2900.11955.0,target_positive,25,10,232.84371191928932,25,10,PASS,eligible_template
+71325295,2009-12-23T13:47:13.740Z,R1.2900.11955.0,target_positive,26,9,181.81215849574232,26,9,PASS,eligible_template
+71567810,2011-05-10T07:25:02.810Z,R1.2900.11955.0,target_positive,27,10,416.0084779671523,27,10,PASS,eligible_template
+71908906,2012-12-22T22:54:51.030Z,R1.2900.11955.0,target_positive,26,10,246.0853021863033,26,10,PASS,eligible_template
+72154411,2014-02-02T21:41:40.570Z,R1.2900.11955.0,target_positive,21,8,322.7610982239594,21,8,PASS,eligible_template
+72359026,2014-12-02T05:15:15.120Z,R1.2900.11955.0,target_positive,25,9,116.50429336199878,25,9,PASS,eligible_template
